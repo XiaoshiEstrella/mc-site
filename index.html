@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>小柿世界 · Minecraft 1.21.1 NeoForge 服务器</title>
+<!--
+  ============================================================================
+  ⚠️ 本页面由 AI 生成：《服务器主页》静态单页模板
+  - 如部分描述与实际服务器不符，请以服务器实际规则为准（页脚已写明该提醒）。
+  - 本文件零依赖、零构建，直接上传即可访问，适合 GitHub Pages / Cloudflare Pages /
+    Vercel / Netlify / Gitee Pages 等免费静态托管。
+  ============================================================================
+
+  📌 你需要修改的地方（全文搜索关键字即可定位）：
+  1. 搜索「PLAY_HOST」      → 服务器地址（IP 或域名），共 3 处左右
+  2. 搜索「DL_DIRECT」      → 模组包直链（直连下载，如对象存储/Modrinth 直链）
+  3. 搜索「DL_PAN」         → 网盘下载链接（如百度网盘/蓝奏云）
+  4. 搜索「DL_PAN_CODE」    → 网盘提取码
+  5. 搜索「QQ_GROUP」       → QQ 群号
+  6. 搜索「QQ_LINK」        → QQ 群加群链接
+  7. 搜索「MAIL_ADDR」      → 你的电子邮箱
+  8. 搜索「SERVER_NAME」    → 服务器名称（标题/logo/页脚都用了它）
+  9. 搜索「PACK_NAME」      → 模组包名称
+  10. 搜索「UPDATE_DATE」   → 最后更新日期
+
+  💡 小技巧：改配色的话，只需改下面 :root 里的几个 --变量，全站自动生效。
+  💡 想加新板块：复制任意一个 <section class="card"> 区块，改标题和内容即可。
+  ============================================================================
+-->
+<style>
+  /* ===================== 全局配色（改这里就能换主题） ===================== */
+  :root{
+    --brand:        #3aa88f;   /* 主色：清新青绿 */
+    --brand-dark:   #2c8776;   /* 主色深一点，用于 hover */
+    --brand-light:  #e8f6f3;   /* 主色浅底，用于标签/浅色块 */
+    --accent:       #6fb6e8;   /* 辅助色：天蓝 */
+    --warn:         #e8964e;   /* 提醒色：橙色（领地须知等） */
+    --warn-light:   #fdf3e8;
+    --ink:          #22303c;   /* 正文文字 */
+    --ink-soft:     #61717e;   /* 次要文字 */
+    --line:         #e6eef1;   /* 分隔线 */
+    --bg:           #f5faf9;   /* 页面背景 */
+    --card:         #ffffff;   /* 卡片背景 */
+    --radius:       16px;      /* 圆角 */
+    --shadow:       0 6px 22px rgba(58,168,143,.10);
+    --shadow-hover: 0 12px 30px rgba(58,168,143,.18);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    background:linear-gradient(180deg,#f2faf8 0%, #f7f8fc 60%, #f5faf9 100%);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:var(--brand); text-decoration:none; }
+  a:hover{ color:var(--brand-dark); }
+
+  /* ===================== 顶部导航 ===================== */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:960px; margin:0 auto; padding:12px 20px;
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  }
+  .logo{ font-weight:700; font-size:18px; color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .logo .dot{ width:10px; height:10px; border-radius:50%; background:var(--brand); }
+  .nav-links{ display:flex; gap:16px; margin-left:auto; flex-wrap:wrap; font-size:14px; }
+  .nav-links a{ color:var(--ink-soft); padding:4px 2px; border-bottom:2px solid transparent; }
+  .nav-links a:hover{ color:var(--brand); border-bottom-color:var(--brand); }
+
+  /* ===================== 布局容器 ===================== */
+  .wrap{ max-width:960px; margin:0 auto; padding:0 20px; }
+  section{ margin:28px 0; }
+  .card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:28px;
+    transition:.25s;
+  }
+  .card:hover{ box-shadow:var(--shadow-hover); }
+
+  /* 区块标题 */
+  .title{ display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:21px; font-weight:700; }
+  .title .ico{
+    width:30px; height:30px; border-radius:9px; flex:none;
+    background:var(--brand-light); color:var(--brand);
+    display:grid; place-items:center; font-size:16px;
+  }
+  .subtitle{ color:var(--ink-soft); font-size:14px; margin-bottom:18px; }
+
+  /* ===================== Hero 区（服务器地址 + 一键复制） ===================== */
+  .hero{
+    margin-top:34px; padding:44px 28px; text-align:center;
+    background:linear-gradient(140deg,#eaf7f4 0%,#eaf2fb 55%,#f4f8fd 100%);
+    border:1px solid #e3f0ee; border-radius:22px; box-shadow:var(--shadow);
+  }
+  .hero h1{ font-size:30px; letter-spacing:.5px; margin-bottom:8px; }
+  .hero p{ color:var(--ink-soft); font-size:15px; }
+  .badges{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px 0 22px; }
+  .badge{
+    font-size:12px; padding:4px 12px; border-radius:999px;
+    background:var(--brand-light); color:var(--brand-dark); border:1px solid #d5ece7;
+  }
+  /* 地址复制框 */
+  .addr-box{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+    max-width:520px; margin:0 auto;
+  }
+  .addr{
+    flex:1 1 260px; min-width:220px;
+    background:#fff; border:1px solid #d7e6e3; border-radius:12px;
+    padding:12px 16px; font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:16px; color:var(--ink); text-align:center; word-break:break-all;
+  }
+  .btn{
+    border:none; cursor:pointer; font-size:15px; font-weight:600;
+    padding:12px 22px; border-radius:12px; color:#fff;
+    background:linear-gradient(135deg,var(--brand),var(--accent));
+    box-shadow:0 6px 16px rgba(58,168,143,.25); transition:.2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(58,168,143,.32); }
+  .btn.ghost{ background:#fff; color:var(--brand); border:1px solid #cfe7e2; box-shadow:none; }
+  .btn.ghost:hover{ background:var(--brand-light); }
+  .hint{ margin-top:12px; font-size:13px; color:var(--ink-soft); }
+
+  /* ===================== 下载区：两列卡片 ===================== */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .dl{
+    border:1px solid var(--line); border-radius:14px; padding:20px;
+    background:linear-gradient(180deg,#fff,#fbfdfd); transition:.25s;
+  }
+  .dl:hover{ border-color:#cfe7e2; transform:translateY(-2px); box-shadow:var(--shadow); }
+  .dl h3{ font-size:16px; margin-bottom:6px; }
+  .dl .desc{ font-size:13px; color:var(--ink-soft); margin-bottom:14px; }
+  .dl .btn{ width:100%; justify-content:center; }
+  .code-chip{
+    display:inline-block; margin-top:10px; font-size:12px;
+    background:var(--brand-light); color:var(--brand-dark);
+    padding:3px 10px; border-radius:8px; font-family:ui-monospace,Consolas,monospace;
+  }
+
+  /* ===================== 步骤列表（皮肤教程等） ===================== */
+  .steps{ counter-reset:s; list-style:none; }
+  .steps li{
+    position:relative; padding-left:40px; margin-bottom:14px; font-size:15px;
+  }
+  .steps li::before{
+    counter-increment:s; content:counter(s);
+    position:absolute; left:0; top:3px;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--brand); color:#fff; font-size:13px; font-weight:700;
+    display:grid; place-items:center;
+  }
+  .steps li b{ color:var(--ink); }
+
+  /* 命令行样式 */
+  pre.cmd{
+    background:#22303c; color:#d6eef3; border-radius:12px;
+    padding:14px 16px; overflow-x:auto; margin:10px 0;
+    font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13.5px; line-height:1.9;
+  }
+  pre.cmd .c{ color:#8fa6b2; }        /* 注释颜色 */
+  pre.cmd .k{ color:#7fd6a8; }        /* 命令颜色 */
+  code{
+    background:var(--brand-light); color:var(--brand-dark);
+    padding:2px 7px; border-radius:6px; font-size:13px;
+    font-family:ui-monospace,Consolas,monospace;
+  }
+
+  /* 按键样式（领地提示键） */
+  kbd{
+    display:inline-block; min-width:30px; text-align:center;
+    padding:3px 10px; margin:0 3px;
+    background:#fff; border:1px solid #cfd9df; border-bottom-width:2px;
+    border-radius:7px; font-family:ui-monospace,Consolas,monospace;
+    font-size:14px; color:var(--ink); box-shadow:0 2px 0 #e3eaee;
+  }
+
+  /* ===================== 领地须知：提醒框 ===================== */
+  .notice{
+    background:var(--warn-light); border:1px solid #f3ddc2;
+    border-left:4px solid var(--warn); border-radius:12px;
+    padding:16px 18px; font-size:14.5px; margin-top:14px;
+  }
+  .notice ul{ margin:8px 0 0 18px; }
+  .notice li{ margin-bottom:6px; }
+  .notice b{ color:#b96f24; }
+
+  /* ===================== 联系方式 ===================== */
+  .contact{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .c-box{
+    border:1px solid var(--line); border-radius:14px; padding:20px; text-align:center;
+    background:#fff; transition:.25s;
+  }
+  .c-box:hover{ border-color:#cfe7e2; box-shadow:var(--shadow); }
+  .c-box .big{ font-size:20px; font-weight:700; color:var(--ink); margin:6px 0 4px; word-break:break-all; }
+  .c-box .tip{ font-size:12.5px; color:var(--ink-soft); }
+
+  /* ===================== 页脚 ===================== */
+  footer{
+    margin:40px 0 30px; padding-top:22px; border-top:1px solid var(--line);
+    text-align:center; font-size:13px; color:var(--ink-soft);
+  }
+  .ai-note{
+    margin-top:12px; background:#fff; border:1px dashed #d9e5e2;
+    border-radius:12px; padding:12px 14px; font-size:12.5px; color:var(--ink-soft);
+  }
+
+  /* 复制成功的浮动提示 */
+  .toast{
+    position:fixed; left:50%; bottom:32px; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:#fff; padding:10px 20px; border-radius:10px;
+    font-size:14px; opacity:0; pointer-events:none; transition:.25s; z-index:99;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ===================== 手机端自适应 ===================== */
+  @media (max-width:720px){
+    .hero h1{ font-size:24px; }
+    .grid2, .contact{ grid-template-columns:1fr; }
+    .card{ padding:22px 18px; }
+    .nav-links{ gap:12px; font-size:13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== 顶部导航（改成新板块时，这里加一条即可） ===================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>小柿世界</div>
+    <div class="nav-links">
+      <a href="#join">加入服务器</a>
+      <a href="#download">模组包下载</a>
+      <a href="#skin">皮肤设置</a>
+      <a href="#claim">领地须知</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ===================== Hero：服务器地址 ===================== -->
+  <section class="hero" id="join">
+    <h1>欢迎来到 小柿世界</h1>
+    <p>Minecraft Java版 · 1.21.1 · NeoForge · 综合模组生存</p>
+    <div class="badges">
+      <span class="badge">版本 1.21.1</span>
+      <span class="badge">加载器 NeoForge</span>
+      <span class="badge">正版 / 离线均可进服</span>
+      <span class="badge">无氪金 · 绿色服</span>
+    </div>
+
+    <!-- ⚠️ 修改点：把 PLAY_HOST 换成你的服务器地址（域名或 IP），两处都要改 -->
+    <div class="addr-box">
+      <div class="addr" id="serverAddr">frp-gap.com:43079</div>
+      <button class="btn" onclick="copyAddr()">📋 复制地址</button>
+    </div>
+    <p class="hint">在游戏「多人游戏 → 添加服务器」中粘贴上方地址即可加入；进服请先下载下方模组包。</p>
+  </section>
+
+  <!-- ===================== 模组包下载 ===================== -->
+  <section class="card" id="download">
+    <div class="title"><span class="ico">📦</span>模组包下载</div>
+    <p class="subtitle">PACKAGE_NAME｜Minecraft 1.21.1 + NeoForge｜更新日期：UPDATE_DATE</p>
+
+    <div class="grid2">
+      <!-- 方式一：直链（下载快、无需登录，推荐） -->
+      <div class="dl">
+        <h3>① 直链下载（推荐）</h3>
+        <p class="desc">免登录、不限速，适合网络环境好的同学。若链接失效请改用网盘。</p>
+        <!-- ⚠️ 修改点：把 href 换成你的直链地址 -->
+        <a class="btn" href="DL_DIRECT" target="_blank" rel="noopener">⬇ 立即下载</a>
+      </div>
+
+      <!-- 方式二：网盘（直链挂了时的备选） -->
+      <div class="dl">
+        <h3>② 网盘下载（备用）</h3>
+        <p class="desc">直链异常或速度慢时使用，需输入提取码。</p>
+        <!-- ⚠️ 修改点：把 href 换成你的网盘分享链接 -->
+        <a class="btn ghost" href="DL_PAN" target="_blank" rel="noopener">🔗 打开网盘</a>
+        <!-- ⚠️ 修改点：网盘提取码；不需要可整行删掉 -->
+        <div class="code-chip">提取码：DL_PAN_CODE</div>
+      </div>
+    </div>
+
+    <div class="notice" style="background:var(--brand-light);border-color:#d5ece7;border-left-color:var(--brand);">
+      <b style="color:var(--brand-dark);">安装提示</b>
+      <ul style="color:var(--ink-soft);">
+        <li>先安装 <b>NeoForge 1.21.1</b> 加载器，再把模组包内文件放进 <code>.minecraft/mods</code> 与 <code>config</code>；</li>
+        <li>推荐用 <b>HMCL / PCL2</b> 启动器直接导入整合包，省去手动配置；</li>
+        <li>进服前请确认模组列表与服务端一致，多装/少装都会导致无法进入。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 皮肤设置：SkinRestorer + LittleSkin ===================== -->
+  <section class="card" id="skin">
+    <div class="title"><span class="ico">🧍</span>皮肤设置（SkinRestorer）</div>
+    <p class="subtitle">服务器已安装 SkinRestorer，离线/第三方登录也能正常显示皮肤。</p>
+
+    <div class="steps">
+      <li><b>进服后打开聊天栏</b>，输入下方命令即可更换皮肤（<code>/</code> 开头）。</li>
+      <li><b>使用正版玩家同款皮肤：</b>直接填对方的游戏 ID。</li>
+      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>先在 LittleSkin 上传并复制皮肤链接，再用「链接换肤」命令。</li>
+      <li><b>恢复默认皮肤：</b>使用清除命令。</li>
+    </div>
+
+    <pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
+<span class="k">/skin set PlayerName</span>
+
+<span class="c"># ② 用皮肤链接换肤（LittleSkin / BlessingSkin 等自定义皮肤站用这个）</span>
+<span class="k">/skin set url https://littleskin.cn/skin/xxxx.png</span>
+<span class="c"># 部分版本命令为：/skinurl https://littleskin.cn/skin/xxxx.png</span>
+
+<span class="c"># ③ 清除当前皮肤，恢复默认</span>
+<span class="k">/skin clear</span>
+
+<span class="c"># ④ 查看该模组支持的所有命令（命令名随版本略有差异，以这里为准）</span>
+<span class="k">/skin help</span></pre>
+
+    <div class="title" style="font-size:16px;margin-top:22px;"><span class="ico" style="width:26px;height:26px;font-size:14px;">🌐</span>LittleSkin 皮肤使用流程</div>
+    <div class="steps" style="margin-top:12px;">
+      <li>打开 LittleSkin 站点并<b>注册/登录账号</b>（可使用离线账号绑定）。</li>
+      <li>在「我的衣柜 / 皮肤管理」中<b>上传你喜欢的皮肤文件</b>（.png，64×32 或 64×64）。</li>
+      <li>上传完成后<b>复制该皮肤的直链地址</b>（右键皮肤图片 → 复制链接，或使用站点的「分享链接」）。</li>
+      <li>回到游戏，执行 <code>/skin set url &lt;刚才复制的链接&gt;</code>，稍等 1–2 秒即可生效。</li>
+      <li>若皮肤没变化：先 <code>/skin clear</code> 再重设，或退出重进；Still 无效请检查链接是否为<b>图片直链</b>（以 .png 结尾）。</li>
+    </div>
+
+    <div class="notice">
+      <b>注意</b>
+      <ul>
+        <li>皮肤有缓存，更换后可能需要<b>重新进服</b>才对其他玩家可见；</li>
+        <li>第三人称视角最直观，按 <kbd>F5</kbd> 可切换视角查看效果；</li>
+        <li>请勿使用违规/侵权皮肤，服内发现将直接重置为默认皮肤。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 领地须知 ===================== -->
+  <section class="card" id="claim">
+    <div class="title"><span class="ico">🏡</span>领地须知</div>
+    <p class="subtitle">保护你的家，也请把空间留给别人。</p>
+
+    <div class="steps">
+      <li>手持<b>领地工具</b>（默认木斧/木锄，以服内提示为准），<b>左键点击</b>两角确定范围。</li>
+      <li>按 <kbd>'</kbd> 键<b>（键盘上分号 <kbd>;</kbd> 右边的引号按键）</b>可查看/查询当前所处领地信息与边界提示。</li>
+      <li>确认范围后按提示执行<b>创建领地命令</b>完成圈地。</li>
+    </div>
+
+    <div class="notice">
+      <b>⚠️ 领地规则，请务必先看</b>
+      <ul>
+        <li><b>少设领地</b>：只圈真正需要保护的区域，够用就好，不要大范围圈地；</li>
+        <li><b>领地要有意义</b>：仅用于保护建筑、营地、农场等实际内容；</li>
+        <li><b>过量或意义不明</b>（圈空地、圈大片荒野、圈路、圈资源点占位、多个零碎小领地）的领地，<b>管理将直接删除，不作额外通知</b>；</li>
+        <li>长期不在线且领地内无实质建筑的，同样可能被清理；</li>
+        <li>有争议请先联系管理，勿自行扩圈或与邻居对峙。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 联系方式：QQ 群 + 邮箱 ===================== -->
+  <section class="card" id="contact">
+    <div class="title"><span class="ico">💬</span>联系我们</div>
+    <p class="subtitle">仅通过以下两种方式联系，其他渠道均非官方。</p>
+
+    <div class="contact">
+      <div class="c-box">
+        <div style="font-size:26px;">🐧</div>
+        <div class="big">1107267975</div>
+        <!-- ⚠️ 修改点：QQ 群号与加群链接 -->
+        <a href="https://qm.qq.com/q/TPI51E26Q2" target="_blank" rel="noopener">点击加入官方 Q 群</a>
+        <div class="tip">公告、开服通知、问题反馈都在群里</div>
+      </div>
+
+      <div class="c-box">
+        <div style="font-size:26px;">✉️</div>
+        <!-- ⚠️ 修改点：你的邮箱 -->
+        <div class="big">3873932064@qq.com</div>
+        <div href="mailto: 3873932064%40qq.com ">发送邮件</div>
+        <div class="tip">申诉、举报请附上游戏 ID 与截图</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 页脚 ===================== -->
+  <footer>
+    <div>SERVER_NAME · Minecraft 1.21.1 NeoForge · 最后更新：UPDATE_DATE</div>
+    <div style="margin-top:4px;">Minecraft 是 Mojang Studios 的商标，本站为玩家交流用途，非官方服务器。</div>
+    <div class="ai-note">
+      🤖 <b>本页面由 AI 生成。</b>页面中的命令、按键与规则描述可能与服务器实际情况存在差异，
+      <b>如有不符，请以服务器内实际提示与管理公告为准。</b>
+    </div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast">已复制服务器地址 ✅</div>
+
+<script>
+  /* ===== 一键复制服务器地址 ===== */
+  function copyAddr(){
+    const text = document.getElementById('serverAddr').textContent.trim();
+    const done = () => showToast();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+    // 老浏览器兜底方案
+    function fallback(){
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); showToast(); }catch(e){ alert('请手动复制：' + text); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  /* ===== 底部轻提示 ===== */
+  let timer = null;
+  function showToast(){
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  /* ===== 导航高亮当前区块（新增 section 无需改这里） ===== */
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const secs  = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    let idx = 0;
+    secs.forEach((s, i) => { if (window.scrollY + 120 >= s.offsetTop) idx = i; });
+    links.forEach(a => a.style.color = '');
+    if (links[idx]) links[idx].style.color = 'var(--brand)';
+  }, { passive:true });
+</script>
+
+</body>
+</html>
