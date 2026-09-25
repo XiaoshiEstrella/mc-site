@@ -312,16 +312,18 @@
     <div class="steps">
       <li><b>进服后打开聊天栏</b>，输入下方命令即可更换皮肤（<code>/</code> 开头）。</li>
       <li><b>使用正版玩家同款皮肤：</b>直接填对方的游戏 ID。</li>
-      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>先在 LittleSkin 上传并复制皮肤链接，再用「链接换肤」命令。</li>
+      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>先在 LittleSkin 复制皮肤链接，再用「/skin set web」命令。</li>
       <li><b>恢复默认皮肤：</b>使用清除命令。</li>
     </div>
 
     <pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
-<span class="k">/skin set PlayerName</span>
+<span class="k">/skin set mojang PlayerName</span>
 
 <span class="c"># ② 用皮肤链接换肤（LittleSkin / BlessingSkin 等自定义皮肤站用这个）</span>
-<span class="k">/skin set url https://littleskin.cn/skin/xxxx.png</span>
-<span class="c"># 部分版本命令为：/skinurl https://littleskin.cn/skin/xxxx.png</span>
+<span class="k">/skin set web classic/slim https://littleskin.cn/xxx/xxxx</span>
+<span class="c"># 指令中的 classic / slim 二选一填写：classic 为粗壮模型，slim 为纤细模型。</span>
+<span class="c"># 将指令中的 https://littleskin.cn/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
+<span class="c"># 只要是可直接读取的皮肤展开图 URL 即可。</span>
 
 <span class="c"># ③ 清除当前皮肤，恢复默认</span>
 <span class="k">/skin clear</span>
@@ -329,20 +331,20 @@
 <span class="c"># ④ 查看该模组支持的所有命令（命令名随版本略有差异，以这里为准）</span>
 <span class="k">/skin help</span></pre>
 
-    <div class="title" style="font-size:16px;margin-top:22px;"><span class="ico" style="width:26px;height:26px;font-size:14px;">🌐</span>LittleSkin 皮肤使用流程</div>
+   <!-- <div class="title" style="font-size:16px;margin-top:22px;"><span class="ico" style="width:26px;height:26px;font-size:14px;">🌐</span>LittleSkin 皮肤使用流程</div>
     <div class="steps" style="margin-top:12px;">
       <li>打开 LittleSkin 站点并<b>注册/登录账号</b>（可使用离线账号绑定）。</li>
       <li>在「我的衣柜 / 皮肤管理」中<b>上传你喜欢的皮肤文件</b>（.png，64×32 或 64×64）。</li>
       <li>上传完成后<b>复制该皮肤的直链地址</b>（右键皮肤图片 → 复制链接，或使用站点的「分享链接」）。</li>
       <li>回到游戏，执行 <code>/skin set url &lt;刚才复制的链接&gt;</code>，稍等 1–2 秒即可生效。</li>
       <li>若皮肤没变化：先 <code>/skin clear</code> 再重设，或退出重进；Still 无效请检查链接是否为<b>图片直链</b>（以 .png 结尾）。</li>
-    </div>
+    </div> -->
 
     <div class="notice">
       <b>注意</b>
       <ul>
         <li>皮肤有缓存，更换后可能需要<b>重新进服</b>才对其他玩家可见；</li>
-        <li>第三人称视角最直观，按 <kbd>F5</kbd> 可切换视角查看效果；</li>
+        <li>加载 URL 需要一定时间，以 LittleSkin 为例通常需要几秒到十几秒，请耐心等待。；</li>
         <li>请勿使用违规/侵权皮肤，服内发现将直接重置为默认皮肤。</li>
       </ul>
     </div>
