@@ -243,6 +243,7 @@
       <a href="#download">模组包下载</a>
       <a href="#skin">皮肤设置</a>
       <a href="#claim">领地须知</a>
+      <a href="#concert">关于音乐</a>
       <a href="#contact">联系</a>
     </div>
   </div>
@@ -318,16 +319,18 @@
     </div>
 
     <pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
-<span class="k">/skin set mojang PlayerName</span>
+    <span class="k">/skin set mojang PlayerName</span>
 
-<span class="c"># ② 用皮肤链接换肤（LittleSkin / BlessingSkin 等自定义皮肤站用这个）</span>
-<span class="k">/skin set web classic/slim https://littleskin.cn/xxx/xxxx</span>
-<span class="c"># 指令中的 classic / slim 二选一填写：classic 为粗壮模型，slim 为纤细模型。</span>
-<span class="c"># 将指令中的 https://littleskin.cn/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
-<span class="c"># 只要是可直接读取的皮肤展开图 URL 即可。</span>
+    <span class="c"># ② 用皮肤链接换肤（LittleSkin / BlessingSkin 等自定义皮肤站用这个）</span>
+    <span class="k">/skin set web classic/slim https://littleskin.cn/xxx/xxxx</span>
+    <span class="c"># 指令中的 classic / slim 二选一填写：classic 为粗壮模型，slim 为纤细模型。</span>
+    <span class="c"># 将指令中的 https://littleskin.cn/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
+    <span class="c"># 只要是可直接读取的皮肤展开图 URL 即可。</span>
 
-<span class="c"># ③ 清除当前皮肤，恢复默认</span>
-<span class="k">/skin clear</span>
+    <span class="c"># ③ 清除当前皮肤，恢复默认</span>
+    <span class="k">/skin clear</span>
+    </pre>
+
 
 
    <!-- <div class="title" style="font-size:16px;margin-top:22px;"><span class="ico" style="width:26px;height:26px;font-size:14px;">🌐</span>LittleSkin 皮肤使用流程</div>
@@ -342,7 +345,7 @@
     <div class="notice">
       <b>注意</b>
       <ul>
-        <li>显示 Skin changed 之类的提示，可以确认更换成功，如果不放心可以让其他成员检测；</li>
+        <li>在显示 Skin changed 之类的提示，就可确认更换成功，如果不放心可以让其他成员检测；</li>
         <li>加载 URL 需要一定时间，以 LittleSkin 为例通常需要几秒到十几秒，请耐心等待；</li>
         <li>请勿使用违规/侵权皮肤，服内发现将直接重置为默认皮肤。</li>
       </ul>
@@ -368,6 +371,30 @@
         <li><b>过量或意义不明</b>（圈空地、圈大片荒野、圈路、圈资源点占位、多个零碎小领地）的领地，<b>管理将直接删除，不作额外通知</b>；</li>
         <li>长期不在线且领地内无实质建筑的，同样可能被清理；</li>
         <li>有争议请先联系管理，勿自行扩圈或与邻居对峙。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== Limitless Concert：永无止境音乐会 ===================== -->
+  <section class="card" id="concert">
+    <div class="title"><span class="ico">🎵</span>永无止境：音乐会（Limitless Concert）</div>
+    <p class="subtitle">服务器已内置 Limitless Concert 模组，合成、放置、弹奏，三步开启你的 MC 音乐会。</p>
+
+    <div class="steps">
+      <li>在<b>工作台</b>中即可合成出本模组提供的各类<b>乐器</b>，配方须自行查询。</li>
+      <li>把乐器放入快捷栏并<b>放置</b>到地上，靠近右键打开乐器界面即可开始使用。</li>
+      <li>演奏支持两种方式：<b>鼠标点击按键</b>手动弹奏，或<b>接入 MIDI 设备</b>（如 MIDI 键盘）直接演奏，即插即弹，以及其他相关演奏方式。</li>
+      <li>如果你不会弹奏也没关系，可以用 <b>MID 自动播放</b>：先下载好 .mid 文件，放入游戏目录的
+        <code>config/limitless_concert/mid</code> 文件夹，回到乐器界面点击「选择 mid 文件」选中它，再点击「打开 Mid 文件」即可自动播放。</li>
+    </div>
+
+    <div class="notice">
+      <b>⚠️ 注意事项</b>
+      <ul>
+        <li><b>MID 播放跟随玩家：</b>MID 正在播放时如果<b>该玩家下线</b>，播放会<b>立即停止</b>；想让音乐持续，请另行他法。</li>
+        <li>请使用<b>合法、无版权争议的曲谱</b>，勿在服务器内播放侵权或违规内容。</li>
+        <li>公共区域演奏请<b>控制音量/时长</b>，避免打扰他人；发生争议请先联系管理协调。</li>
+        <li>若 MID 未识别：检查文件是否为标准 .mid 格式、是否已放进正确的 <code>mid</code> 子文件夹，并重开乐器界面刷新。</li>
       </ul>
     </div>
   </section>
