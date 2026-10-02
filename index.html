@@ -273,7 +273,7 @@
   <!-- ===================== 模组包下载 ===================== -->
   <section class="card" id="download">
     <div class="title"><span class="ico">📦</span>模组包下载</div>
-    <p class="subtitle">小柿服务器模组包v1.3.1｜Minecraft 1.21.1 + NeoForge｜更新日期：2026/10/1</p>
+    <p class="subtitle">小柿服务器模组包v1.3.2｜Minecraft 1.21.1 + NeoForge｜更新日期：2026/10/2</p>
 
     <div class="grid2">
       <!-- 方式一：直链（下载快、无需登录，推荐） -->
@@ -281,7 +281,7 @@
         <h3>① 直链下载（推荐）</h3>
         <p class="desc">免登录、不限速，适合网络环境好的同学。若链接失效或需要完整模组包请改用网盘。</p>
         <!-- ⚠️ 修改点：把 href 换成你的直链地址 -->
-        <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.3.1.mrpack" target="_blank" rel="noopener">⬇ 立即下载</a>
+        <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85%201.3.2.mrpack" target="_blank" rel="noopener">⬇ 立即下载</a>
       </div>
 
       <!-- 方式二：网盘（直链挂了时的备选） -->
@@ -314,17 +314,20 @@
     <div class="steps">
       <li><b>进服后打开聊天栏</b>，输入下方命令即可更换皮肤（<code>/</code> 开头）。</li>
       <li><b>使用正版玩家同款皮肤：</b>直接填对方的游戏 ID。</li>
-      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>先在 LittleSkin 复制皮肤链接，再用「/skin set web」命令。</li>
+      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>直接填衣柜的角色 ID。</li>
       <li><b>恢复默认皮肤：</b>使用清除命令。</li>
     </div>
 
     <pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
     <span class="k">/skin set mojang PlayerName</span>
 
-    <span class="c"># ② 用皮肤链接换肤（LittleSkin / BlessingSkin 等自定义皮肤站用这个）</span>
-    <span class="k">/skin set web classic/slim https://littleskin.cn/xxx/xxxx</span>
+    <span class="c"># ② 用LittleSkin 皮肤站（把SkinName换成衣柜中对应的角色名即可）</span>
+    <span class="k">/skin set littleskin SkinName</span>
+      
+    <span class="c"># ② 用皮肤链接换肤（自定义皮肤站用这个）</span>
+    <span class="k">/skin set web classic/slim https://abc.com/xxx/xxxx</span>
     <span class="c"># 指令中的 classic / slim 二选一填写：classic 为粗壮模型，slim 为纤细模型。</span>
-    <span class="c"># 将指令中的 https://littleskin.cn/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
+    <span class="c"># 将指令中的 https://abc.com/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
     <span class="c"># 只要是可直接读取的皮肤展开图 URL 即可。</span>
 
     <span class="c"># ③ 清除当前皮肤，恢复默认</span>
@@ -358,9 +361,9 @@
     <p class="subtitle">保护你的家，也请把空间留给别人。</p>
 
     <div class="steps">
-      <li>手持<b>领地工具</b>（默认木斧/木锄，以服内提示为准），<b>左键点击</b>两角确定范围。</li>
-      <li>按 <kbd>'</kbd> 键<b>（键盘上分号 <kbd>;</kbd> 右边的引号按键）</b>可查看/查询当前所处领地信息与边界提示。</li>
-      <li>确认范围后按提示执行<b>创建领地命令</b>完成圈地。</li>
+      <li>站在你所要圈占的<b>区块</b>。</li>
+      <li>按 <kbd>'</kbd> 键<b>（键盘上分号 <kbd>;</kbd> 右边的引号按键）</b>可查看部分信息。</li>
+      <li>确认范围后按提示点击<b>圈占</b>完成圈地。（若要拓展只需要到要拓展的区块再圈占即可）</li>
     </div>
 
     <div class="notice">
