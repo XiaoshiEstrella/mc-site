@@ -291,6 +291,71 @@
   }
   .sec-title .ico svg{ width:19px; height:19px; }
 
+  /* 卡片内部的小标题（用于把一张卡片拆成几个话题） */
+  .sub-title{
+    display:flex; align-items:center; gap:11px;
+    font-size:16.5px; font-weight:800; color:var(--ink);
+    margin:2px 0 14px;
+  }
+  .sub-title .si{
+    width:32px; height:32px; flex:none; display:grid; place-items:center; border-radius:10px;
+    color:var(--brand); background:rgba(52,224,160,.12); border:1px solid rgba(52,224,160,.26);
+  }
+  .sub-title .si svg{ width:17px; height:17px; }
+  .card .sub-title + .subtitle{ margin-top:-6px; }
+  .card .sub-title:not(:first-child){ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
+
+  /* ===================== 管理团队 =====================
+     成员卡片由 SITE.team 生成，宽屏一行三个、窄屏自动落成单列。 */
+  .team-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:640px){ .team-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (min-width:1000px){ .team-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+  .member{
+    position:relative; overflow:hidden; padding:24px 22px; border-radius:18px;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),
+      rgba(10,17,32,.55);
+    border:1px solid var(--line); box-shadow:var(--shadow);
+    contain:paint;
+    transition:transform .28s, border-color .28s, box-shadow .28s;
+  }
+  .member::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:2px;
+    background:linear-gradient(90deg,var(--brand),var(--brand-2),transparent);
+    opacity:.8;
+  }
+  .member:hover{ transform:translateY(-4px); border-color:rgba(52,224,160,.4); box-shadow:0 16px 34px rgba(0,0,0,.45); }
+
+  .member .avatar{
+    width:96px; height:96px; border-radius:22px; object-fit:cover;
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 8px 22px rgba(0,0,0,.45);
+    opacity:0; transition:opacity .45s ease;
+  }
+  .member .avatar.loaded{ opacity:1; }
+  .member .id{ display:flex; align-items:center; gap:12px; margin-top:16px; flex-wrap:wrap; }
+  .member .name{ font-size:19px; font-weight:800; letter-spacing:.2px; }
+  .member .role{
+    font-size:11.5px; font-weight:800; letter-spacing:.6px;
+    color:#04140d; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    padding:3px 11px; border-radius:99px; white-space:nowrap;
+  }
+  .member .note{
+    margin-top:10px; font-size:14px; color:var(--ink-2);
+    padding-left:12px; border-left:2px solid rgba(52,224,160,.45);
+  }
+  .member .page{
+    display:inline-flex; align-items:center; gap:7px; margin-top:16px;
+    font-size:13.5px; font-weight:700; color:var(--brand);
+    background:rgba(52,224,160,.1); border:1px solid rgba(52,224,160,.3);
+    padding:8px 15px; border-radius:11px; transition:.22s;
+  }
+  .member .page:hover{ background:rgba(52,224,160,.2); border-color:rgba(52,224,160,.6); color:#c9ffe9; }
+  .member .page svg{ width:14px; height:14px; }
+  .member .nopage{ margin-top:16px; font-size:12.5px; color:var(--ink-3); }
+  .team-hint{ margin-top:16px; font-size:13px; color:var(--ink-3); }
+
   /* 侧栏信息卡（Hero 右侧） */
   .side-card{ display:grid; gap:14px; }
   .side-row{
@@ -756,7 +821,8 @@
       <div class="spec"><div class="si">⚙️</div><div class="n">2<small> 核</small> / 8<small> GB</small></div><div class="l">CPU / 内存</div></div>
       <div class="spec"><div class="si">🌐</div><div class="n">50<small>M</small>↑ / 200<small>M</small>↓</div><div class="l">上行 / 下行带宽</div></div>
       <div class="spec"><div class="si">🛡️</div><div class="n">领地</div><div class="l">建筑受保护，区块级圈占</div></div>
-      <div class="spec"><div class="si">⚔️</div><div class="n">/pvp</div><div class="l">随时开关，互不打扰</div></div>
+      <div class="spec"><div class="si">⚔️</div><div class="n">/pvp</div><div class="l">双向开关，关闭需 1 分钟生效</div></div>
+      <div class="spec"><div class="si">⛏️</div><div class="n">64</div><div class="l">连锁破坏单次上限</div></div>
       <div class="spec"><div class="si">🎮</div><div class="n">1.21.1</div><div class="l">Java 版 · NeoForge</div></div>
     </div>
 
@@ -766,7 +832,8 @@
         <li>以<b>休闲养老</b>为主：不设高强度日常，不定期活动，想肝就肝、想摆就摆。</li>
         <li>配置虽低，但我们对流畅度有信心；后续会视情况<b>逐步升级</b>硬件。</li>
         <li>服务器<b>离线可进</b>，无需正版账号；正版玩家同样欢迎。</li>
-        <li>使用 <code>/pvp</code> 指令可自由开关 PvP（提示为英文，请自行辨认）。</li>
+        <li>使用 <a href="#pvp"><code>/pvp on</code> / <code>/pvp off</code></a> 可开关 PvP：<b>双向生效</b>，关闭后既不会被打也无法打人；关闭需要 1 分钟才完全生效（提示为英文，请自行辨认）。</li>
+        <li>按住 <kbd>~</kbd> 键（Esc 下面那个键）即可<b>连锁破坏</b>，松手恢复，单次最多 64 个方块。</li>
       </ul>
     </div>
   </section>
@@ -921,15 +988,20 @@
     </div>
   </section>
 
-  <!-- ===================== 领地须知 ===================== -->
+  <!-- ===================== 领地与 PvP ===================== -->
   <section class="section" id="claim">
     <div class="section-head reveal">
-      <div class="eyebrow">Claim</div>
-      <h2 class="title">领地须知</h2>
-      <p class="subtitle">保护你的家，也请把空间留给别人。</p>
+      <div class="eyebrow">Claim &amp; PvP</div>
+      <h2 class="title">领地与 PvP</h2>
+      <p class="subtitle">保护你的家，也把空间留给别人；打不打，由你自己决定。</p>
     </div>
 
     <div class="card reveal">
+      <div class="sub-title">
+        <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>
+        圈地：三步保护你的建筑
+      </div>
+
       <ol class="steps">
         <li>站在你想要圈占的<b>区块</b>上。</li>
         <li>按 <kbd>'</kbd> 键<b>（分号 <kbd>;</kbd> 右边那个引号键）</b>可以查看区块信息。</li>
@@ -944,6 +1016,69 @@
           <li><b class="hl">过量或意义不明</b>（圈空地、圈大片荒野、圈道路、圈资源点占位、多个零碎小领地）的领地，<b class="hl">管理将直接删除，不作额外通知</b>。</li>
           <li>长期不在线、领地内又没有实质建筑的，同样可能被清理。</li>
           <li>有争议请先联系管理，不要自行扩圈或与邻居对峙。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ---- PvP ---- -->
+    <div class="card reveal" id="pvp">
+      <div class="sub-title">
+        <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5 20.5 9.5 9.5 20.5 3.5 20.5 3.5 14.5z"/><path d="m12 6 6 6"/></svg></span>
+        PvP：双向开关，由你自己决定
+      </div>
+      <p class="subtitle" style="margin-top:0;">
+        默认情况下你既不会被打，也不能打人。想和朋友切磋，用指令打开就行。
+      </p>
+
+      <ol class="steps">
+        <li>输入 <code>/pvp on</code> <b>开启 PvP</b>，之后你可以攻击他人，他人也可以攻击你。</li>
+        <li>输入 <code>/pvp off</code> <b>关闭 PvP</b>——注意这<b>不是立刻生效</b>，见下方说明。</li>
+        <li>指令提示为英文，请自行辨认；有任何疑问可以直接在群里问管理。</li>
+      </ol>
+
+      <div class="notice">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>PvP 是双向的</b>
+        <ul>
+          <li>关闭 PvP 的玩家<b class="hl">既不会被攻击，也无法攻击他人</b>——不存在「只打人不被打」的状态。</li>
+          <li>开战前请<b class="hl">提前友好交流</b>，双方都同意再动手；不要恶意偷袭、堵门、守尸。</li>
+          <li>装备与道具损失请自行承担，管理不介入玩家之间的正常 PvP 纠纷。</li>
+        </ul>
+      </div>
+
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>关闭 PvP 有 1 分钟生效延迟</b>
+        <ul>
+          <li>执行 <code>/pvp off</code> 后，需要 <b class="hl">1 分钟</b> 才会完全关闭；这是为了防止有人打不过就立刻关掉 PvP 逃跑。</li>
+          <li>这 1 分钟内你<b class="hl">不得再攻击他人</b>，否则关闭进程会<b class="hl">重置</b>，1 分钟要从头重新计算。</li>
+          <li>建议的做法是：打完后要明确提出结束，最后<b class="hl">提前沟通</b>，在决定胜负后静待双方关闭pvp。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 连锁破坏 ===================== -->
+  <section class="section" id="chainbreak">
+    <div class="section-head reveal">
+      <div class="eyebrow">Chain Break</div>
+      <h2 class="title">连锁破坏</h2>
+      <p class="subtitle">按住一个键，一次挖掉一整片——挖矿、清地、拆建筑都快很多。</p>
+    </div>
+
+    <div class="card reveal">
+      <ol class="steps">
+        <li>按住 <kbd>~</kbd> 键（<b>键盘左上角 Esc 下面那个键</b>）即可启用连锁破坏。</li>
+        <li>保持按住的状态挖掘方块，<b>相连的同类方块会被一起破坏</b>，松开按键立刻恢复成普通挖掘。</li>
+        <li>对<b>任意方块</b>都生效，不限种类；一次连锁最多 <b>64 个方块</b>，超过的部分不会继续连带。</li>
+        <li>不需要在设置里开关，也不需要额外权限，进服就能用。</li>
+      </ol>
+
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>使用注意</b>
+        <ul>
+          <li>连锁破坏<b class="hl">不会区分方块归属</b>：在自家乱按可能会连带挖掉不想动的那部分，重要建筑建议先小范围试一下。</li>
+          <li>在<b class="hl">别人领地内不要随手按</b>，破坏他人建筑会按服规处理。</li>
+          <li>一次 64 个方块已经是上限；频繁大规模连锁会增加服务器负担，请适度使用。</li>
+          <li>若按键无反应：先确认是英文输入法，并检查鼠标是否被其他程序占用。</li>
         </ul>
       </div>
     </div>
@@ -976,6 +1111,17 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  
+  <!-- ===================== 管理团队（内容由 SITE.team 生成） ===================== -->
+  <section class="section" id="team">
+    <div class="section-head reveal">
+      <div class="eyebrow">Team</div>
+      <h2 class="title">管理团队</h2>
+      <p class="subtitle">服内事务、领地争议、bug 反馈都可以直接找他们。</p>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
   </section>
 
   <!-- ===================== 联系 ===================== -->
@@ -1083,16 +1229,57 @@
    ① 站点配置：改这里就够了
    ========================================================================== */
 const SITE = {
+  /* 顶部导航（保持精简）；页脚会把下面 footNav 里的都列出来 */
   nav: [
-    { id:'join',     label:'加入服务器' },
-    { id:'about',    label:'服务器速览' },
-    { id:'download', label:'模组包下载' },
-    { id:'mods',     label:'主玩模组'   },
-    { id:'gallery',  label:'实景画廊'   },
-    { id:'skin',     label:'皮肤设置'   },
-    { id:'claim',    label:'领地须知'   },
-    { id:'concert',  label:'音乐会'     },
-    { id:'contact',  label:'联系'       }
+    { id:'join',       label:'加入服务器' },
+    { id:'about',      label:'服务器速览' },
+    { id:'download',   label:'模组包下载' },
+    { id:'mods',       label:'主玩模组'   },
+    { id:'gallery',    label:'实景画廊'   },
+    { id:'claim',      label:'领地与 PvP' },
+    { id:'chainbreak', label:'连锁破坏'   },
+    { id:'team',       label:'管理团队'   },
+    { id:'contact',    label:'联系'       }
+  ],
+  footNav: [
+    { id:'join',       label:'加入服务器' },
+    { id:'about',      label:'服务器速览' },
+    { id:'download',   label:'模组包下载' },
+    { id:'mods',       label:'主玩模组'   },
+    { id:'gallery',    label:'实景画廊'   },
+    { id:'skin',       label:'皮肤设置'   },
+    { id:'claim',      label:'领地与 PvP' },
+    { id:'chainbreak', label:'连锁破坏'   },
+    { id:'concert',    label:'永无止境音乐会' },
+    { id:'team',       label:'管理团队'   },
+    { id:'contact',    label:'联系我们'   }
+  ],
+
+  /* ============================================================
+     管理团队（模块化）
+     ------------------------------------------------------------
+     以后加人只需在数组里追加一条，页面会自动排布（宽屏一行三个）。
+     头像建议放在 assets/img/team/ 下；page 留空字符串则不显示按钮。
+     ============================================================ */
+  team: [
+    {
+      name: '小柿Estrella',
+      role: '服主',
+      avatar: 'assets/img/team/xiaoshi-estrella.webp',
+      note: '可以抽象，可以具象',
+      page: 'https://space.bilibili.com/1112781430',
+      pageLabel: 'B 站主页'
+    }
+    /* 加人示例：复制下面这块，改成新成员的资料即可
+    ,{
+      name: '某某',
+      role: '管理',
+      avatar: 'assets/img/team/xxx.webp',
+      note: '一句话介绍',
+      page: 'https://example.com',
+      pageLabel: '个人主页'
+    }
+    */
   ],
 
   /* 画廊：slug 对应 assets/img/shots/<slug>.webp
@@ -1112,7 +1299,7 @@ const SITE = {
     { slug:'tavern',         title:'玩家的酒馆',     sub:'竹林樱树间的半露天酒馆',
       desc:'竹影与樱花之间的半露天酒馆，长桌、灯笼与篝火，适合几个人围坐聊天。' },
     { slug:'reimu-statue',   title:'夜下的灵梦雕像', sub:'服主制造的大东方雕像',
-      desc:'夜里亮起灯笼的灵梦雕像，樱树环绕，是服里最受欢迎的打卡点。' },
+      desc:'夜里亮起灯笼的灵梦雕像，樱树环绕，是服里不错的打卡点。' },
     { slug:'owner-portrait', title:'服主的头像',     sub:'像素风的人物头像墙',
       desc:'用方块一点点拼出的人物头像，远看过去相当有冲击力。' }
   ]
@@ -1190,7 +1377,45 @@ const SITE = {
       '</nav>' +
     '</div>';
 
-  $('#footLinks').innerHTML = SITE.nav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('');
+  $('#footLinks').innerHTML = SITE.footNav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('');
+
+  /* ---------- 管理团队（模块化：内容全部来自 SITE.team） ---------- */
+  const teamGrid = $('#teamGrid');
+  if (teamGrid && SITE.team && SITE.team.length) {
+    teamGrid.innerHTML = SITE.team.map(function (m) {
+      const btn = m.page
+        ? '<a class="page" href="' + m.page + '" target="_blank" rel="noopener">' +
+            (m.pageLabel || '个人主页') +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
+          '</a>'
+        : '<div class="nopage">未提供个人主页</div>';
+      return '<article class="member">' +
+        '<img class="avatar" src="' + m.avatar + '" alt="' + m.name + ' 的头像" width="480" height="480" loading="lazy" decoding="async">' +
+        '<div class="id"><span class="name">' + m.name + '</span><span class="role">' + m.role + '</span></div>' +
+        '<p class="note">' + m.note + '</p>' +
+        btn +
+      '</article>';
+    }).join('');
+    if (SITE.team.length < 3) {
+      teamGrid.insertAdjacentHTML('afterend',
+        '<p class="team-hint">目前管理团队共 ' + SITE.team.length + ' 人。想加入管理、或愿意帮忙维护服务器，欢迎在群里找服主聊聊。</p>');
+    }
+    $$('.member .avatar', teamGrid).forEach(function (img) {
+      const show = () => img.classList.add('loaded');
+      if (img.complete && img.naturalWidth) show();
+      else img.addEventListener('load', show, { once: true });
+      // 头像缺失时退化成首字母方块，避免出现破图
+      img.addEventListener('error', function () {
+        img.replaceWith(Object.assign(document.createElement('div'), {
+          className: 'avatar loaded',
+          textContent: (img.alt || '?').slice(0, 1),
+          style: 'display:grid;place-items:center;font-size:34px;font-weight:800;color:var(--brand);background:rgba(52,224,160,.12)'
+        }));
+      }, { once: true });
+    });
+  } else if (teamGrid) {
+    teamGrid.remove();
+  }
 
   const navToggle = $('#navToggle');
   navToggle.addEventListener('click', function () {
