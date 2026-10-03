@@ -3,481 +3,1408 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>老牧柿服务器 · Minecraft 1.21.1 NeoForge 服务器</title>
+<meta name="theme-color" content="#06090f" />
+<title>老牧柿服务器 · Minecraft 1.21.1 NeoForge 综合模组生存服</title>
+<meta name="description" content="老牧柿服务器 —— Minecraft Java 版 1.21.1 NeoForge 综合模组生存服。机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆，重在休闲养老，离线可进，有领地保护，PvP 可自由开关。服务器地址：xiaoshi.cfd" />
+<meta name="keywords" content="Minecraft,我的世界,1.21.1,NeoForge,服务器,机械动力,精致储存,灾变,森罗物语,车万女仆,离线可进,老牧柿服务器" />
+<meta name="author" content="老牧柿服务器" />
+<link rel="canonical" href="https://xiaoshi.cfd/" />
+
+<!-- 社交平台分享卡片 -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="老牧柿服务器" />
+<meta property="og:title" content="老牧柿服务器 · 1.21.1 NeoForge 综合模组生存服" />
+<meta property="og:description" content="机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆。休闲养老、离线可进、领地保护、PvP 自由开关。地址：xiaoshi.cfd" />
+<meta property="og:image" content="assets/img/shots/owner-home.webp" />
+<meta property="og:url" content="https://xiaoshi.cfd/" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- 站点图标（内联 SVG，不依赖外部文件） -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2334e0a0'/%3E%3Cstop offset='1' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230d1524'/%3E%3Cpath d='M32 10 53 22v20L32 54 11 42V22z' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M32 10v44M11 22l21 12 21-12' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linejoin='round' opacity='.75'/%3E%3C/svg%3E" />
+
 <!--
   ============================================================================
-  ⚠️ 本页面由 AI 生成：《服务器主页》静态单页模板
-  - 如部分描述与实际服务器不符，请以服务器实际规则为准（页脚已写明该提醒）。
-  - 本文件零依赖、零构建，直接上传即可访问，适合 GitHub Pages / Cloudflare Pages /
-    Vercel / Netlify / Gitee Pages 等免费静态托管。
-  ============================================================================
-
-  📌 你需要修改的地方（全文搜索关键字即可定位）：
-  1. 搜索「PLAY_HOST」      → 服务器地址（IP 或域名），共 3 处左右
-  2. 搜索「DL_DIRECT」      → 模组包直链（直连下载，如对象存储/Modrinth 直链）
-  3. 搜索「DL_PAN」         → 网盘下载链接（如百度网盘/蓝奏云）
-  4. 搜索「DL_PAN_CODE」    → 网盘提取码
-  5. 搜索「QQ_GROUP」       → QQ 群号
-  6. 搜索「QQ_LINK」        → QQ 群加群链接
-  7. 搜索「MAIL_ADDR」      → 你的电子邮箱
-  8. 搜索「SERVER_NAME」    → 服务器名称（标题/logo/页脚都用了它）
-  9. 搜索「PACK_NAME」      → 模组包名称
-  10. 搜索「UPDATE_DATE」   → 最后更新日期
-
-  💡 小技巧：改配色的话，只需改下面 :root 里的几个 --变量，全站自动生效。
-  💡 想加新板块：复制任意一个 <section class="card"> 区块，改标题和内容即可。
+  老牧柿服务器 · 官网单页（GitHub Pages 可直接托管）
+  ----------------------------------------------------------------------------
+  ✅ 零依赖、零构建：纯 HTML + CSS + 原生 JS，无需 npm / 打包工具
+  ✅ 结构说明：
+       <style>  第 1 段：全站配色与样式，改 :root 里的变量即可换主题
+       <script> 第 2 段：站点配置对象 SITE（地址、下载链接、QQ、邮箱…）
+       <script> 第 3 段：区块内容渲染（导航 / 画廊由数据生成）
+  🔎 想改内容？先看 <script> 里的 SITE 对象，大多数信息都集中在那里。
   ============================================================================
 -->
 <style>
-  /* ===================== 全局配色（改这里就能换主题） ===================== */
+  /* ===================== 全站配色（改这几个变量即可换主题） ===================== */
   :root{
-    --brand:        #3aa88f;   /* 主色：清新青绿 */
-    --brand-dark:   #2c8776;   /* 主色深一点，用于 hover */
-    --brand-light:  #e8f6f3;   /* 主色浅底，用于标签/浅色块 */
-    --accent:       #6fb6e8;   /* 辅助色：天蓝 */
-    --warn:         #e8964e;   /* 提醒色：橙色（领地须知等） */
-    --warn-light:   #fdf3e8;
-    --ink:          #22303c;   /* 正文文字 */
-    --ink-soft:     #61717e;   /* 次要文字 */
-    --line:         #e6eef1;   /* 分隔线 */
-    --bg:           #f5faf9;   /* 页面背景 */
-    --card:         #ffffff;   /* 卡片背景 */
-    --radius:       16px;      /* 圆角 */
-    --shadow:       0 6px 22px rgba(58,168,143,.10);
-    --shadow-hover: 0 12px 30px rgba(58,168,143,.18);
+    --bg:          #06090f;   /* 页面底色 */
+    --bg-2:        #0a1120;   /* 次级底色 */
+    --panel:       rgba(255,255,255,.035);
+    --panel-2:     rgba(255,255,255,.06);
+    --line:        rgba(255,255,255,.09);
+    --line-strong: rgba(255,255,255,.16);
+    --ink:         #e8f0f8;   /* 主文字 */
+    --ink-2:       #a9b8cb;   /* 次要文字 */
+    --ink-3:       #6f7f96;   /* 弱化文字 */
+
+    --brand:       #34e0a0;   /* 主色：翠绿（草方块 / 绿宝石） */
+    --brand-2:     #38bdf8;   /* 辅色：天蓝（钻石） */
+    --brand-3:     #a78bfa;   /* 点缀：紫（紫水晶） */
+    --warn:        #f6b352;   /* 提醒色 */
+    --danger:      #ff6b6b;
+
+    --radius:      18px;
+    /* 性能：阴影模糊半径越小，绘制越便宜，视觉上几乎看不出差别 */
+    --shadow:      0 10px 24px rgba(0,0,0,.38);
+    --glow:        0 0 0 1px rgba(52,224,160,.25), 0 10px 28px rgba(52,224,160,.16);
+    --nav-h:       62px;
+    --maxw:        1140px;
+    --font:        "PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:        ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 18px); -webkit-text-size-adjust:100%; color-scheme:dark; }
   body{
-    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+    font-family:var(--font);
     color:var(--ink);
-    background:linear-gradient(180deg,#f2faf8 0%, #f7f8fc 60%, #f5faf9 100%);
+    background:var(--bg);
     line-height:1.75;
+    overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  a{ color:var(--brand); text-decoration:none; }
-  a:hover{ color:var(--brand-dark); }
+  /* 图片始终留好位置，避免加载完成时页面跳动（CLS） */
+  img{ max-width:100%; height:auto; display:block; }
+  body.nav-open{ overflow:hidden; }
+  a{ color:var(--brand); text-decoration:none; transition:color .2s; }
+  a:hover{ color:#8ff0c8; }
+  ::selection{ background:rgba(52,224,160,.3); color:#fff; }
+
+  /* 滚动条 */
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:#080d16; }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,var(--brand),var(--brand-2)); border-radius:99px; border:2px solid #080d16; }
+
+  /* ===================== 背景装饰（网格 + 光晕） =====================
+     性能要点：光晕本身就是柔和的 radial-gradient，不需要再叠一层 filter:blur()
+     （blur 会让浏览器每次重绘都做一次大范围高斯模糊）。默认全部静止，
+     只有 .g1 做极慢的位移，并且只动 transform —— 走合成层，不触发重绘。 */
+  .bg-fx{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; contain:layout paint size; }
+  .bg-fx::before{
+    content:""; position:absolute; inset:-2px;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse 100% 70% at 50% 0%, #000 0%, transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse 100% 70% at 50% 0%, #000 0%, transparent 78%);
+  }
+  .bg-fx .glow{ position:absolute; border-radius:50%; opacity:.55; }
+  .bg-fx .g1{
+    width:58vw; height:58vw; top:-20vw; left:-14vw;
+    background:radial-gradient(circle,rgba(52,224,160,.30),rgba(52,224,160,.06) 45%,transparent 68%);
+    animation:drift1 34s ease-in-out infinite;
+  }
+  .bg-fx .g2{
+    width:52vw; height:52vw; top:4vh; right:-18vw;
+    background:radial-gradient(circle,rgba(56,189,248,.26),rgba(56,189,248,.05) 45%,transparent 68%);
+  }
+  .bg-fx .g3{
+    width:46vw; height:46vw; bottom:-16vw; left:20vw;
+    background:radial-gradient(circle,rgba(167,139,250,.20),rgba(167,139,250,.04) 45%,transparent 68%);
+  }
+  @keyframes drift1{ 0%,100%{ transform:translate3d(0,0,0) } 50%{ transform:translate3d(3vw,2vh,0) } }
 
   /* ===================== 顶部导航 ===================== */
+  .progress{
+    position:fixed; top:0; left:0; height:2px; width:0; z-index:120;
+    background:linear-gradient(90deg,var(--brand),var(--brand-2),var(--brand-3));
+    box-shadow:0 0 12px rgba(52,224,160,.8); transition:width .1s linear;
+  }
   .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(255,255,255,.82);
-    backdrop-filter:blur(10px);
+    position:sticky; top:0; z-index:100; height:var(--nav-h);
+    background:rgba(6,9,15,.92);
+    /* 只保留导航这一处毛玻璃：它是固定的，不会被滚动带走，开销最小、观感最好 */
+    -webkit-backdrop-filter:blur(10px) saturate(140%);
+    backdrop-filter:blur(10px) saturate(140%);
     border-bottom:1px solid var(--line);
+    transition:background .3s, box-shadow .3s;
   }
-  .nav-inner{
-    max-width:960px; margin:0 auto; padding:12px 20px;
-    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  .nav.scrolled{ background:rgba(6,9,15,.97); box-shadow:0 6px 18px rgba(0,0,0,.45); }
+  .nav-inner{ max-width:var(--maxw); margin:0 auto; height:100%; padding:0 20px; display:flex; align-items:center; gap:16px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; color:var(--ink); font-size:16.5px; white-space:nowrap; }
+  .brand:hover{ color:var(--ink); }
+  .brand-mark{
+    width:32px; height:32px; flex:none; display:grid; place-items:center;
+    border-radius:10px; color:var(--brand);
+    background:linear-gradient(145deg,rgba(52,224,160,.16),rgba(56,189,248,.10));
+    border:1px solid rgba(52,224,160,.32);
+    box-shadow:0 0 18px rgba(52,224,160,.22);
   }
-  .logo{ font-weight:700; font-size:18px; color:var(--ink); display:flex; align-items:center; gap:8px; }
-  .logo .dot{ width:10px; height:10px; border-radius:50%; background:var(--brand); }
-  .nav-links{ display:flex; gap:16px; margin-left:auto; flex-wrap:wrap; font-size:14px; }
-  .nav-links a{ color:var(--ink-soft); padding:4px 2px; border-bottom:2px solid transparent; }
-  .nav-links a:hover{ color:var(--brand); border-bottom-color:var(--brand); }
+  .brand-mark svg{ width:19px; height:19px; }
+  .brand small{ display:block; font-size:10px; font-weight:600; letter-spacing:1.6px; color:var(--ink-3); text-transform:uppercase; line-height:1; margin-top:2px; }
+  .nav-links{ display:flex; align-items:center; gap:2px; margin-left:auto; }
+  .nav-links a{
+    position:relative; font-size:14px; font-weight:500; color:var(--ink-2);
+    padding:8px 12px; border-radius:10px; white-space:nowrap;
+  }
+  .nav-links a:hover{ color:var(--ink); background:var(--panel-2); }
+  .nav-links a.active{ color:var(--brand); background:rgba(52,224,160,.10); }
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:700;
+    color:#04140d !important; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    padding:9px 16px; border-radius:99px; box-shadow:0 8px 22px rgba(52,224,160,.28);
+  }
+  .nav-cta:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  .nav-toggle{
+    display:none; margin-left:auto; width:42px; height:38px; border-radius:11px; cursor:pointer;
+    background:var(--panel-2); border:1px solid var(--line-strong); color:var(--ink); place-items:center;
+  }
+  .nav-toggle svg{ width:20px; height:20px; }
+  .nav-toggle .x{ display:none; }
+  body.nav-open .nav-toggle .bars{ display:none; }
+  body.nav-open .nav-toggle .x{ display:block; }
 
-  /* ===================== 布局容器 ===================== */
-  .wrap{ max-width:960px; margin:0 auto; padding:0 20px; }
-  section{ margin:28px 0; }
-  .card{
-    background:var(--card); border:1px solid var(--line);
-    border-radius:var(--radius); box-shadow:var(--shadow);
-    padding:28px;
-    transition:.25s;
+  /* ===================== 布局 ===================== */
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+  .section{ padding:54px 0 8px; }
+  .section-head{ margin-bottom:24px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:1.4px;
+    color:var(--brand); text-transform:uppercase; margin-bottom:10px;
   }
-  .card:hover{ box-shadow:var(--shadow-hover); }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:linear-gradient(90deg,var(--brand),transparent); }
+  h2.title{ font-size:clamp(22px,3vw,30px); font-weight:800; letter-spacing:.2px; line-height:1.35; }
+  .subtitle{ color:var(--ink-2); font-size:14.5px; margin-top:8px; max-width:62ch; }
 
-  /* 区块标题 */
-  .title{ display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:21px; font-weight:700; }
-  .title .ico{
-    width:30px; height:30px; border-radius:9px; flex:none;
-    background:var(--brand-light); color:var(--brand);
-    display:grid; place-items:center; font-size:16px;
+  /* ===================== Hero ===================== */
+  .hero{ position:relative; padding:74px 0 30px; }
+  .hero-grid{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:38px; align-items:center; }
+  .pill{
+    display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:600;
+    color:var(--ink-2); background:var(--panel-2); border:1px solid var(--line-strong);
+    padding:6px 14px 6px 10px; border-radius:99px;
   }
-  .subtitle{ color:var(--ink-soft); font-size:14px; margin-bottom:18px; }
-
-  /* ===================== Hero 区（服务器地址 + 一键复制） ===================== */
-  .hero{
-    margin-top:34px; padding:44px 28px; text-align:center;
-    background:linear-gradient(140deg,#eaf7f4 0%,#eaf2fb 55%,#f4f8fd 100%);
-    border:1px solid #e3f0ee; border-radius:22px; box-shadow:var(--shadow);
+  .pill .dot{ width:8px; height:8px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px rgba(52,224,160,.16); animation:pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ box-shadow:0 0 0 3px rgba(52,224,160,.18) } 50%{ box-shadow:0 0 0 8px rgba(52,224,160,.02) } }
+  .hero h1{
+    font-size:clamp(30px,5.4vw,54px); font-weight:900; line-height:1.16; letter-spacing:-.5px;
+    margin:18px 0 14px;
   }
-  .hero h1{ font-size:30px; letter-spacing:.5px; margin-bottom:8px; }
-  .hero p{ color:var(--ink-soft); font-size:15px; }
-  .badges{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px 0 22px; }
+  .grad{
+    background:linear-gradient(100deg,#ffffff 0%,var(--brand) 34%,var(--brand-2) 62%,var(--brand-3) 92%);
+    background-size:220% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-fill-color:transparent;
+    animation:sheen 9s ease-in-out infinite;
+  }
+  @keyframes sheen{ 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
+  .hero-lead{ color:var(--ink-2); font-size:16px; max-width:56ch; }
+  .hero-lead b{ color:var(--ink); font-weight:700; }
+  .badges{ display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; }
   .badge{
-    font-size:12px; padding:4px 12px; border-radius:999px;
-    background:var(--brand-light); color:var(--brand-dark); border:1px solid #d5ece7;
+    font-size:12.5px; font-weight:600; color:var(--ink-2);
+    background:var(--panel); border:1px solid var(--line); border-radius:99px; padding:5px 13px;
+    transition:.22s;
   }
-  /* 地址复制框 */
+  .badge:hover{ color:var(--ink); border-color:var(--line-strong); background:var(--panel-2); }
+  .badge b{ color:var(--brand); font-weight:700; }
+
+  /* 地址框 */
+  .connect{ margin-top:26px; }
+  .connect-label{ font-size:12.5px; color:var(--ink-3); letter-spacing:1px; text-transform:uppercase; font-weight:700; margin-bottom:8px; }
   .addr-box{
-    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-    max-width:520px; margin:0 auto;
+    display:flex; align-items:stretch; gap:10px; flex-wrap:wrap;
+    background:linear-gradient(135deg,rgba(52,224,160,.10),rgba(56,189,248,.06));
+    border:1px solid rgba(52,224,160,.28); border-radius:16px; padding:10px 10px 10px 18px;
+    max-width:520px; box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
   }
   .addr{
-    flex:1 1 260px; min-width:220px;
-    background:#fff; border:1px solid #d7e6e3; border-radius:12px;
-    padding:12px 16px; font-family:ui-monospace,Menlo,Consolas,monospace;
-    font-size:16px; color:var(--ink); text-align:center; word-break:break-all;
+    flex:1 1 200px; min-width:0; display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:clamp(17px,2.4vw,21px); font-weight:700; color:#fff;
+    letter-spacing:.4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   }
+  .addr svg{ width:18px; height:18px; flex:none; color:var(--brand); opacity:.85; }
+  .copy-btn{
+    flex:none; display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:var(--font); font-size:14px; font-weight:700; color:#04140d;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    border:none; border-radius:11px; padding:11px 18px;
+    box-shadow:0 8px 22px rgba(52,224,160,.26); transition:.2s;
+  }
+  .copy-btn:hover{ transform:translateY(-1px); filter:brightness(1.07); }
+  .copy-btn:active{ transform:translateY(0) scale(.985); }
+  .copy-btn svg{ width:16px; height:16px; }
+  .copy-btn.done{ background:linear-gradient(135deg,#8ef0c4,var(--brand)); }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
+  .hero-hint{ font-size:13px; color:var(--ink-3); margin-top:14px; }
+
+  /* 按钮 */
   .btn{
-    border:none; cursor:pointer; font-size:15px; font-weight:600;
-    padding:12px 22px; border-radius:12px; color:#fff;
-    background:linear-gradient(135deg,var(--brand),var(--accent));
-    box-shadow:0 6px 16px rgba(58,168,143,.25); transition:.2s;
-    display:inline-flex; align-items:center; gap:8px;
+    display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer;
+    font-family:var(--font); font-size:14.5px; font-weight:700; line-height:1;
+    padding:13px 22px; border-radius:12px; border:1px solid transparent;
+    color:#04140d; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    box-shadow:0 10px 26px rgba(52,224,160,.22); transition:.22s;
   }
-  .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(58,168,143,.32); }
-  .btn.ghost{ background:#fff; color:var(--brand); border:1px solid #cfe7e2; box-shadow:none; }
-  .btn.ghost:hover{ background:var(--brand-light); }
-  .hint{ margin-top:12px; font-size:13px; color:var(--ink-soft); }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 32px rgba(52,224,160,.3); color:#04140d; }
+  .btn svg{ width:17px; height:17px; }
+  .btn.ghost{
+    color:var(--ink); background:rgba(255,255,255,.07); border-color:var(--line-strong); box-shadow:none;
+  }
+  .btn.ghost:hover{ color:#fff; border-color:rgba(52,224,160,.55); background:rgba(52,224,160,.12); box-shadow:none; }
+  .btn.sm{ padding:10px 16px; font-size:13.5px; }
 
-  /* ===================== 下载区：两列卡片 ===================== */
-  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  /* ===================== 卡片 / 通用面板 =====================
+     性能要点：卡片不再使用 backdrop-filter。卡片本身会在滚动中移动，
+     毛玻璃会让浏览器每一帧都重新采样背后的内容，是滚动掉帧的主要来源。
+     改用「半透明渐变 + 细边框 + 一处背景渐变」来保持同样的玻璃观感。 */
+  .card{
+    position:relative; border-radius:var(--radius);
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022)),
+      rgba(10,17,32,.55);
+    border:1px solid var(--line);
+    padding:28px; box-shadow:var(--shadow);
+    contain:paint;
+    transition:border-color .3s;
+  }
+  .card:hover{ border-color:var(--line-strong); }
+  .card + .card{ margin-top:20px; }
+
+  /* 两列 / 三列栅格：用明确的 breakpoint 控制列数，
+     不用 auto-fit —— 列宽固定后，图片与卡片的排版更稳定，也不会出现半宽空列。 */
+  .grid2, .grid3{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:640px){
+    .grid2{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .grid3{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
+  @media (min-width:1000px){
+    .grid3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  }
+  .sec-title{ display:flex; align-items:center; gap:12px; font-size:20px; font-weight:800; margin-bottom:8px; }
+  .sec-title .ico{
+    width:36px; height:36px; flex:none; display:grid; place-items:center; border-radius:11px;
+    color:var(--brand); background:linear-gradient(145deg,rgba(52,224,160,.16),rgba(56,189,248,.08));
+    border:1px solid rgba(52,224,160,.26);
+  }
+  .sec-title .ico svg{ width:19px; height:19px; }
+
+  /* 侧栏信息卡（Hero 右侧） */
+  .side-card{ display:grid; gap:14px; }
+  .side-row{
+    display:flex; align-items:center; gap:14px;
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+    transition:.25s;
+  }
+  .side-row:hover{ background:var(--panel-2); border-color:rgba(52,224,160,.3); transform:translateX(3px); }
+  .side-row .si{
+    width:38px; height:38px; flex:none; border-radius:11px; display:grid; place-items:center;
+    background:rgba(52,224,160,.12); color:var(--brand); border:1px solid rgba(52,224,160,.22);
+  }
+  .side-row .si svg{ width:19px; height:19px; }
+  .side-row .k{ font-size:12px; color:var(--ink-3); letter-spacing:.6px; }
+  .side-row .v{ font-size:14.5px; font-weight:700; color:var(--ink); }
+
+  /* ===================== 下载 ===================== */
   .dl{
-    border:1px solid var(--line); border-radius:14px; padding:20px;
-    background:linear-gradient(180deg,#fff,#fbfdfd); transition:.25s;
+    position:relative; overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:16px; padding:22px;
+    transition:.28s;
   }
-  .dl:hover{ border-color:#cfe7e2; transform:translateY(-2px); box-shadow:var(--shadow); }
-  .dl h3{ font-size:16px; margin-bottom:6px; }
-  .dl .desc{ font-size:13px; color:var(--ink-soft); margin-bottom:14px; }
-  .dl .btn{ width:100%; justify-content:center; }
+  .dl::after{
+    content:""; position:absolute; inset:0 auto 0 0; width:3px;
+    background:linear-gradient(180deg,var(--brand),var(--brand-2)); opacity:.75;
+  }
+  .dl:hover{ border-color:rgba(52,224,160,.35); transform:translateY(-3px); box-shadow:0 20px 44px rgba(0,0,0,.4); }
+  .dl .tag{
+    position:absolute; top:16px; right:16px; font-size:11px; font-weight:800; letter-spacing:.6px;
+    color:#04140d; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    padding:3px 10px; border-radius:99px;
+  }
+  .dl h3{ font-size:16.5px; font-weight:800; display:flex; align-items:center; gap:9px; }
+  .dl h3 .num{
+    width:24px; height:24px; flex:none; border-radius:8px; display:grid; place-items:center;
+    font-size:12.5px; color:var(--brand); background:rgba(52,224,160,.13); border:1px solid rgba(52,224,160,.25);
+  }
+  .dl p.desc{ font-size:13.5px; color:var(--ink-2); margin:9px 0 16px; }
+  .dl .btn{ width:100%; }
   .code-chip{
-    display:inline-block; margin-top:10px; font-size:12px;
-    background:var(--brand-light); color:var(--brand-dark);
-    padding:3px 10px; border-radius:8px; font-family:ui-monospace,Consolas,monospace;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-top:12px; padding:9px 12px; border-radius:11px;
+    background:rgba(255,255,255,.05); border:1px dashed var(--line-strong);
+    font-size:13px; color:var(--ink-2);
   }
+  .code-chip b{ font-family:var(--mono); font-size:15px; color:var(--brand); letter-spacing:1px; }
+  .meta-line{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+  .chip{
+    font-size:12.5px; color:var(--ink-2); background:var(--panel-2);
+    border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  }
+  .chip b{ color:var(--ink); }
 
-  /* ===================== 步骤列表（皮肤教程等） ===================== */
-  .steps{ counter-reset:s; list-style:none; }
-  .steps li{
-    position:relative; padding-left:40px; margin-bottom:14px; font-size:15px;
-  }
-  .steps li::before{
-    counter-increment:s; content:counter(s);
-    position:absolute; left:0; top:3px;
-    width:26px; height:26px; border-radius:50%;
-    background:var(--brand); color:#fff; font-size:13px; font-weight:700;
-    display:grid; place-items:center;
-  }
-  .steps li b{ color:var(--ink); }
-
-  /* 命令行样式 */
-  pre.cmd{
-    background:#22303c; color:#d6eef3; border-radius:12px;
-    padding:14px 16px; overflow-x:auto; margin:10px 0;
-    font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13.5px; line-height:1.9;
-  }
-  pre.cmd .c{ color:#8fa6b2; }        /* 注释颜色 */
-  pre.cmd .k{ color:#7fd6a8; }        /* 命令颜色 */
-  code{
-    background:var(--brand-light); color:var(--brand-dark);
-    padding:2px 7px; border-radius:6px; font-size:13px;
-    font-family:ui-monospace,Consolas,monospace;
-  }
-
-  /* 按键样式（领地提示键） */
-  kbd{
-    display:inline-block; min-width:30px; text-align:center;
-    padding:3px 10px; margin:0 3px;
-    background:#fff; border:1px solid #cfd9df; border-bottom-width:2px;
-    border-radius:7px; font-family:ui-monospace,Consolas,monospace;
-    font-size:14px; color:var(--ink); box-shadow:0 2px 0 #e3eaee;
-  }
-
-  /* ===================== 领地须知：提醒框 ===================== */
+  /* ===================== 信息提示框 ===================== */
   .notice{
-    background:var(--warn-light); border:1px solid #f3ddc2;
-    border-left:4px solid var(--warn); border-radius:12px;
-    padding:16px 18px; font-size:14.5px; margin-top:14px;
+    margin-top:18px; padding:18px 20px; border-radius:14px; font-size:14.5px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid var(--line); border-left:3px solid var(--brand);
   }
-  .notice ul{ margin:8px 0 0 18px; }
-  .notice li{ margin-bottom:6px; }
-  .notice b{ color:#b96f24; }
+  .notice.warn{ border-left-color:var(--warn); background:linear-gradient(180deg,rgba(246,179,82,.10),rgba(246,179,82,.03)); border-color:rgba(246,179,82,.28); }
+  .notice > b{ display:inline-flex; align-items:center; gap:8px; font-size:14.5px; color:var(--ink); margin-bottom:6px; }
+  .notice > b svg{ width:16px; height:16px; color:var(--brand); }
+  .notice.warn > b svg{ color:var(--warn); }
+  .notice ul{ list-style:none; margin-top:6px; display:grid; gap:9px; }
+  .notice li{ position:relative; padding-left:20px; color:var(--ink-2); font-size:14px; }
+  .notice li::before{ content:""; position:absolute; left:4px; top:.68em; width:6px; height:6px; border-radius:2px; background:var(--brand); transform:rotate(45deg); }
+  .notice.warn li::before{ background:var(--warn); }
+  .notice b.hl{ color:var(--ink); font-weight:700; }
+
+  /* ===================== 步骤 ===================== */
+  .steps{ list-style:none; counter-reset:s; display:grid; gap:14px; }
+  .steps > li{
+    position:relative; counter-increment:s; padding-left:46px; font-size:14.8px; color:var(--ink-2);
+  }
+  .steps > li::before{
+    content:counter(s); position:absolute; left:0; top:2px;
+    width:30px; height:30px; border-radius:10px; display:grid; place-items:center;
+    font-family:var(--mono); font-size:13.5px; font-weight:700; color:var(--brand);
+    background:rgba(52,224,160,.1); border:1px solid rgba(52,224,160,.28);
+  }
+  .steps > li b{ color:var(--ink); font-weight:700; }
+
+  /* ===================== 代码块 / 终端 ===================== */
+  .term{
+    margin:18px 0 0; border-radius:14px; overflow:hidden;
+    border:1px solid var(--line-strong); background:#050810;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border-bottom:1px solid var(--line);
+  }
+  .term-bar i{ width:11px; height:11px; border-radius:50%; display:block; }
+  .term-bar i:nth-child(1){ background:#ff5f57; } .term-bar i:nth-child(2){ background:#febc2e; } .term-bar i:nth-child(3){ background:#28c840; }
+  .term-bar span{ margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--ink-3); }
+  .term-copy{
+    margin-left:auto; cursor:pointer; font-family:var(--font); font-size:12px; font-weight:700;
+    color:var(--ink-2); background:var(--panel-2); border:1px solid var(--line-strong);
+    border-radius:8px; padding:4px 11px; transition:.2s;
+  }
+  .term-copy:hover{ color:var(--brand); border-color:rgba(52,224,160,.5); }
+  pre.cmd{
+    margin:0; padding:16px 18px; overflow-x:auto;
+    font-family:var(--mono); font-size:13.4px; line-height:1.95; color:#d8e6f2;
+  }
+  pre.cmd .c{ color:#6f8399; }          /* 注释 */
+  pre.cmd .k{ color:#5ee9ac; }          /* 命令 */
+  pre.cmd .a{ color:#7cc7ff; }          /* 参数占位 */
+  code{
+    font-family:var(--mono); font-size:.9em; color:#8ff0c8;
+    background:rgba(52,224,160,.11); border:1px solid rgba(52,224,160,.2);
+    border-radius:6px; padding:1.5px 6px; white-space:nowrap;
+  }
+  pre.cmd code{ background:none; border:none; padding:0; color:inherit; white-space:inherit; }
+  kbd{
+    display:inline-block; min-width:26px; text-align:center; padding:3px 9px; margin:0 2px;
+    font-family:var(--mono); font-size:13px; color:var(--ink);
+    background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
+    border:1px solid var(--line-strong); border-bottom-width:3px; border-radius:8px;
+  }
+
+  /* ===================== 模组卡 ===================== */
+  .mod{
+    position:relative; overflow:hidden; padding:20px; border-radius:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    border:1px solid var(--line);
+    contain:paint;
+    transition:transform .28s, border-color .28s, box-shadow .28s;
+  }
+  .mod:hover{ transform:translateY(-4px); border-color:rgba(52,224,160,.4); box-shadow:0 14px 30px rgba(0,0,0,.4); }
+  .mod .mhead{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .mod .mico{
+    width:40px; height:40px; flex:none; border-radius:12px; display:grid; place-items:center;
+    background:linear-gradient(145deg,rgba(52,224,160,.16),rgba(167,139,250,.12));
+    border:1px solid rgba(255,255,255,.14); font-size:19px;
+  }
+  .mod h3{ font-size:16px; font-weight:800; }
+  .mod h3 small{ display:block; font-size:11px; font-weight:600; color:var(--ink-3); font-family:var(--mono); letter-spacing:.4px; }
+  .mod p{ position:relative; font-size:13.6px; color:var(--ink-2); }
+
+  /* ===================== 画廊 =====================
+     关键点：所有截图都是 16:9，所以每个格子也用 16:9，图片铺满、绝不出现
+     「块是竖的、图只占上半部分」的空档。宽高比用 padding-bottom 撑出来
+     （兼容性最好），图片再绝对定位铺满格子。
+     列的划分由 breakpoint 明确指定，不用 auto-fit —— 避免列宽忽宽忽窄。 */
+  .gallery{
+    display:grid; grid-template-columns:1fr; gap:14px;
+    content-visibility:auto; contain-intrinsic-size:auto 1400px;
+  }
+  @media (min-width:620px){ .gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (min-width:1040px){ .gallery{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; } }
+
+  .shot{
+    position:relative; cursor:zoom-in; border-radius:16px; overflow:hidden;
+    border:1px solid var(--line); background:var(--bg-2);
+    box-shadow:0 8px 20px rgba(0,0,0,.36);
+    contain:paint;                                  /* 悬停动效不会引发整页重绘 */
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s;
+  }
+  .shot:hover{ transform:translateY(-4px); border-color:rgba(52,224,160,.45); box-shadow:0 16px 34px rgba(0,0,0,.5); }
+  .shot:focus-visible{ outline:2px solid var(--brand); outline-offset:3px; }
+
+  /* 宽高比容器：padding-bottom 撑高（兼容性最好的经典做法），
+     比例由 JS 按图片真实尺寸写入，默认 16:9。图片绝对定位铺满整个格子。 */
+  .shot .frame{ position:relative; width:100%; height:0; padding-bottom:56.25%; overflow:hidden; }
+  .shot img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    opacity:0; transition:opacity .45s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .shot img.loaded{ opacity:1; }
+  .shot:hover img{ transform:scale(1.045); }
+
+  .shot .veil{
+    position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:14px 16px; text-align:left; pointer-events:none;
+    background:linear-gradient(to top,rgba(4,7,12,.9) 0%,rgba(4,7,12,.42) 44%,transparent 76%);
+  }
+  .shot .cap{ font-size:14.5px; font-weight:800; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.75); }
+  .shot .sub{ font-size:12.5px; color:rgba(226,238,248,.8); text-shadow:0 2px 8px rgba(0,0,0,.7); margin-top:1px; }
+  .shot .zoom{
+    position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:10px;
+    display:grid; place-items:center; color:#fff; opacity:0; transform:scale(.85); transition:.25s;
+    background:rgba(6,9,15,.62); border:1px solid rgba(255,255,255,.22);
+  }
+  .shot .zoom svg{ width:15px; height:15px; }
+  .shot:hover .zoom{ opacity:1; transform:scale(1); }
+
+  /* 灯箱 */
+  .lightbox{
+    position:fixed; inset:0; z-index:200; display:none; opacity:0;
+    align-items:center; justify-content:center; flex-direction:column; gap:16px; padding:24px;
+    background:rgba(3,5,9,.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    transition:opacity .24s;
+  }
+  .lightbox.open{ display:flex; opacity:1; }
+  .lb-stage{ max-width:min(1400px,94vw); width:100%; }
+  .lb-img{
+    width:100%; max-height:76vh; object-fit:contain; border-radius:14px;
+    border:1px solid var(--line-strong); box-shadow:0 24px 60px rgba(0,0,0,.7); background:#04070c;
+    opacity:1; transition:opacity .2s ease;
+  }
+  .lb-img.loading{ opacity:.35; }
+  .lb-cap{ text-align:center; margin-top:12px; }
+  .lb-cap .t{ font-size:17px; font-weight:800; color:#fff; }
+  .lb-cap .d{ font-size:13.5px; color:var(--ink-2); margin-top:2px; }
+  .lb-cap .i{ font-family:var(--mono); font-size:12px; color:var(--ink-3); margin-top:6px; }
+  .lb-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:46px; height:46px; border-radius:50%; display:grid; place-items:center; cursor:pointer;
+    color:#fff; background:rgba(20,28,42,.82); border:1px solid var(--line-strong);
+    transition:background .2s, border-color .2s;
+  }
+  .lb-btn:hover{ background:rgba(52,224,160,.24); border-color:rgba(52,224,160,.5); }
+  .lb-btn svg{ width:20px; height:20px; }
+  .lb-prev{ left:20px; } .lb-next{ right:20px; }
+  .lb-close{
+    position:fixed; top:20px; right:20px; width:44px; height:44px; border-radius:12px;
+    display:grid; place-items:center; cursor:pointer; color:#fff;
+    background:rgba(20,28,42,.82); border:1px solid var(--line-strong);
+  }
+  .lb-close:hover{ background:rgba(255,107,107,.24); border-color:rgba(255,107,107,.5); }
+  .lb-close svg{ width:18px; height:18px; }
+
+  /* ===================== 配置数据 ===================== */
+  .spec{
+    padding:20px; border-radius:16px; text-align:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    border:1px solid var(--line);
+    contain:paint;
+    transition:transform .28s, border-color .28s;
+  }
+  .spec:hover{ transform:translateY(-3px); border-color:rgba(56,189,248,.35); }
+  .spec .si{ font-size:22px; }
+  .spec .n{
+    font-family:var(--mono); font-size:clamp(22px,3vw,29px); font-weight:800; line-height:1.25;
+    background:linear-gradient(135deg,#fff,var(--brand)); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .spec .n small{ font-size:.5em; -webkit-text-fill-color:var(--ink-2); color:var(--ink-2); font-family:var(--font); font-weight:600; }
+  .spec .l{ font-size:13px; color:var(--ink-3); margin-top:2px; }
 
   /* ===================== 联系方式 ===================== */
-  .contact{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .c-box{
-    border:1px solid var(--line); border-radius:14px; padding:20px; text-align:center;
-    background:#fff; transition:.25s;
+    display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    border:1px solid var(--line);
+    contain:paint;
+    transition:transform .28s, border-color .28s, box-shadow .28s;
   }
-  .c-box:hover{ border-color:#cfe7e2; box-shadow:var(--shadow); }
-  .c-box .big{ font-size:20px; font-weight:700; color:var(--ink); margin:6px 0 4px; word-break:break-all; }
-  .c-box .tip{ font-size:12.5px; color:var(--ink-soft); }
+  .c-box:hover{ border-color:rgba(52,224,160,.38); transform:translateY(-3px); box-shadow:0 12px 26px rgba(0,0,0,.36); }
+  .c-box .ci{
+    width:48px; height:48px; flex:none; border-radius:14px; display:grid; place-items:center; font-size:22px;
+    background:linear-gradient(145deg,rgba(52,224,160,.16),rgba(56,189,248,.1)); border:1px solid var(--line-strong);
+  }
+  .c-box .k{ font-size:12px; color:var(--ink-3); letter-spacing:.6px; }
+  .c-box .v{ font-family:var(--mono); font-size:18px; font-weight:800; color:var(--ink); word-break:break-all; }
+  .c-box .a{ font-size:13px; margin-top:2px; display:inline-flex; align-items:center; gap:5px; }
+  .c-box .a svg{ width:13px; height:13px; }
 
   /* ===================== 页脚 ===================== */
-  footer{
-    margin:40px 0 30px; padding-top:22px; border-top:1px solid var(--line);
-    text-align:center; font-size:13px; color:var(--ink-soft);
-  }
-  .ai-note{
-    margin-top:12px; background:#fff; border:1px dashed #d9e5e2;
-    border-radius:12px; padding:12px 14px; font-size:12.5px; color:var(--ink-soft);
+  footer{ margin-top:64px; padding:34px 0 40px; border-top:1px solid var(--line); background:linear-gradient(180deg,transparent,rgba(52,224,160,.035)); }
+  .foot-grid{ display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; justify-content:space-between; }
+  .foot-brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
+  .foot-note{ font-size:12.6px; color:var(--ink-3); max-width:64ch; line-height:1.9; }
+  .foot-note b{ color:var(--ink-2); }
+  .foot-links{ display:flex; flex-wrap:wrap; gap:14px; font-size:13px; }
+  .foot-links a{ color:var(--ink-2); }
+  .foot-links a:hover{ color:var(--brand); }
+  .foot-bottom{
+    margin-top:22px; padding-top:18px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between;
+    font-size:12.4px; color:var(--ink-3);
   }
 
-  /* 复制成功的浮动提示 */
+  /* ===================== 复制提示 & 回到顶部 ===================== */
   .toast{
-    position:fixed; left:50%; bottom:32px; transform:translateX(-50%) translateY(20px);
-    background:var(--ink); color:#fff; padding:10px 20px; border-radius:10px;
-    font-size:14px; opacity:0; pointer-events:none; transition:.25s; z-index:99;
+    position:fixed; left:50%; bottom:34px; z-index:300;
+    display:flex; align-items:center; gap:9px;
+    padding:12px 20px; border-radius:13px; font-size:14px; font-weight:600; color:#04140d;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    box-shadow:0 16px 40px rgba(52,224,160,.35);
+    transform:translateX(-50%) translateY(24px) scale(.96); opacity:0; pointer-events:none;
+    transition:.3s cubic-bezier(.2,.8,.2,1);
   }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
+  .toast svg{ width:16px; height:16px; }
+  .totop{
+    position:fixed; right:22px; bottom:26px; z-index:90;
+    width:44px; height:44px; border-radius:50%; display:grid; place-items:center; cursor:pointer;
+    color:var(--brand); background:rgba(8,13,22,.92); border:1px solid var(--line-strong);
+    opacity:0; pointer-events:none; transform:translateY(10px); transition:.3s;
+  }
+  .totop.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .totop:hover{ background:rgba(52,224,160,.16); border-color:rgba(52,224,160,.5); }
+  .totop svg{ width:18px; height:18px; }
 
-  /* ===================== 手机端自适应 ===================== */
-  @media (max-width:720px){
-    .hero h1{ font-size:24px; }
-    .grid2, .contact{ grid-template-columns:1fr; }
+  /* ===================== 入场动画 =====================
+     只做 opacity + translateY，并且位移从 22px 收到 14px：位移越小，
+     动画期间需要重绘的面积就越小。will-change 只在动画进行时挂上，
+     结束后移除，避免长期占用图层显存。 */
+  .reveal{ opacity:0; transform:translateY(14px); }
+  .reveal.in{
+    opacity:1; transform:none; will-change:opacity, transform;
+    transition:opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ===================== 性能面板（按需显示） =====================
+     在网址后面加上 #perf 即可打开（例如 http://127.0.0.1:8123/#perf），
+     用来查看帧率、长任务、图片体积等实时数据。平时完全不影响页面。 */
+  .perf{
+    position:fixed; left:14px; bottom:14px; z-index:310; display:none;
+    max-width:min(330px,92vw); padding:12px 14px; border-radius:12px;
+    background:rgba(4,8,14,.94); border:1px solid var(--line-strong);
+    font-family:var(--mono); font-size:11.5px; line-height:1.85; color:var(--ink-2);
+    box-shadow:0 12px 30px rgba(0,0,0,.6);
+  }
+  body.perf-on .perf{ display:block; }
+  .perf h4{ font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--brand); margin-bottom:6px; font-family:var(--font); }
+  .perf b{ color:var(--ink); font-weight:700; }
+  .perf .ok{ color:var(--brand); }
+  .perf .warn{ color:var(--warn); }
+  .perf .bad{ color:var(--danger); }
+  .perf button{
+    margin-top:8px; cursor:pointer; font-family:var(--font); font-size:11.5px; font-weight:700;
+    color:var(--ink); background:var(--panel-2); border:1px solid var(--line-strong);
+    border-radius:8px; padding:5px 12px;
+  }
+  .perf button:hover{ color:var(--brand); border-color:rgba(52,224,160,.5); }
+
+  /* ===================== 响应式 ===================== */
+  @media (max-width:1000px){
+    .hero-grid{ grid-template-columns:1fr; gap:30px; }
+    .side-card{ grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); display:grid; }
+  }
+  @media (max-width:820px){
+    .nav-toggle{ display:grid; }
+    .nav-links{
+      position:fixed; left:0; right:0; top:var(--nav-h);
+      flex-direction:column; align-items:stretch; gap:4px;
+      margin:0; padding:14px;
+      background:rgba(6,9,15,.985); border-bottom:1px solid var(--line);
+      max-height:calc(100vh - var(--nav-h)); overflow-y:auto;
+      transform:translateY(-12px); opacity:0; visibility:hidden; transition:.25s;
+    }
+    body.nav-open .nav-links{ transform:none; opacity:1; visibility:visible; }
+    .nav-links a{ padding:13px 14px; font-size:15px; border-radius:12px; }
+    .nav-cta{ justify-content:center; margin-top:6px; }
     .card{ padding:22px 18px; }
-    .nav-links{ gap:12px; font-size:13px; }
+    .hero{ padding-top:52px; }
+    .section{ padding:42px 0 8px; }
+    .lb-btn{ width:40px; height:40px; } .lb-prev{ left:8px; } .lb-next{ right:8px; }
+    .addr-box{ padding:14px; }
+    .copy-btn{ width:100%; justify-content:center; }
   }
 </style>
 </head>
 <body>
 
-<!-- ===================== 顶部导航（改成新板块时，这里加一条即可） ===================== -->
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="logo"><span class="dot"></span>老牧柿服务器</div>
-    <div class="nav-links">
-      <a href="#join">加入服务器</a>
-      <a href="#download">模组包下载</a>
-      <a href="#skin">皮肤设置</a>
-      <a href="#claim">领地须知</a>
-      <a href="#concert">关于音乐</a>
-      <a href="#contact">联系</a>
-    </div>
-  </div>
-</nav>
+<!-- 背景装饰 -->
+<div class="bg-fx" aria-hidden="true">
+  <span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span>
+</div>
 
-<div class="wrap">
+<!-- 滚动进度条 -->
+<div class="progress" id="progress" aria-hidden="true"></div>
 
-  <!-- ===================== Hero：服务器地址 ===================== -->
+<!-- 顶部导航（由脚本注入，内容见下方 SITE.nav） -->
+<header class="nav" id="nav"></header>
+
+<main class="wrap">
+
+  <!-- ===================== Hero ===================== -->
   <section class="hero" id="join">
-    <h1>欢迎来到 老牧柿服务器</h1>
-    <p>Minecraft Java版 · 1.21.1 · NeoForge · 综合模组生存</p>
-    <div class="badges">
-      <span class="badge">版本 1.21.1</span>
-      <span class="badge">加载器 NeoForge</span>
-      <span class="badge">正版 / 离线均可进服</span>
-      <span class="badge">无氪金 · 绿色服</span>
+    <div class="hero-grid">
+      <div>
+        <span class="pill"><span class="dot"></span>服务器运行中 · 离线也可直接进入</span>
+        <h1>欢迎来到<br /><span class="grad">老牧柿服务器</span></h1>
+        <p class="hero-lead">
+          Minecraft Java 版 <b>1.21.1</b> · <b>NeoForge</b> 综合模组生存。<br />
+          以 <b>机械动力</b> 为骨、<b>精致储存</b> 为脉，搭配 <b>灾变</b>、<b>森罗物语</b>、<b>车万女仆</b> 等模组——
+          不打竞技、不逼氪，主打一个慢慢建、安心养老。
+        </p>
+
+        <div class="badges">
+          <span class="badge">版本 <b>1.21.1</b></span>
+          <span class="badge">加载器 <b>NeoForge</b></span>
+          <span class="badge">正版 / 离线 <b>均可进服</b></span>
+          <span class="badge"><b>领地保护</b></span>
+          <span class="badge">PvP <b>自由开关</b></span>
+          <span class="badge"><b>无氪金</b> 绿色服</span>
+        </div>
+
+        <div class="connect">
+          <div class="connect-label">服务器地址</div>
+          <div class="addr-box">
+            <div class="addr" id="serverAddr" title="点击右侧按钮复制">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span>xiaoshi.cfd</span>
+            </div>
+            <button class="copy-btn" id="copyBtn" type="button" data-copy="xiaoshi.cfd">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>复制地址</span>
+            </button>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="#download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
+              下载模组包
+            </a>
+            <a class="btn ghost" href="#gallery">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m4 17 4.5-4.5 3 3L15 12l5 5"/></svg>
+              看看服务器长啥样
+            </a>
+          </div>
+          <p class="hero-hint">
+            游戏内「多人游戏 → 添加服务器」粘贴地址即可；首次进入请先装好下方模组包，否则会被拦在门外。
+          </p>
+        </div>
+      </div>
+
+      <!-- 右侧速览 -->
+      <div class="side-card">
+        <div class="side-row">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></span>
+          <div><div class="k">CPU</div><div class="v">Platinum 8275CL · 2 核</div></div>
+        </div>
+        <div class="side-row">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8v5m0 0v3m0-3h4m4-5v8"/></svg></span>
+          <div><div class="k">内存</div><div class="v">8 GB RAM</div></div>
+        </div>
+        <div class="side-row">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V18a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3.3A7 7 0 0 0 12 2Z"/><path d="M9 22h6"/></svg></span>
+          <div><div class="k">核心玩法模组</div><div class="v">机械动力 · 精致储存</div></div>
+        </div>
+        <div class="side-row">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><div class="k">保护与规则</div><div class="v">领地保护 · PvP 可开关</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 服务器速览 ===================== -->
+  <section class="section" id="about">
+    <div class="section-head reveal">
+      <div class="eyebrow">About</div>
+      <h2 class="title">一个可以慢慢住下来的模组世界</h2>
+      <p class="subtitle">
+        服务器由玩家自费搭建，配置不算豪华，但完全够用：我们更在意长期稳定、存档不炸、随时能上。
+      </p>
     </div>
 
-    <!-- ⚠️ 修改点：把 PLAY_HOST 换成你的服务器地址（域名或 IP），两处都要改 -->
-    <div class="addr-box">
-      <div class="addr" id="serverAddr">xiaoshi.cfd</div>
-      <button class="btn" onclick="copyAddr()">📋 复制地址</button>
+    <div class="grid3 reveal">
+      <div class="spec"><div class="si">🧩</div><div class="n">5</div><div class="l">主玩模组方向</div></div>
+      <div class="spec"><div class="si">⚙️</div><div class="n">2<small> 核</small> / 8<small> GB</small></div><div class="l">CPU / 内存</div></div>
+      <div class="spec"><div class="si">🌐</div><div class="n">50<small>M</small>↑ / 200<small>M</small>↓</div><div class="l">上行 / 下行带宽</div></div>
+      <div class="spec"><div class="si">🛡️</div><div class="n">领地</div><div class="l">建筑受保护，区块级圈占</div></div>
+      <div class="spec"><div class="si">⚔️</div><div class="n">/pvp</div><div class="l">随时开关，互不打扰</div></div>
+      <div class="spec"><div class="si">🎮</div><div class="n">1.21.1</div><div class="l">Java 版 · NeoForge</div></div>
     </div>
-    <p class="hint">在游戏「多人游戏 → 添加服务器」中粘贴上方地址即可加入；进服请先下载下方模组包。</p>
+
+    <div class="notice reveal" style="margin-top:20px;">
+      <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>开服理念</b>
+      <ul>
+        <li>以<b>休闲养老</b>为主：不设高强度日常，不定期活动，想肝就肝、想摆就摆。</li>
+        <li>配置虽低，但我们对流畅度有信心；后续会视情况<b>逐步升级</b>硬件。</li>
+        <li>服务器<b>离线可进</b>，无需正版账号；正版玩家同样欢迎。</li>
+        <li>使用 <code>/pvp</code> 指令可自由开关 PvP（提示为英文，请自行辨认）。</li>
+      </ul>
+    </div>
   </section>
 
   <!-- ===================== 模组包下载 ===================== -->
-  <section class="card" id="download">
-    <div class="title"><span class="ico">📦</span>模组包下载</div>
-    <p class="subtitle">小柿服务器模组包v1.3.2｜Minecraft 1.21.1 + NeoForge｜更新日期：2026/10/2</p>
-
-    <div class="grid2">
-      <!-- 方式一：直链（下载快、无需登录，推荐） -->
-      <div class="dl">
-        <h3>① 直链下载（推荐）</h3>
-        <p class="desc">免登录、不限速，适合网络环境好的同学。若链接失效或需要完整模组包请改用网盘。</p>
-        <!-- ⚠️ 修改点：把 href 换成你的直链地址 -->
-        <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85%201.3.2.mrpack" target="_blank" rel="noopener">⬇ 立即下载</a>
-      </div>
-
-      <!-- 方式二：网盘（直链挂了时的备选） -->
-      <div class="dl">
-        <h3>② 网盘下载（备用）</h3>
-        <p class="desc">直链异常或速度慢时使用，需输入提取码。</p>
-        <!-- ⚠️ 修改点：把 href 换成你的网盘分享链接 -->
-        <a class="btn ghost" href="https://pan.baidu.com/s/1eBgowRXX9OV5AvLY6FnJrA" target="_blank" rel="noopener">🔗 打开网盘</a>
-        <!-- ⚠️ 修改点：网盘提取码；不需要可整行删掉 -->
-        <div class="code-chip">提取码：xish</div>
-      </div>
+  <section class="section" id="download">
+    <div class="section-head reveal">
+      <div class="eyebrow">Download</div>
+      <h2 class="title">模组包下载</h2>
+      <p class="subtitle">小柿服务器模组包 v1.3.2 · Minecraft 1.21.1 + NeoForge · 推荐使用直链，网盘为备用。</p>
     </div>
 
-    <div class="notice" style="background:var(--brand-light);border-color:#d5ece7;border-left-color:var(--brand);">
-      <b style="color:var(--brand-dark);">安装提示</b>
-      <ul style="color:var(--ink-soft);">
-        <li>先安装 <b>NeoForge 1.21.1</b> 加载器，再把模组包内文件放进 <code>.minecraft/mods</code>（仅完整模组整合包）；</li>
-        <li>或者用 <b>HMCL / PCL2</b> 启动器直接导入整合包；</li>
-        <li>进服前请确认模组列表与服务端一致，多装/少装都会导致无法进入。</li>
-        <li>可自行添加一些合规的客户端模组（如钠、Xaero的小地图等）。</li>
-      </ul>
+    <div class="card reveal">
+      <div class="meta-line">
+        <span class="chip">整合包版本 <b>v1.3.2</b></span>
+        <span class="chip">游戏版本 <b>1.21.1</b></span>
+        <span class="chip">加载器 <b>NeoForge</b></span>
+        <span class="chip">格式 <b>.mrpack</b></span>
+        <span class="chip">最后更新 <b>2026/10/2</b></span>
+      </div>
+
+      <div class="grid2">
+        <!-- 直链 -->
+        <div class="dl">
+          <span class="tag">推荐</span>
+          <h3><span class="num">1</span>直链下载</h3>
+          <p class="desc">免登录、不限速，网络环境好就选它。链接失效或需要完整整合包时请改用网盘。</p>
+          <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85%201.3.2.mrpack" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
+            立即下载
+          </a>
+        </div>
+
+        <!-- 网盘 -->
+        <div class="dl">
+          <h3><span class="num">2</span>网盘备用</h3>
+          <p class="desc">直链异常或下载速度慢时使用，需输入提取码。</p>
+          <a class="btn ghost" href="https://pan.baidu.com/s/1eBgowRXX9OV5AvLY6FnJrA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.8 1.8"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.8-1.8"/></svg>
+            打开网盘
+          </a>
+          <div class="code-chip">提取码 <b>xish</b> <button class="term-copy" type="button" data-copy="xish">复制</button></div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8v8l9 5 9-5V8Z"/><path d="M12 12v9M3 8l9 4 9-4"/></svg>安装步骤</b>
+        <ul>
+          <li>先装好 <b class="hl">NeoForge 1.21.1</b> 加载器；若使用整合包，直接用 <b class="hl">HMCL / PCL2</b> 导入 <code>.mrpack</code> 即可。</li>
+          <li>手动安装时，把模组包内的模组文件放进 <code>.minecraft/mods</code>。</li>
+          <li>进服前请确认模组列表与服务端一致——<b class="hl">多装或少装都可能导致无法进入</b>。</li>
+          <li>可以自行添加合规的客户端模组，例如钠（Sodium）、Xaero 的小地图等，不影响进服。</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== 皮肤设置：SkinRestorer + LittleSkin ===================== -->
-  <section class="card" id="skin">
-    <div class="title"><span class="ico">🧍</span>皮肤设置（SkinRestorer）</div>
-    <p class="subtitle">服务器已安装 SkinRestorer，离线/第三方登录也能正常显示皮肤。</p>
-
-    <div class="steps">
-      <li><b>进服后打开聊天栏</b>，输入下方命令即可更换皮肤（<code>/</code> 开头）。</li>
-      <li><b>使用正版玩家同款皮肤：</b>直接填对方的游戏 ID。</li>
-      <li><b>使用 LittleSkin 皮肤站的皮肤：</b>直接填衣柜的角色 ID。</li>
-      <li><b>恢复默认皮肤：</b>使用清除命令。</li>
+  <!-- ===================== 模组介绍 ===================== -->
+  <section class="section" id="mods">
+    <div class="section-head reveal">
+      <div class="eyebrow">Mods</div>
+      <h2 class="title">服务器主玩模组</h2>
+      <p class="subtitle">下面是本服的几个主打方向，其余模组进服后慢慢发现也不迟。</p>
     </div>
 
-    <pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
-    <span class="k">/skin set mojang PlayerName</span>
+    <div class="grid3 reveal">
+      <article class="mod">
+        <div class="mhead"><span class="mico">⚙️</span><h3>机械动力<small>Create</small></h3></div>
+        <p>用齿轮、传送带与流水线搭建属于你的自动化工厂。风车、蒸汽机、列车，一切都能亲手造出来。</p>
+      </article>
+      <article class="mod">
+        <div class="mhead"><span class="mico">📦</span><h3>精致储存<small>Sophisticated Storage</small></h3></div>
+        <p>容量更大、还能升级的箱子与背包，配合漏斗、抽取升级，把杂乱仓库整理得明明白白。</p>
+      </article>
+      <article class="mod">
+        <div class="mhead"><span class="mico">🐉</span><h3>灾变<small>L_Ender's Cataclysm</small></h3></div>
+        <p>为世界加入强力的 BOSS 与地牢挑战，装备成型后拉上伙伴一起去开荒，成就感拉满。</p>
+      </article>
+      <article class="mod">
+        <div class="mhead"><span class="mico">🌸</span><h3>森罗物语<small>Nature's Spirit</small></h3></div>
+        <p>大量自然与和风装饰方块、植物与建材，把房子、庭院和街道做出真正的生活感。</p>
+      </article>
+      <article class="mod">
+        <div class="mhead"><span class="mico">🧹</span><h3>车万女仆<small>Touhou Little Maid</small></h3></div>
+        <p>招募可爱的女仆帮你打理农田、整理箱子、陪同冒险，也可以静静坐在院子里当个听众。</p>
+      </article>
+      <article class="mod">
+        <div class="mhead"><span class="mico">🎹</span><h3>永无止境音乐会<small>Limitless Concert</small></h3></div>
+        <p>可合成各类乐器，鼠标手动弹奏或接入 MIDI 键盘演奏，也支持 .mid 文件自动播放。</p>
+      </article>
+    </div>
+  </section>
 
-    <span class="c"># ② 用LittleSkin 皮肤站（把SkinName换成衣柜中对应的角色名即可）</span>
-    <span class="k">/skin set littleskin SkinName</span>
-      
-    <span class="c"># ② 用皮肤链接换肤（自定义皮肤站用这个）</span>
-    <span class="k">/skin set web classic/slim https://abc.com/xxx/xxxx</span>
-    <span class="c"># 指令中的 classic / slim 二选一填写：classic 为粗壮模型，slim 为纤细模型。</span>
-    <span class="c"># 将指令中的 https://abc.com/xxx/xxxx 替换为该皮肤的展开图直链，来源不限——皮肤库的下载链接、角色管理中的 2D 预览链接均可。</span>
-    <span class="c"># 只要是可直接读取的皮肤展开图 URL 即可。</span>
+  <!-- ===================== 画廊 ===================== -->
+  <section class="section" id="gallery">
+    <div class="section-head reveal">
+      <div class="eyebrow">Gallery</div>
+      <h2 class="title">服务器实景</h2>
+      <p class="subtitle">全部截图来自服内玩家与服主的真实存档，点开可以看大图。</p>
+    </div>
+    <div class="gallery" id="galleryGrid"></div>
+  </section>
 
-    <span class="c"># ③ 清除当前皮肤，恢复默认</span>
-    <span class="k">/skin clear</span>
-    </pre>
+  <!-- ===================== 皮肤设置 ===================== -->
+  <section class="section" id="skin">
+    <div class="section-head reveal">
+      <div class="eyebrow">Skin</div>
+      <h2 class="title">皮肤设置（SkinRestorer）</h2>
+      <p class="subtitle">服务器已安装 SkinRestorer，离线账号与第三方登录也能正常显示皮肤。</p>
+    </div>
 
+    <div class="card reveal">
+      <ol class="steps">
+        <li>进服后<b>打开聊天栏</b>，输入下列以 <code>/</code> 开头的命令即可更换皮肤。</li>
+        <li><b>使用正版玩家同款皮肤：</b>直接填写对方的游戏 ID。</li>
+        <li><b>使用 LittleSkin 皮肤站的皮肤：</b>填写衣柜中对应的角色名。</li>
+        <li><b>使用图片直链：</b>任何可直接读取的皮肤展开图 URL（皮肤库下载链接、角色管理里的 2D 预览链接均可）。</li>
+        <li><b>恢复默认皮肤：</b>执行清除命令。</li>
+      </ol>
 
+      <div class="term">
+        <div class="term-bar">
+          <i></i><i></i><i></i><span>chat — 皮肤指令</span>
+          <button class="term-copy" type="button" data-copy="/skin set mojang PlayerName
+/skin set littleskin SkinName
+/skin set web classic/slim https://abc.com/xxx/xxxx
+/skin clear">复制全部</button>
+        </div>
+<pre class="cmd"><span class="c"># ① 套用某个正版玩家的皮肤（把 PlayerName 换成对方 ID）</span>
+<span class="k">/skin set mojang</span> <span class="a">PlayerName</span>
 
-   <!-- <div class="title" style="font-size:16px;margin-top:22px;"><span class="ico" style="width:26px;height:26px;font-size:14px;">🌐</span>LittleSkin 皮肤使用流程</div>
-    <div class="steps" style="margin-top:12px;">
-      <li>打开 LittleSkin 站点并<b>注册/登录账号</b>（可使用离线账号绑定）。</li>
-      <li>在「我的衣柜 / 皮肤管理」中<b>上传你喜欢的皮肤文件</b>（.png，64×32 或 64×64）。</li>
-      <li>上传完成后<b>复制该皮肤的直链地址</b>（右键皮肤图片 → 复制链接，或使用站点的「分享链接」）。</li>
-      <li>回到游戏，执行 <code>/skin set url &lt;刚才复制的链接&gt;</code>，稍等 1–2 秒即可生效。</li>
-      <li>若皮肤没变化：先 <code>/skin clear</code> 再重设，或退出重进；Still 无效请检查链接是否为<b>图片直链</b>（以 .png 结尾）。</li>
-    </div> -->
+<span class="c"># ② 使用 LittleSkin 皮肤站（把 SkinName 换成衣柜中对应的角色名）</span>
+<span class="k">/skin set littleskin</span> <span class="a">SkinName</span>
 
-    <div class="notice">
-      <b>注意</b>
-      <ul>
-        <li>在显示 Skin changed 之类的提示，就可确认更换成功，如果不放心可以让其他成员检测；</li>
-        <li>加载 URL 需要一定时间，以 LittleSkin 为例通常需要几秒到十几秒，请耐心等待；</li>
-        <li>请勿使用违规/侵权皮肤，服内发现将直接重置为默认皮肤。</li>
-      </ul>
+<span class="c"># ③ 使用皮肤展开图直链（自定义皮肤站用这个）</span>
+<span class="k">/skin set web</span> <span class="a">classic/slim</span> <span class="a">https://abc.com/xxx/xxxx</span>
+<span class="c">#   classic / slim 二选一：classic 为粗壮模型，slim 为纤细模型。</span>
+<span class="c">#   把链接换成该皮肤的展开图直链，只要能被直接读取即可。</span>
+
+<span class="c"># ④ 清除当前皮肤，恢复默认</span>
+<span class="k">/skin clear</span></pre>
+      </div>
+
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>注意事项</b>
+        <ul>
+          <li>出现 <b class="hl">Skin changed</b> 之类的提示就说明更换成功；不放心可以让其他成员帮忙确认。</li>
+          <li>加载 URL 需要一点时间，以 LittleSkin 为例通常几秒到十几秒，请耐心等待。</li>
+          <li>请勿使用违规或侵权皮肤，服内发现会直接重置为默认皮肤。</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- ===================== 领地须知 ===================== -->
-  <section class="card" id="claim">
-    <div class="title"><span class="ico">🏡</span>领地须知</div>
-    <p class="subtitle">保护你的家，也请把空间留给别人。</p>
-
-    <div class="steps">
-      <li>站在你所要圈占的<b>区块</b>。</li>
-      <li>按 <kbd>'</kbd> 键<b>（键盘上分号 <kbd>;</kbd> 右边的引号按键）</b>可查看部分信息。</li>
-      <li>确认范围后按提示点击<b>圈占</b>完成圈地。（若要拓展只需要到要拓展的区块再圈占即可）</li>
+  <section class="section" id="claim">
+    <div class="section-head reveal">
+      <div class="eyebrow">Claim</div>
+      <h2 class="title">领地须知</h2>
+      <p class="subtitle">保护你的家，也请把空间留给别人。</p>
     </div>
 
-    <div class="notice">
-      <b>⚠️ 领地规则，请务必先看</b>
-      <ul>
-        <li><b>少设领地</b>：只圈真正需要保护的区域，够用就好，不要大范围圈地；</li>
-        <li><b>领地要有意义</b>：仅用于保护建筑、营地、农场等实际内容；</li>
-        <li><b>过量或意义不明</b>（圈空地、圈大片荒野、圈路、圈资源点占位、多个零碎小领地）的领地，<b>管理将直接删除，不作额外通知</b>；</li>
-        <li>长期不在线且领地内无实质建筑的，同样可能被清理；</li>
-        <li>有争议请先联系管理，勿自行扩圈或与邻居对峙。</li>
-      </ul>
-    </div>
-  </section>
+    <div class="card reveal">
+      <ol class="steps">
+        <li>站在你想要圈占的<b>区块</b>上。</li>
+        <li>按 <kbd>'</kbd> 键<b>（分号 <kbd>;</kbd> 右边那个引号键）</b>可以查看区块信息。</li>
+        <li>确认范围后，按提示点击<b>圈占</b>即可完成圈地；需要扩展时，走到要扩展的区块再圈占一次即可。</li>
+      </ol>
 
-  <!-- ===================== Limitless Concert：永无止境音乐会 ===================== -->
-  <section class="card" id="concert">
-    <div class="title"><span class="ico">🎵</span>永无止境：音乐会（Limitless Concert）</div>
-    <p class="subtitle">服务器已内置 Limitless Concert 模组，合成、放置、弹奏，三步开启你的 MC 音乐会。</p>
-
-    <div class="steps">
-      <li>在<b>工作台</b>中即可合成出本模组提供的各类<b>乐器</b>，配方须自行查询。</li>
-      <li>把乐器放入快捷栏并<b>放置</b>到地上，靠近右键打开乐器界面即可开始使用。</li>
-      <li>演奏支持两种方式：<b>鼠标点击按键</b>手动弹奏，或<b>接入 MIDI 设备</b>（如 MIDI 键盘）直接演奏，即插即弹，以及其他相关演奏方式。</li>
-      <li>如果你不会弹奏也没关系，可以用 <b>MID 自动播放</b>：先下载好 .mid 文件，放入游戏目录的
-        <code>config/limitless_concert/mid</code> 文件夹，回到乐器界面点击「选择 mid 文件」选中它，再点击「打开 Mid 文件」即可自动播放。</li>
-    </div>
-
-    <div class="notice">
-      <b>⚠️ 注意事项</b>
-      <ul>
-        <li><b>MID 播放跟随玩家：</b>MID 正在播放时如果<b>该玩家下线</b>，播放会<b>立即停止</b>；想让音乐持续，请另行他法。</li>
-        <li>请使用<b>合法、无版权争议的曲谱</b>，勿在服务器内播放侵权或违规内容。</li>
-        <li>公共区域演奏请<b>控制音量/时长</b>，避免打扰他人；发生争议请先联系管理协调。</li>
-        <li>若 MID 未识别：检查文件是否为标准 .mid 格式、是否已放进正确的 <code>mid</code> 子文件夹，并重开乐器界面刷新。</li>
-      </ul>
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>领地规则，请务必先看</b>
+        <ul>
+          <li><b class="hl">少设领地：</b>只圈真正需要保护的区域，够用就好，不要大范围圈地。</li>
+          <li><b class="hl">领地要有意义：</b>仅用于保护建筑、营地、农场等实际内容。</li>
+          <li><b class="hl">过量或意义不明</b>（圈空地、圈大片荒野、圈道路、圈资源点占位、多个零碎小领地）的领地，<b class="hl">管理将直接删除，不作额外通知</b>。</li>
+          <li>长期不在线、领地内又没有实质建筑的，同样可能被清理。</li>
+          <li>有争议请先联系管理，不要自行扩圈或与邻居对峙。</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== 联系方式：QQ 群 + 邮箱 ===================== -->
-  <section class="card" id="contact">
-    <div class="title"><span class="ico">💬</span>联系我们</div>
-    <p class="subtitle">仅通过以下两种方式联系，其他渠道均非官方。</p>
+  <!-- ===================== 音乐会 ===================== -->
+  <section class="section" id="concert">
+    <div class="section-head reveal">
+      <div class="eyebrow">Music</div>
+      <h2 class="title">永无止境：音乐会（Limitless Concert）</h2>
+      <p class="subtitle">服务器已内置 Limitless Concert 模组，合成、放置、弹奏，三步开启你的 MC 音乐会。</p>
+    </div>
 
-    <div class="contact">
+    <div class="card reveal">
+      <ol class="steps">
+        <li>在<b>工作台</b>中即可合成模组提供的各类<b>乐器</b>，具体配方请自行查询。</li>
+        <li>把乐器放进快捷栏并<b>放置</b>到地上，靠近后右键打开乐器界面即可使用。</li>
+        <li>演奏支持两种方式：<b>鼠标点击按键</b>手动弹奏，或<b>接入 MIDI 设备</b>（如 MIDI 键盘）即插即弹。</li>
+        <li>不会弹也没关系，可以用 <b>MID 自动播放</b>：先下载好 <code>.mid</code> 文件，放进游戏目录的
+          <code>config/limitless_concert/mid</code> 文件夹，回到乐器界面点击「选择 mid 文件」选中它，再点击「打开 Mid 文件」即可自动播放。</li>
+      </ol>
+
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>注意事项</b>
+        <ul>
+          <li><b class="hl">MID 播放跟随玩家：</b>播放期间该玩家下线，音乐会<b class="hl">立即停止</b>；想让音乐持续请另行他法。</li>
+          <li>请使用<b class="hl">合法、无版权争议的曲谱</b>，不要在服内播放侵权或违规内容。</li>
+          <li>在公共区域演奏请<b class="hl">控制音量与时长</b>，避免打扰他人；有争议先联系管理协调。</li>
+          <li>若 MID 未被识别：确认文件是标准 <code>.mid</code> 格式、已放进正确的 <code>mid</code> 子文件夹，并重开乐器界面刷新。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 联系 ===================== -->
+  <section class="section" id="contact">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="title">联系我们</h2>
+      <p class="subtitle">仅通过以下两种方式联系，其他渠道均非官方。</p>
+    </div>
+
+    <div class="grid2 reveal">
       <div class="c-box">
-        <div style="font-size:26px;">🐧</div>
-        <div class="big">1107267975</div>
-        <!-- ⚠️ 修改点：QQ 群号与加群链接 -->
-        <a href="https://qm.qq.com/q/TPI51E26Q2" target="_blank" rel="noopener">点击加入官方 Q 群</a>
-        <div class="tip">公告、开服通知、问题反馈都在群里</div>
+        <span class="ci">🐧</span>
+        <div>
+          <div class="k">官方 QQ 群</div>
+          <div class="v">1107267975</div>
+          <a class="a" href="https://qm.qq.com/q/TPI51E26Q2" target="_blank" rel="noopener">
+            点击加入官方群
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <div class="k" style="margin-top:4px;">公告、开服通知、问题反馈都在群里</div>
+        </div>
       </div>
 
       <div class="c-box">
-        <div style="font-size:26px;">✉️</div>
-        <!-- ⚠️ 修改点：你的邮箱 -->
-        <div class="big">3873932064@qq.com</div>
-        <div href="mailto: 3873932064%40qq.com ">发送邮件</div>
-        <div class="tip">申诉、举报请附上游戏 ID 与截图</div>
+        <span class="ci">✉️</span>
+        <div>
+          <div class="k">服主邮箱</div>
+          <div class="v">3873932064@qq.com</div>
+          <a class="a" href="mailto:3873932064@qq.com">
+            发送邮件
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          </a>
+          <div class="k" style="margin-top:4px;">申诉、举报请附上游戏 ID 与截图</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===================== 页脚 ===================== -->
   <footer>
-    <div>老牧柿服务器 · Minecraft 1.21.1 NeoForge · 最后更新：2026/10/1</div>
-    <div style="margin-top:4px;">Minecraft 是 Mojang Studios 的商标，本站为玩家交流用途，非官方服务器。</div>
-    <div class="ai-note">
-      🤖 <b>本页面由 AI 生成。</b>页面中的命令、按键与规则描述可能与服务器实际情况存在差异，
-      <b>如有不符，请以服务器内实际提示与管理公告为准。</b>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 2v20M3 7l9 5 9-5"/></svg></span>
+          老牧柿服务器
+        </div>
+        <p class="foot-note" style="margin-top:10px;">
+          Minecraft Java 版 1.21.1 · NeoForge 综合模组生存服 · 服务器地址 <b>xiaoshi.cfd</b><br />
+          本页面由 AI 生成，页面中的命令、按键与规则描述可能与服务器实际情况存在差异，
+          <b>如有不符，请以服务器内实际提示与管理公告为准。</b>
+        </p>
+      </div>
+      <nav class="foot-links" id="footLinks"></nav>
+    </div>
+    <div class="foot-bottom">
+      <span>最后更新：2026/10/2</span>
+      <span>Minecraft 是 Mojang Studios 的商标，本站为玩家交流用途，非官方服务器。</span>
     </div>
   </footer>
 
+</main>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="截图预览">
+  <button class="lb-close" id="lbClose" type="button" aria-label="关闭">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="上一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+  </button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="下一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+  </button>
+  <div class="lb-stage">
+    <img class="lb-img" id="lbImg" alt="" />
+    <div class="lb-cap">
+      <div class="t" id="lbTitle"></div>
+      <div class="d" id="lbDesc"></div>
+      <div class="i" id="lbIdx"></div>
+    </div>
+  </div>
 </div>
 
-<div class="toast" id="toast">已复制服务器地址 ✅</div>
+<!-- 提示 -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>
+  <span id="toastText">已复制</span>
+</div>
+
+<!-- 性能面板：网址后加 #perf 才会显示 -->
+<div class="perf" id="perfPanel" aria-hidden="true">
+  <h4>性能面板 · #perf</h4>
+  <div id="perfBody"></div>
+  <button type="button" id="perfReset">重置统计</button>
+</div>
+
+<!-- 回到顶部 -->
+<button class="totop" id="toTop" type="button" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
+</button>
 
 <script>
-  /* ===== 一键复制服务器地址 ===== */
-  function copyAddr(){
-    const text = document.getElementById('serverAddr').textContent.trim();
-    const done = () => showToast();
+/* ============================================================================
+   ① 站点配置：改这里就够了
+   ========================================================================== */
+const SITE = {
+  nav: [
+    { id:'join',     label:'加入服务器' },
+    { id:'about',    label:'服务器速览' },
+    { id:'download', label:'模组包下载' },
+    { id:'mods',     label:'主玩模组'   },
+    { id:'gallery',  label:'实景画廊'   },
+    { id:'skin',     label:'皮肤设置'   },
+    { id:'claim',    label:'领地须知'   },
+    { id:'concert',  label:'音乐会'     },
+    { id:'contact',  label:'联系'       }
+  ],
+
+  /* 画廊：slug 对应 assets/img/shots/<slug>.webp
+     每张图都按 ratio 撑出格子（不写则默认 16:9 = 56.25%），图片会填满整个格子；
+     如果以后加的是竖图，写 ratio:'133.33%'（3:4）即可，不会出现空档。 */
+  shots: [
+    { slug:'owner-home',     title:'服主的家',       sub:'云杉木双层小屋，门前就是樱花与竹林',
+      desc:'出生点附近的第一栋建筑，二层小楼配烟囱与灯笼，是很多新玩家第一次落脚的地方。' },
+    { slug:'sunset-wheat',   title:'日落的麦田',     sub:'光影下的金色黄昏',
+      desc:'傍晚的麦田被夕阳整片染成金色，服里最适合发呆看风景的位置之一。' },
+    { slug:'create-base',    title:'玩家的机械基地', sub:'机械动力自动化产线',
+      desc:'齿轮、传送带与储罐组成的小型自动化工厂，机器动起来的样子很有成就感。' },
+    { slug:'manor',          title:'玩家的庄园',     sub:'自建住宅 + 大片农田与竹林',
+      desc:'石砖与深色橡木搭起的庄园，屋后是整片农场，从种植到收获全都能自己动手。' },
+    { slug:'cozy-interior',  title:'温馨的室内',     sub:'木质小屋里的暖光客厅',
+      desc:'灯笼暖光、木地板与装饰画，玩家把室内做到了「推门就想坐下」的程度。' },
+    { slug:'tavern',         title:'玩家的酒馆',     sub:'竹林樱树间的半露天酒馆',
+      desc:'竹影与樱花之间的半露天酒馆，长桌、灯笼与篝火，适合几个人围坐聊天。' },
+    { slug:'reimu-statue',   title:'夜下的灵梦雕像', sub:'车万女仆模组的巨大雕像',
+      desc:'夜里亮起灯笼的灵梦雕像，樱树环绕，是服里最受欢迎的打卡点。' },
+    { slug:'owner-portrait', title:'服主的头像',     sub:'像素风的人物头像墙',
+      desc:'用方块一点点拼出的人物头像，远看过去相当有冲击力。' }
+  ]
+};
+</script>
+
+<script>
+/* ============================================================================
+   ② 页面渲染与交互（一般不需要改动）
+   ========================================================================== */
+(function () {
+  'use strict';
+  const $  = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.prototype.slice.call((r || document).querySelectorAll(s));
+
+  /* ---------- 复制 ---------- */
+  let toastTimer = null;
+  function toast(msg) {
+    const t = $('#toast');
+    $('#toastText').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1900);
+  }
+  function copyText(text, okMsg) {
+    const done = () => toast(okMsg || '已复制到剪贴板');
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(done, fallback);
-    } else {
-      fallback();
-    }
-    // 老浏览器兜底方案
-    function fallback(){
+    } else { fallback(); }
+    function fallback() {
       const ta = document.createElement('textarea');
-      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
-      document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); showToast(); }catch(e){ alert('请手动复制：' + text); }
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch (e) { window.prompt('请手动复制：', text); }
       document.body.removeChild(ta);
     }
   }
+  document.addEventListener('click', function (e) {
+    const el = e.target.closest('[data-copy]');
+    if (!el) return;
+    e.preventDefault();
+    const text = el.getAttribute('data-copy');
+    copyText(text, el.id === 'copyBtn' ? '服务器地址已复制 ✅' : '已复制：' + text);
+    if (el.id === 'copyBtn') {
+      el.classList.add('done');
+      const label = el.querySelector('span');
+      if (label) {
+        const old = label.textContent;
+        label.textContent = '已复制';
+        setTimeout(() => { label.textContent = old; el.classList.remove('done'); }, 1700);
+      }
+    }
+  });
 
-  /* ===== 底部轻提示 ===== */
-  let timer = null;
-  function showToast(){
-    const t = document.getElementById('toast');
-    t.classList.add('show');
-    clearTimeout(timer);
-    timer = setTimeout(() => t.classList.remove('show'), 1800);
+  /* ---------- 导航 ---------- */
+  const nav = $('#nav');
+  nav.innerHTML =
+    '<div class="nav-inner">' +
+      '<a class="brand" href="#join">' +
+        '<span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">' +
+        '<path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 2v20M3 7l9 5 9-5"/></svg></span>' +
+        '<span>老牧柿服务器<small>xiaoshi.cfd</small></span>' +
+      '</a>' +
+      '<button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单">' +
+        '<svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>' +
+        '<svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>' +
+      '</button>' +
+      '<nav class="nav-links" id="navLinks">' +
+        SITE.nav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('') +
+        '<a class="nav-cta" href="#download">下载模组包</a>' +
+      '</nav>' +
+    '</div>';
+
+  $('#footLinks').innerHTML = SITE.nav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('');
+
+  const navToggle = $('#navToggle');
+  navToggle.addEventListener('click', function () {
+    const open = document.body.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+  });
+  $$('#navLinks a').forEach(a => a.addEventListener('click', function () {
+    document.body.classList.remove('nav-open');
+  }));
+
+  /* ---------- 画廊 ----------
+     每张图都按真实宽高比撑出格子（默认 16:9），图片 fill 铺满格子，
+     所以不会出现「格子是竖的、横图只占上半部分」的空档。 */
+  const grid = $('#galleryGrid');
+  grid.innerHTML = SITE.shots.map(function (s, i) {
+    const full  = 'assets/img/shots/' + s.slug + '.webp';
+    const thumb = 'assets/img/shots/' + s.slug + '-thumb.webp';
+    return '<figure class="shot" data-i="' + i + '" tabindex="0" role="button" aria-label="查看：' + s.title + '">' +
+      '<div class="frame" style="padding-bottom:' + (s.ratio || '56.25%') + '">' +
+        '<img src="' + thumb + '" alt="' + s.title + ' — ' + s.sub + '" width="800" height="450" loading="lazy" decoding="async" data-full="' + full + '">' +
+        '<div class="veil"><figcaption class="cap">' + s.title + '</figcaption><div class="sub">' + s.sub + '</div></div>' +
+        '<span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>' +
+      '</div></figure>';
+  }).join('');
+
+  $$('.shot img', grid).forEach(function (img) {
+    const mark = () => img.classList.add('loaded');
+    if (img.complete && img.naturalWidth) { mark(); }
+    else { img.addEventListener('load', mark, { once: true }); img.addEventListener('error', mark, { once: true }); }
+  });
+
+  /* ---------- 灯箱 ---------- */
+  const lb = $('#lightbox'), lbImg = $('#lbImg');
+  let cur = 0, lastFocus = null;
+  const fullSrc = (i) => 'assets/img/shots/' + SITE.shots[i].slug + '.webp';
+
+  function show(i) {
+    cur = (i + SITE.shots.length) % SITE.shots.length;
+    const s = SITE.shots[cur];
+    const token = cur;
+
+    // 先放已经解码好的缩略图，再异步换上大图：切换时不会白屏，也不会卡住主线程
+    lbImg.classList.add('loading');
+    lbImg.src = 'assets/img/shots/' + s.slug + '-thumb.webp';
+    lbImg.alt = s.title;
+
+    const big = new Image();
+    big.decoding = 'async';
+    big.onload = function () {
+      if (token !== cur) return;          // 已经切到别的图了，丢弃这次结果
+      lbImg.src = big.src;
+      lbImg.classList.remove('loading');
+    };
+    big.onerror = function () { if (token === cur) lbImg.classList.remove('loading'); };
+    big.src = fullSrc(cur);
+
+    $('#lbTitle').textContent = s.title;
+    $('#lbDesc').textContent  = s.desc || s.sub;
+    $('#lbIdx').textContent   = (cur + 1) + ' / ' + SITE.shots.length;
+
+    // 预取下一张，方向键连按更顺
+    const pre = new Image(); pre.decoding = 'async';
+    pre.src = fullSrc((cur + 1) % SITE.shots.length);
+  }
+  function open(i) {
+    lastFocus = document.activeElement;
+    show(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    $('#lbClose').focus();
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    cur = -1;                              // 让仍在飞的大图回调失效
+    lbImg.removeAttribute('src');           // 顺手释放大图内存
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  grid.addEventListener('click', function (e) {
+    const fig = e.target.closest('.shot');
+    if (fig) open(Number(fig.getAttribute('data-i')));
+  });
+  grid.addEventListener('keydown', function (e) {
+    const fig = e.target.closest('.shot');
+    if (fig && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(Number(fig.getAttribute('data-i'))); }
+  });
+  $('#lbClose').addEventListener('click', close);
+  $('#lbPrev').addEventListener('click', () => show(cur - 1));
+  $('#lbNext').addEventListener('click', () => show(cur + 1));
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft')  show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+  });
+
+  /* ---------- 滚动：进度条 / 导航高亮 / 回到顶部 ----------
+     关键优化：高亮改用 IntersectionObserver，滚动回调里彻底不读 offsetTop /
+     scrollHeight。这两个属性一旦读取，浏览器必须立刻结算布局，是最常见的
+     滚动掉帧原因。总高度改为缓存，只在 resize / load 时重算。 */
+  const bar = $('#progress'), toTop = $('#toTop');
+  const navLinks = $$('#navLinks a[href^="#"]').filter(a => !a.classList.contains('nav-cta'));
+  const navMap = {};
+  navLinks.forEach(a => { navMap[a.getAttribute('href').slice(1)] = a; });
+  let activeId = 'join';
+
+  function setActive(id) {
+    if (!navMap[id] || id === activeId) return;
+    activeId = id;
+    Object.keys(navMap).forEach(k => navMap[k].classList.toggle('active', k === id));
   }
 
-  /* ===== 导航高亮当前区块（新增 section 无需改这里） ===== */
-  const links = [...document.querySelectorAll('.nav-links a')];
-  const secs  = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  window.addEventListener('scroll', () => {
-    let idx = 0;
-    secs.forEach((s, i) => { if (window.scrollY + 120 >= s.offsetTop) idx = i; });
-    links.forEach(a => a.style.color = '');
-    if (links[idx]) links[idx].style.color = 'var(--brand)';
-  }, { passive:true });
+  if ('IntersectionObserver' in window) {
+    const spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.target.id) return;
+        // 命中观察带，或者已经滚过这个区块，都算它当前生效
+        if (en.isIntersecting || en.boundingClientRect.top < 0) setActive(en.target.id);
+      });
+    }, { rootMargin: '-22% 0px -58% 0px', threshold: 0 });
+    $$('.hero, .section').forEach(s => spy.observe(s));
+  }
+
+  let ticking = false, docHeight = document.documentElement.scrollHeight;
+  function onScroll() {
+    ticking = false;
+    const y = window.scrollY || window.pageYOffset;
+    bar.style.width = Math.min(100, (y / Math.max(1, docHeight - window.innerHeight)) * 100) + '%';
+    nav.classList.toggle('scrolled', y > 12);
+    toTop.classList.toggle('show', y > 600);
+  }
+  function refreshHeight() {
+    docHeight = document.documentElement.scrollHeight;
+    onScroll();
+  }
+  let resizeTimer = null;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refreshHeight, 180);
+  });
+  window.addEventListener('load', refreshHeight);
+  refreshHeight();
+
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* ---------- 入场动画 ----------
+     逐个区块观察（不做阶梯延时，避免一次性触发十几个动画）；
+     动画结束后清掉 will-change，不让合成层长期占着显存。 */
+  const reveals = $$('.reveal');
+  function revealNow(el) {
+    el.classList.add('in');
+    setTimeout(function () { el.style.willChange = ''; }, 700);
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { revealNow(en.target); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.04 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---------- 性能面板（仅当网址带 #perf 时启用，平时零开销） ---------- */
+  (function perfPanel() {
+    if (location.hash.indexOf('perf') === -1) return;
+    if (typeof PerformanceObserver === 'undefined') return;
+    document.body.classList.add('perf-on');
+
+    let longTasks = 0, longMs = 0, fps = 0, last = performance.now(), frames = 0, rafId = 0;
+    try {
+      new PerformanceObserver(function (list) {
+        list.getEntries().forEach(function (e) { longTasks++; longMs += e.duration; });
+      }).observe({ entryTypes: ['longtask'] });
+    } catch (e) { /* 个别浏览器不支持 longtask */ }
+
+    function loop(now) {
+      frames++;
+      if (now - last >= 1000) { fps = Math.round((frames * 1000) / (now - last)); frames = 0; last = now; }
+      rafId = requestAnimationFrame(loop);
+    }
+    rafId = requestAnimationFrame(loop);
+
+    function bytes() {
+      let total = 0, imgs = 0;
+      performance.getEntriesByType('resource').forEach(function (r) {
+        if (/\.(webp|png|jpe?g|gif|svg)$/i.test(r.name)) { total += r.encodedBodySize || r.transferSize || 0; imgs++; }
+      });
+      return [Math.round(total / 1024), imgs];
+    }
+    const body = document.getElementById('perfBody');
+    function render() {
+      const b = bytes();
+      const nav = performance.getEntriesByType('navigation')[0];
+      body.innerHTML =
+        'FPS(近1秒): ' + (fps >= 55 ? '<b class="ok">' : fps >= 40 ? '<b class="warn">' : '<b class="bad">') + fps + '</b><br>' +
+        '长任务: <b>' + longTasks + '</b> 次 / 共 <b>' + Math.round(longMs) + '</b> ms<br>' +
+        '图片加载: <b>' + b[1] + '</b> 个 / <b>' + b[0] + '</b> KB<br>' +
+        'DOM 节点: <b>' + document.getElementsByTagName('*').length + '</b><br>' +
+        '页面高度: <b>' + docHeight + '</b> px<br>' +
+        (nav ? 'DOM 就绪: <b>' + Math.round(nav.domContentLoadedEventEnd) + '</b> ms' : '');
+    }
+    render();
+    setInterval(render, 1000);
+    document.getElementById('perfReset').addEventListener('click', function () {
+      longTasks = 0; longMs = 0; render();
+    });
+  })();
+})();
 </script>
 
 </body>
