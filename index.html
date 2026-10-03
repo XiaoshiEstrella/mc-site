@@ -14,7 +14,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="老牧柿服务器" />
 <meta property="og:title" content="老牧柿服务器 · 1.21.1 NeoForge 综合模组生存服" />
-<meta property="og:description" content="机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆。休闲养老、离线可进、领地保护、PvP 自由开关。地址：xiaoshi.cfd" />
+<meta property="og:description" content="机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆。休闲养老、离线可进、领地保护、PvP 自由开关。地址：xiaoshicraft.cn" />
 <meta property="og:image" content="assets/img/shots/owner-home.webp" />
 <meta property="og:url" content="https://xiaoshicraft.cn/" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -115,6 +115,44 @@
     background:radial-gradient(circle,rgba(167,139,250,.20),rgba(167,139,250,.04) 45%,transparent 68%);
   }
   @keyframes drift1{ 0%,100%{ transform:translate3d(0,0,0) } 50%{ transform:translate3d(3vw,2vh,0) } }
+
+  /* ===================== 服务器在线状态 ===================== */
+  .status{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:22px 0 0; padding:11px 16px; border-radius:14px;
+    background:rgba(255,255,255,.045); border:1px solid var(--line);
+    transition:background .3s, border-color .3s;
+  }
+  .status .led{ position:relative; width:10px; height:10px; border-radius:50%; flex:none; background:var(--ink-3); }
+  .status .led::after{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    background:inherit; animation:led 2s ease-out infinite;
+  }
+  @keyframes led{ 0%{ transform:scale(1); opacity:.6 } 100%{ transform:scale(3.2); opacity:0 } }
+
+  .status .txt{ font-size:14px; color:var(--ink-2); }
+  .status .txt b{ color:var(--ink); font-weight:800; }
+  .status .sub{ font-size:12px; color:var(--ink-3); }
+
+  .status .refresh{
+    width:30px; height:30px; flex:none; margin-left:auto; display:grid; place-items:center;
+    border-radius:9px; cursor:pointer; color:var(--ink-3);
+    background:rgba(255,255,255,.05); border:1px solid var(--line); transition:.22s;
+  }
+  .status .refresh:hover{ color:var(--brand); border-color:rgba(52,224,160,.45); }
+  .status .refresh:disabled{ opacity:.45; cursor:default; }
+  .status .refresh svg{ width:15px; height:15px; }
+  .status.is-loading .refresh svg{ animation:spin 1s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg) } }
+
+  /* 两种状态配色：在线 / 离线 */
+  .status.online{ background:rgba(52,224,160,.09); border-color:rgba(52,224,160,.34); }
+  .status.online .led{ background:var(--brand); box-shadow:0 0 10px rgba(52,224,160,.9); }
+  .status.online .txt b{ color:var(--brand); }
+
+  .status.offline{ background:rgba(255,107,107,.08); border-color:rgba(255,107,107,.3); }
+  .status.offline .led{ background:var(--danger); }
+  .status.offline .led::after{ animation:none; }
 
   /* ===================== 顶部导航 ===================== */
   .progress{
@@ -739,7 +777,7 @@
   <section class="hero" id="join">
     <div class="hero-grid">
       <div>
-        <span class="pill"><span class="dot"></span>服务器运行中 · 离线也可直接进入</span>
+        <span class="pill"><span class="dot"></span>离线可进 · 无需正版账号</span>
         <h1>欢迎来到<br /><span class="grad">老牧柿服务器</span></h1>
         <p class="hero-lead">
           Minecraft Java 版 <b>1.21.1</b> · <b>NeoForge</b> 综合模组生存。<br />
@@ -756,6 +794,16 @@
           <span class="badge"><b>无氪金</b> 绿色服</span>
         </div>
 
+        <!-- 服务器在线状态：由脚本定时查询，见 SITE.status -->
+        <div class="status is-loading" id="serverStatus" aria-live="polite">
+          <span class="led" aria-hidden="true"></span>
+          <span class="txt" id="statusText"><b>正在查询服务器状态…</b><span class="sub">请稍候</span></span>
+          <button class="refresh" type="button" id="statusRefresh" title="立即刷新" aria-label="刷新服务器状态">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg>
+          </button>
+          <noscript><span class="sub">需要启用 JavaScript 才能显示实时状态</span></noscript>
+        </div>
+
         <div class="connect">
           <div class="connect-label">服务器地址</div>
           <div class="addr-box">
@@ -763,7 +811,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
               <span>xiaoshicraft.cn</span>
             </div>
-            <button class="copy-btn" id="copyBtn" type="button" data-copy="xiaoshi.cfd">
+            <button class="copy-btn" id="copyBtn" type="button" data-copy="xiaoshicraft.cn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
               <span>复制地址</span>
             </button>
@@ -1170,7 +1218,7 @@
           老牧柿服务器
         </div>
         <p class="foot-note" style="margin-top:10px;">
-          Minecraft Java 版 1.21.1 · NeoForge 综合模组生存服 · 服务器地址 <b>xiaoshi.cfd</b><br />
+          Minecraft Java 版 1.21.1 · NeoForge 综合模组生存服 · 服务器地址 <b>xiaoshicraft.cn</b><br />
           本页面由 AI 生成，页面中的命令、按键与规则描述可能与服务器实际情况存在差异，
           <b>如有不符，请以服务器内实际提示与管理公告为准。</b>
         </p>
@@ -1281,6 +1329,22 @@ const SITE = {
     }
     */
   ],
+
+  /* ============================================================
+     服务器在线状态
+     ------------------------------------------------------------
+     address 是「底层实际查询的地址」：必须用直连的 IP:端口。
+     实测用域名（xiaoshicraft.cn / aam.rainplay.cn）去查询，
+     接口握手会失败并误报离线；换成 IP:端口 才准确。
+     只显示两项：是否在运行、在线人数。
+     ============================================================ */
+  status: {
+    address: '103.239.245.197:23478',
+    api: 'https://api.mcsrvstat.us/3/',
+    fallbackApi: 'https://api.mcstatus.io/v2/status/java/',
+    interval: 60000,
+    timeout: 8000
+  },
 
   /* 画廊：slug 对应 assets/img/shots/<slug>.webp
      每张图都按 ratio 撑出格子（不写则默认 16:9 = 56.25%），图片会填满整个格子；
@@ -1513,6 +1577,121 @@ const SITE = {
     else if (e.key === 'ArrowRight') show(cur + 1);
   });
 
+  /* ---------- 服务器在线状态 ----------
+     为什么要调接口：浏览器无法直接对 MC 服务器做 SRV 解析，更不能发 MC 协议握手包，
+     所以由第三方接口去完成「先 SRV、无结果再回落 A / AAAA」的解析与 ping，
+     这里只读回「是否在线」和「在线人数」。
+     接口按顺序尝试：主接口 → 备用接口 → 极简文本探测；全部失败则提示「暂时查不到」。 */
+  (function serverStatus() {
+    const box = $('#serverStatus');
+    const txt = $('#statusText');
+    const btn = $('#statusRefresh');
+    if (!box || !txt) return;
+
+    const cfg = SITE.status || {};
+    const addr = cfg.address || '103.239.245.197:23478';
+    // 用 file:// 直接打开本地文件时无法跨域查询，直接给出提示
+    if (location.protocol === 'file:') {
+      box.classList.remove('is-loading');
+      box.classList.add('offline');
+      txt.innerHTML = '<b>本地预览模式</b><span class="sub">上传到网站后才会显示实时状态</span>';
+      if (btn) btn.hidden = true;
+      return;
+    }
+
+    // 给性能面板（#perf）读的运行时信息
+    const state = { status: 'unknown', players: null, text: '正在查询服务器状态…', ms: null };
+    window.__statusInfo = state;
+    let inflight = null, timer = null;
+
+    function getJSON(url) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), cfg.timeout || 8000);
+      const started = Date.now();
+      return fetch(url, { signal: ctrl.signal, cache: 'no-store', referrerPolicy: 'no-referrer' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (j) { state.ms = Date.now() - started; return j; })
+        .finally(function () { clearTimeout(t); });
+    }
+
+    // 两个接口的返回结构不同，在这里统一成 { online, players }
+    function viaMcsrvstat() {
+      return getJSON(cfg.api + encodeURIComponent(addr)).then(function (j) {
+        if (typeof j.online !== 'boolean') throw new Error('bad response');
+        const p = j.online && j.players && typeof j.players.online === 'number'
+          ? { online: j.players.online, max: j.players.max } : null;
+        return { online: j.online, players: p };
+      });
+    }
+    function viaMcstatus() {
+      return getJSON(cfg.fallbackApi + encodeURIComponent(addr)).then(function (j) {
+        if (typeof j.online !== 'boolean') throw new Error('bad response');
+        const p = j.online && j.players && typeof j.players.online === 'number'
+          ? { online: j.players.online, max: j.players.max } : null;
+        return { online: j.online, players: p };
+      });
+    }
+
+    function apply(res) {
+      box.classList.remove('is-loading', 'online', 'offline');
+      if (res.online) {
+        box.classList.add('online');
+        const n = res.players ? res.players.online : null;
+        state.status = 'online';
+        state.players = n;
+        state.text = '服务器正在运行' + (n === null ? '' : ' · 在线 ' + n + ' 人');
+        txt.innerHTML = '<b>服务器正在运行</b>' +
+          (n === null
+            ? '<span class="sub">在线人数暂时获取不到</span>'
+            : ' · <b>在线 ' + n + ' 人</b>' +
+              (res.players.max ? '<span class="sub"> / 上限 ' + res.players.max + '</span>' : ''));
+      } else {
+        box.classList.add('offline');
+        state.status = 'offline';
+        state.players = null;
+        state.text = '服务器当前离线';
+        txt.innerHTML = '<b>服务器当前离线</b><span class="sub">可能正在维护或重启，稍后再试</span>';
+      }
+    }
+
+    function refresh() {
+      if (inflight) return inflight;
+      box.classList.add('is-loading');
+      if (btn) btn.disabled = true;
+      inflight = viaMcsrvstat()
+        .catch(viaMcstatus)          // 主接口失败才用备用接口；两个都失败则保持上次结果
+        .then(apply)
+        .catch(function () {
+          box.classList.remove('is-loading');
+          if (state.status === 'unknown') {
+            state.text = '暂时查不到状态';
+            txt.innerHTML = '<b>暂时查不到状态</b><span class="sub">状态接口不可用，稍后自动重试</span>';
+          }
+        })
+        .then(function () {
+          box.classList.remove('is-loading');
+          if (btn) btn.disabled = false;
+          inflight = null;
+        });
+      return inflight;
+    }
+
+    function start() { stop(); timer = setInterval(refresh, cfg.interval || 60000); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    if (btn) btn.addEventListener('click', function () {
+      refresh().then(function () { toast('状态已更新'); });
+    });
+    // 页面不可见时停止轮询，回到前台立刻刷新一次 —— 既不浪费请求也不影响及时性
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop();
+      else { refresh(); start(); }
+    });
+
+    refresh();
+    start();
+  })();
+
   /* ---------- 滚动：进度条 / 导航高亮 / 回到顶部 ----------
      关键优化：高亮改用 IntersectionObserver，滚动回调里彻底不读 offsetTop /
      scrollHeight。这两个属性一旦读取，浏览器必须立刻结算布局，是最常见的
@@ -1615,13 +1794,16 @@ const SITE = {
     function render() {
       const b = bytes();
       const nav = performance.getEntriesByType('navigation')[0];
+      const st = window.__statusInfo || null;
       body.innerHTML =
         'FPS(近1秒): ' + (fps >= 55 ? '<b class="ok">' : fps >= 40 ? '<b class="warn">' : '<b class="bad">') + fps + '</b><br>' +
         '长任务: <b>' + longTasks + '</b> 次 / 共 <b>' + Math.round(longMs) + '</b> ms<br>' +
         '图片加载: <b>' + b[1] + '</b> 个 / <b>' + b[0] + '</b> KB<br>' +
         'DOM 节点: <b>' + document.getElementsByTagName('*').length + '</b><br>' +
         '页面高度: <b>' + docHeight + '</b> px<br>' +
-        (nav ? 'DOM 就绪: <b>' + Math.round(nav.domContentLoadedEventEnd) + '</b> ms' : '');
+        (nav ? 'DOM 就绪: <b>' + Math.round(nav.domContentLoadedEventEnd) + '</b> ms<br>' : '') +
+        (st ? '状态接口: <b>' + (st.ms === null ? '—' : st.ms + ' ms') + '</b> · ' + st.status +
+              (st.players === null ? '' : ' · ' + st.players + ' 人') : '');
     }
     render();
     setInterval(render, 1000);
