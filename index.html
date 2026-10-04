@@ -181,34 +181,27 @@
       radial-gradient(120% 60% at 50% 100%, rgba(246,179,82,.16), transparent 70%);
   }
 
-  /* 弹幕层：名字从右往左飘过 */
-  .danmaku{
-    position:absolute; inset:0; z-index:2;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    gap:10px; padding:64px 0 54px;
-  }
-  .lane{
-    position:relative; height:36px; overflow:hidden;
-    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
-  }
-  .dtrack{
-    position:absolute; top:0; left:0; height:36px; width:max-content;
-    display:flex; align-items:center; gap:12px;
-    will-change:transform;
-  }
-  .anim .dtrack{ animation:dm var(--dur,40s) linear var(--delay,0s) infinite; }
-  .danmaku.paused .dtrack{ animation-play-state:paused; }
-  @keyframes dm{ from{ transform:translate3d(var(--start,100vw),0,0) } to{ transform:translate3d(var(--end,-1600px),0,0) } }
-
+  /* 弹幕层：每个名字独立投放、独立随机高度、独立随机间隔 */
+  .danmaku{ position:absolute; inset:0; z-index:2; padding:58px 0 42px; }
   .dname{
-    flex:none; display:inline-flex; align-items:baseline; gap:7px; white-space:nowrap;
+    position:absolute; top:0; left:0; will-change:transform;
+    display:inline-flex; align-items:baseline; gap:7px; white-space:nowrap;
     padding:7px 15px; border-radius:99px; font-size:13.5px; line-height:1.5; font-weight:700; color:#fff;
-    background:rgba(18,26,40,.62); border:1px solid rgba(246,179,82,.32);
+    background:rgba(18,26,40,.68); border:1px solid rgba(246,179,82,.32);
     text-shadow:0 1px 6px rgba(0,0,0,.7);
+    transition:transform 1s linear, opacity .5s ease;
+    opacity:0;
   }
+  .dname.in{ opacity:1; }
+  .dname.out{ opacity:0; }
+  /* 名牌从右端进场 / 从左端退场时的柔和淡出遮罩层 */
+  .danmaku::before, .danmaku::after{
+    content:""; position:absolute; top:0; bottom:0; width:56px; z-index:3; pointer-events:none;
+  }
+  .danmaku::before{ left:0; background:linear-gradient(90deg,rgba(4,7,12,.92),transparent); }
+  .danmaku::after{ right:0; background:linear-gradient(270deg,rgba(4,7,12,.92),transparent); }
   .dname .amt{ font-size:12px; font-weight:800; color:var(--warn); }
-  .dname.top{ background:rgba(246,179,82,.18); border-color:rgba(246,179,82,.6); }
+  .dname.top{ background:rgba(246,179,82,.2); border-color:rgba(246,179,82,.6); }
   .dname.top .amt{ color:#ffd89a; }
   .dname .crown{ font-size:11px; }
 
@@ -1941,9 +1934,14 @@ const SITE = {
   })();
 
   /* ---------- 赞助 · 贡献者纪念碑（名字弹幕，模块化：内容来自 SITE.sponsors） ----------
-     弹幕做法：把名单按道（lane）分组，每道的整条轨道用 translate3d 从右往左匀速平移。
-     只动 transform，走合成层，不触发重绘；名字是重复的，所以出屏后接得上，形成无缝循环。
-     若用户开启了「减少动态效果」，就不滚，改成静态名字列表。 */
+     玩法：把名单当作一副牌，洗好后按「道」轮流发牌。
+       1. 每道一次只放一小批（1–3 个）名字，滚完出屏后，再给这道发新的一批；
+       2. 牌发完了就重新洗牌——所以每个人都会被展示，且顺序每轮都不一样（真随机但公平）；
+       3. 人少 → 道数自动减少（1–2 道）并且滚得更慢，名字是「一波一波」来，不会同一人连着刷屏；
+       4. 人多 → 道数增多（最多 4 道），一次只抽一部分，永远保持画面清爽；
+       道数越多，每道单独滚得越慢，这样不论多少人都保持差不多的整体密度。
+     性能：只动 transform 走合成层；每次发牌是一次很小的 DOM 写入，按动画周期触发（十几秒一次）。
+     关闭「动态效果」时退化成静态名字列表。 */
   (function sponsorsSection() {
     const list = (SITE.sponsors && SITE.sponsors.list) || [];
     const stage = $('#danmaku');
@@ -1969,7 +1967,7 @@ const SITE = {
     if (cEl) cEl.textContent = String(list.length);
     if (tEl) tEl.textContent = hasAmount ? String(total) : '—';
 
-    // 无脚本 / 关闭动画时的静态名单
+    // 静态名单：无脚本 / 关闭动画 / 出错时的兜底，所有人都在
     if (staticBox) {
       staticBox.innerHTML = list.map((s) => '<li class="dname' + (s.top ? ' top' : '') + '">' +
         '<span>' + s.name + '</span><span class="amt">' + labelOf(s) + '</span></li>').join('');
@@ -1983,49 +1981,144 @@ const SITE = {
       return;
     }
 
-    const LANES = Math.max(1, Math.min(3, Math.ceil(list.length / 2)));
-    const groups = [];
-    for (let i = 0; i < LANES; i++) groups.push([]);
-    list.forEach((s, i) => groups[i % LANES].push(s));
+    // ---- 逐名节奏器 ----
+    // 每个名字单独投放：单独随机高度、单独随机间隔、单独随机横穿时间。
+    // 「同一时刻同名不重复」由 inflight 登记保证：正在屏上的名字不会被再次投放。
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    }
+    // 同屏名额数：人多就多给几个名额，但整体密度保持稳定
+    function laneCount(n) {
+      if (n <= 2) return 1;
+      if (n <= 6) return 2;
+      if (n <= 12) return 3;
+      return 4;
+    }
+    function speedFor(n) {
+      if (n <= 9) return 88;
+      if (n <= 24) return 96;
+      return 104;
+    }
 
-    // 每道放两份名单，滚动距离等于「两份」的宽度，循环时严丝合缝
-    stage.innerHTML = groups.map((g, i) =>
-      '<div class="lane"><div class="dtrack" data-lane="' + i + '">' +
-        (chip(g[0]) + g.concat(g).map(chip).join('')) +
-      '</div></div>'
-    ).join('');
+    const LANES = laneCount(list.length);
+    const SPEED = speedFor(list.length) / (0.72 + 0.28 * LANES);
+    const inflight = {};                                      // 名字 -> 下屏时间（秒）
+    let pool = [];
+    function reshuffle() { pool = shuffle(list); }
 
-    function layout() {
-      const vw = stage.clientWidth || window.innerWidth || 1200;
-      $$('.dtrack', stage).forEach(function (track, i) {
-        const one = track.firstElementChild;
-        const unit = one ? one.getBoundingClientRect().width + 12 : 220;   // 12 = gap
-        const width = track.getBoundingClientRect().width;
-        const dur = Math.max(22, Math.round((width + vw) / 62));           // 约 62px/s
-        const delay = -Math.round(i * (dur / 4));                          // 错开出场
-        track.style.setProperty('--start', vw + 'px');
-        track.style.setProperty('--end', (-width) + 'px');
-        track.style.setProperty('--dur', dur + 's');
-        track.style.setProperty('--delay', delay + 's');
+    // 布局参数只读一次：用估算的滚动距离，避免每次投放都强制布局
+    function stageInfo() {
+      const vw = Math.max(320, stage.clientWidth || window.innerWidth || 1200);
+      const reserve = Math.min(260, Math.round(vw * 0.2));
+      return { vw: vw, travel: Math.max(360, vw - reserve) };
+    }
+    let info = stageInfo();
+    // 平均间隔 = 横穿时间 / 目标同屏个数（约 1.2 个名字同时在空中）
+    function pace() {
+      const dur0 = info.travel / SPEED;
+      const interval = dur0 / 1.2;
+      return { ivMin: interval * 0.6, ivMax: interval * 1.4 };
+    }
+    let paceInfo = pace();
+
+    // 投放一个名字
+    function spawn() {
+      const now = performance.now() / 1000;
+      const busy = {};
+      Object.keys(inflight).forEach(function (k) { if (inflight[k] > now) busy[k] = 1; });
+      let chosen = null;
+      for (let g = 0; g < 80 && !chosen; g++) {
+        if (!pool.length) reshuffle();
+        for (let i = 0; i < pool.length; i++) {
+          if (!busy[pool[i]]) { chosen = pool.splice(i, 1)[0]; break; }   // 正在屏上的绝不重投
+        }
+      }
+      if (!chosen) return null;
+
+      const el = document.createElement('span');
+      el.className = 'dname' + (chosen.top ? ' top' : '');
+      el.innerHTML = (chosen.top ? '<span class="crown">👑</span>' : '') +
+        '<span>' + chosen.name + '</span><span class="amt">' + labelOf(chosen) + '</span>';
+      el.style.top = '0px';
+      el.style.transform = 'translate3d(' + info.vw + 'px,0,0)';
+      stage.appendChild(el);
+
+      const w = el.offsetWidth;
+      // Y 轴随机：与上一个名字的高度至少错开 12%，避免挤在一起
+      const room = Math.max(40, stage.clientHeight - 58 - 42 - 38);
+      let y = Math.random();
+      if (spawn._lastY >= 0) {
+        for (let g = 0; g < 8 && Math.abs(y - spawn._lastY) < 0.12; g++) y = Math.random();
+      }
+      spawn._lastY = y;
+      el.style.top = Math.round(58 + y * room) + 'px';
+
+      const dur = Math.max(9, (info.travel / SPEED) * (0.85 + Math.random() * 0.3));
+      inflight[chosen.name] = now + dur;
+      el._name = chosen.name;
+
+      requestAnimationFrame(function () {
+        el.classList.add('in');
+        el.style.transition = 'transform ' + dur.toFixed(1) + 's linear, opacity .5s ease';
+        el.style.transform = 'translate3d(' + (-w - 20) + 'px,0,0)';
       });
+
+      setTimeout(function () {
+        el.classList.add('out');
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+          if (inflight[chosen.name] <= performance.now() / 1000) delete inflight[chosen.name];
+        }, 520);
+      }, Math.round(dur * 1000));
+      return dur;
     }
-    function start() {
-      layout();
-      stage.classList.add('anim');
-      // 每轮重新计算，保证「两份宽度」与实际渲染一致
-      setInterval(layout, 12000);
+
+    // 投放循环：每个名额一个计时器，到点就投一个名字，并把下一次间隔重新随机
+    let timer = null;
+    let ticks = [];
+    function resetTicks() {
+      const p = paceInfo;
+      ticks = [];
+      const mid = (p.ivMin + p.ivMax) / 2;
+      for (let i = 0; i < LANES; i++) ticks.push(i * mid * 0.4 * (0.6 + Math.random() * 0.8));
     }
-    start();
+    function tickLoop() {
+      if (timer) return;
+      timer = setInterval(function () {
+        if (document.hidden || stage.classList.contains('paused') || !ticks.length) return;
+        const now = performance.now() / 1000;
+        const p = paceInfo;
+        for (let i = 0; i < ticks.length; i++) {
+          if (now >= ticks[i]) {
+            const ok = spawn();
+            ticks[i] = now + (ok === null ? 1.5 : p.ivMin + Math.random() * (p.ivMax - p.ivMin));
+          }
+        }
+      }, 250);
+    }
+    resetTicks();
+    tickLoop();
 
     // 鼠标移上去 / 页面切后台时暂停，方便看清名字，也省点性能
     if (monument) {
-      monument.addEventListener('mouseenter', () => stage.classList.add('paused'));
-      monument.addEventListener('mouseleave', () => stage.classList.remove('paused'));
+      monument.addEventListener('mouseenter', function () { stage.classList.add('paused'); });
+      monument.addEventListener('mouseleave', function () { stage.classList.remove('paused'); });
     }
-    document.addEventListener('visibilitychange', function () {
-      stage.classList.toggle('paused', document.hidden);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stage.classList.add('paused'); });
+    let resizeTimer2 = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer2);
+      resizeTimer2 = setTimeout(function () {
+        info = stageInfo();
+        paceInfo = pace();
+        // 宽度变了，正在飞的名字直接清掉重来，避免残留到错误位置
+        $$('.dname', stage).forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+        Object.keys(inflight).forEach(function (k) { delete inflight[k]; });
+        resetTicks();
+      }, 240);
     });
-    window.addEventListener('resize', () => setTimeout(layout, 200));
   })();
 
   /* ---------- 滚动：进度条 / 导航高亮 / 回到顶部 ----------
@@ -2140,8 +2233,7 @@ const SITE = {
       const b = bytes();
       const nav = performance.getEntriesByType('navigation')[0];
       const st = window.__statusInfo || null;
-      const lanes = document.querySelectorAll ? document.querySelectorAll('.dtrack').length : 0;
-      const running = document.querySelectorAll ? document.querySelectorAll('#danmaku.anim .dtrack').length : 0;
+      const flying = document.querySelectorAll ? document.querySelectorAll('#danmaku .dname').length : 0;
       body.innerHTML =
         'FPS(近1秒): ' + (fps >= 55 ? '<b class="ok">' : fps >= 40 ? '<b class="warn">' : '<b class="bad">') + fps + '</b><br>' +
         '长任务: <b>' + longTasks + '</b> 次 / 共 <b>' + Math.round(longMs) + '</b> ms<br>' +
@@ -2149,7 +2241,7 @@ const SITE = {
         'DOM 节点: <b>' + document.getElementsByTagName('*').length + '</b><br>' +
         '页面高度: <b>' + docHeight + '</b> px<br>' +
         (nav ? 'DOM 就绪: <b>' + Math.round(nav.domContentLoadedEventEnd) + '</b> ms<br>' : '') +
-        '弹幕轨道: <b>' + running + '</b> / ' + lanes + ' 条运行中<br>' +
+        '弹幕在飞: <b>' + flying + '</b> 个名牌<br>' +
         (st ? '状态接口: <b>' + (st.ms === null ? '—' : st.ms + ' ms') + '</b> · ' + st.status +
               (st.players === null ? '' : ' · ' + st.players + ' 人') : '');
     }
