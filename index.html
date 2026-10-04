@@ -154,6 +154,124 @@
   .status.offline .led{ background:var(--danger); }
   .status.offline .led::after{ animation:none; }
 
+  /* ===================== 赞助 · 贡献者纪念碑 ===================== */
+  .sponsor{
+    display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
+    gap:18px; align-items:start;
+  }
+  @media (max-width:1000px){ .sponsor{ grid-template-columns:1fr; } }
+
+  /* 纪念碑 + 弹幕舞台 */
+  .monument{
+    position:relative; overflow:hidden; border-radius:18px;
+    border:1px solid rgba(246,179,82,.28);
+    box-shadow:0 12px 30px rgba(0,0,0,.42);
+    min-height:clamp(330px,42vw,470px);
+    background:#0a1017;
+    contain:paint;
+  }
+  .monument > img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center 38%;
+  }
+  .monument::after{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(to top,rgba(4,7,12,.94) 0%,rgba(4,7,12,.72) 42%,rgba(4,7,12,.42) 100%),
+      radial-gradient(120% 60% at 50% 100%, rgba(246,179,82,.16), transparent 70%);
+  }
+
+  /* 弹幕层：名字从右往左飘过 */
+  .danmaku{
+    position:absolute; inset:0; z-index:2;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    gap:10px; padding:64px 0 54px;
+  }
+  .lane{
+    position:relative; height:36px; overflow:hidden;
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  }
+  .dtrack{
+    position:absolute; top:0; left:0; height:36px; width:max-content;
+    display:flex; align-items:center; gap:12px;
+    will-change:transform;
+  }
+  .anim .dtrack{ animation:dm var(--dur,40s) linear var(--delay,0s) infinite; }
+  .danmaku.paused .dtrack{ animation-play-state:paused; }
+  @keyframes dm{ from{ transform:translate3d(var(--start,100vw),0,0) } to{ transform:translate3d(var(--end,-1600px),0,0) } }
+
+  .dname{
+    flex:none; display:inline-flex; align-items:baseline; gap:7px; white-space:nowrap;
+    padding:7px 15px; border-radius:99px; font-size:13.5px; line-height:1.5; font-weight:700; color:#fff;
+    background:rgba(18,26,40,.62); border:1px solid rgba(246,179,82,.32);
+    text-shadow:0 1px 6px rgba(0,0,0,.7);
+  }
+  .dname .amt{ font-size:12px; font-weight:800; color:var(--warn); }
+  .dname.top{ background:rgba(246,179,82,.18); border-color:rgba(246,179,82,.6); }
+  .dname.top .amt{ color:#ffd89a; }
+  .dname .crown{ font-size:11px; }
+
+  /* 弹幕层中央的题字 */
+  .mon-cap{
+    position:absolute; left:0; right:0; top:clamp(18px,4vw,32px); z-index:3;
+    text-align:center; pointer-events:none; padding:0 16px;
+  }
+  .mon-cap .t{
+    font-size:clamp(17px,2.4vw,23px); font-weight:900; letter-spacing:3px; color:#fff;
+    text-shadow:0 2px 14px rgba(0,0,0,.9), 0 0 26px rgba(246,179,82,.5);
+  }
+  .mon-cap .s{
+    margin-top:5px; font-size:12px; letter-spacing:1.2px; color:rgba(255,224,178,.85);
+    text-shadow:0 2px 10px rgba(0,0,0,.9);
+  }
+  .mon-hint{
+    position:absolute; left:0; right:0; bottom:14px; z-index:3; text-align:center;
+    font-size:11.5px; letter-spacing:1px; color:rgba(226,238,248,.55); pointer-events:none;
+  }
+  .monument.no-anim .danmaku{ display:none; }
+  .names-static{
+    position:absolute; inset:auto 0 0 0; z-index:2;
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    padding:16px 18px 40px;
+  }
+  .names-static[hidden]{ display:none; }
+
+  /* 感谢与赞助说明 */
+  .thanks{ padding:24px 22px; }
+  .thanks .lead{ font-size:15px; color:var(--ink-2); line-height:1.95; }
+  .thanks .lead b{ color:var(--warn); font-weight:800; }
+  .thanks .lead strong{ color:var(--ink); font-weight:800; }
+  .thanks .sign{
+    margin-top:18px; padding-top:16px; border-top:1px dashed var(--line-strong);
+    font-size:13px; color:var(--ink-3);
+  }
+  .thanks .sign em{ color:var(--brand); font-style:normal; font-weight:700; }
+  .sp-stat{ display:flex; gap:24px; margin:18px 0 4px; flex-wrap:wrap; }
+  .sp-stat .n{
+    font-family:var(--mono); font-size:26px; font-weight:800; line-height:1.2;
+    background:linear-gradient(135deg,#fff,var(--warn));
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .sp-stat .l{ font-size:12.5px; color:var(--ink-3); }
+  .sp-btn{
+    display:flex; align-items:center; justify-content:center; gap:9px; margin-top:20px;
+    font-size:15px; font-weight:800; color:#241502;
+    background:linear-gradient(135deg,#ffcf7a,var(--warn));
+    padding:14px 22px; border-radius:13px;
+    box-shadow:0 10px 26px rgba(246,179,82,.28); transition:.22s;
+  }
+  .sp-btn:hover{ transform:translateY(-2px); color:#241502; box-shadow:0 14px 32px rgba(246,179,82,.38); }
+  .sp-btn svg{ width:17px; height:17px; }
+  .sp-note{ margin-top:10px; font-size:12px; color:var(--ink-3); text-align:center; }
+  .perk{ display:flex; gap:10px; align-items:flex-start; margin-top:12px; font-size:13.5px; color:var(--ink-2); }
+  .perk .ico{
+    width:26px; height:26px; flex:none; border-radius:8px; display:grid; place-items:center;
+    font-size:13px; background:rgba(246,179,82,.14); border:1px solid rgba(246,179,82,.3);
+  }
+  .perk b{ color:var(--ink); font-weight:700; }
+
   /* ===================== 顶部导航 ===================== */
   .progress{
     position:fixed; top:0; left:0; height:2px; width:0; z-index:120;
@@ -188,7 +306,22 @@
     padding:8px 12px; border-radius:10px; white-space:nowrap;
   }
   .nav-links a:hover{ color:var(--ink); background:var(--panel-2); }
-  .nav-links a.active{ color:var(--brand); background:rgba(52,224,160,.10); }
+  /* .active 是导航项自身，.group-active 是它负责的某个栏目正在视野里（如「Mod 教程」这一组） */
+  .nav-links a.active,
+  .nav-links a.group-active{ color:var(--brand); background:rgba(52,224,160,.10); }
+  .nav-links a.group-active::after{
+    content:""; position:absolute; left:50%; bottom:2px; transform:translateX(-50%);
+    width:14px; height:2px; border-radius:2px; background:var(--brand); opacity:.9;
+  }
+  /* 中等宽度下收一收间距，避免栏目把导航挤出去（820px 以下自动切汉堡菜单） */
+  @media (max-width:1300px){
+    .nav-links a{ padding:8px 9px; font-size:13.5px; }
+    .nav-inner{ gap:10px; }
+  }
+  @media (max-width:1040px){
+    .nav-links a{ padding:8px 7px; font-size:13px; }
+    .brand small{ display:none; }
+  }
   .nav-cta{
     display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:700;
     color:#04140d !important; background:linear-gradient(135deg,var(--brand),var(--brand-2));
@@ -1162,7 +1295,66 @@
     </div>
   </section>
 
-  
+  <!-- ===================== 赞助 · 贡献者纪念碑（内容由 SITE.sponsors 生成） ===================== -->
+  <section class="section" id="sponsor">
+    <div class="section-head reveal">
+      <div class="eyebrow">Supporters</div>
+      <h2 class="title">赞助与贡献者纪念碑</h2>
+      <p class="subtitle">服务器没有充值、没有付费特权，服务器的运行，应感谢下面这些人。</p>
+    </div>
+
+    <div class="sponsor reveal">
+      <!-- 纪念碑 + 弹幕 -->
+      <div class="monument" id="monument">
+        <img src="assets/img/shots/monument.webp" alt="服务器内的贡献者纪念碑：一座立在石阶上的石塔，碑面刻着赞助者的名字" width="1920" height="1017" loading="lazy" decoding="async">
+        <div class="mon-cap">
+          <div class="t">贡 献 者 纪 念 碑</div>
+          <div class="s">碑上刻着每一个让服务器继续运转的人</div>
+        </div>
+        <div class="danmaku" id="danmaku" aria-hidden="true"></div>
+        <ul class="names-static" id="namesStatic" hidden></ul>
+        <div class="mon-hint">每多一个人，这座碑就多亮一分</div>
+      </div>
+
+      <!-- 感谢与说明 -->
+      <div class="card thanks">
+        <div class="sub-title">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.4-9 9-9 9Z"/></svg></span>
+          真心的感谢
+        </div>
+        <p class="lead">
+          这台服务器是<b>纯公益、无氪金</b>的：几乎没有收益。
+          硬件、带宽、维护的每一分钱，都是很多人为爱发电——
+          <strong>他们本可以什么都不做，却选择让这个地方继续存在下去。</strong>
+        </p>
+        <p class="lead" style="margin-top:12px;">
+          每一笔赞助都会被用在服务器上：续费机器、升级配置、备份存档。
+          <strong>这不是一笔交易，而是一份信任</strong>，我们会认真地把它花在该花的地方。
+        </p>
+
+        <div class="sp-stat">
+          <div><div class="n" data-sponsor-stat="count">0</div><div class="l">位赞助者</div></div>
+          <div><div class="n" data-sponsor-stat="total">0</div><div class="l">累计支持（元）</div></div>
+        </div>
+
+        <div class="perk"><span class="ico">🏅</span><div><b>专属称号：</b>赞助后会获得服内称号，在聊天与列表里都能看到。</div></div>
+        <div class="perk"><span class="ico">🗿</span><div><b>刻名于碑：</b>名字会被刻上游戏内的贡献者纪念碑，长期保留。</div></div>
+        <div class="perk"><span class="ico">⚖️</span><div><b>绝不影响平衡：</b>只给纪念性与装饰性的东西，不会给任何战斗、资源上的优势。</div></div>
+
+        <a class="sp-btn" href="https://ifdian.net/a/xiaoshisever" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.4-9 9-9 9Z"/></svg>
+          前往爱发电支持我们
+        </a>
+        <div class="sp-note">赞助完全自愿，量力而行；不赞助也永远欢迎你来玩。</div>
+
+        <div class="sign">
+          <em>—— 老牧柿服务器 服主 小柿Estrella</em><br />
+          名单按支持时间排列，如有遗漏或名字写错，请直接找我更正。
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== 管理团队（内容由 SITE.team 生成） ===================== -->
   <section class="section" id="team">
     <div class="section-head reveal">
@@ -1278,17 +1470,19 @@
    ① 站点配置：改这里就够了
    ========================================================================== */
 const SITE = {
-  /* 顶部导航（保持精简）；页脚会把下面 footNav 里的都列出来 */
+  /* 顶部导航（保持精简）；页脚会把下面 footNav 里的都列出来。
+     一个导航项可以对应多个栏目：用 ids 把若干 section 归到同一项下，
+     href 是点击时跳转的锚点（一般填这一组里的第一个栏目）。 */
   nav: [
-    { id:'join',       label:'加入服务器' },
-    { id:'about',      label:'服务器速览' },
-    { id:'download',   label:'模组包下载' },
-    { id:'mods',       label:'主玩模组'   },
-    { id:'gallery',    label:'实景画廊'   },
-    { id:'claim',      label:'领地与 PvP' },
-    { id:'chainbreak', label:'连锁破坏'   },
-    { id:'team',       label:'管理团队'   },
-    { id:'contact',    label:'联系'       }
+    { id:'join',    label:'加入服务器' },
+    { id:'about',   label:'服务器速览' },
+    { id:'download',label:'模组包下载' },
+    { id:'mods',    label:'主玩模组'   },
+    { id:'gallery', label:'实景画廊'   },
+    { href:'#skin', label:'Mod 教程', ids:['skin','claim','chainbreak','concert'] },
+    { id:'sponsor', label:'赞助与纪念碑' },
+    { id:'team',    label:'管理团队'   },
+    { id:'contact', label:'联系'       }
   ],
   footNav: [
     { id:'join',       label:'加入服务器' },
@@ -1300,9 +1494,31 @@ const SITE = {
     { id:'claim',      label:'领地与 PvP' },
     { id:'chainbreak', label:'连锁破坏'   },
     { id:'concert',    label:'永无止境音乐会' },
+    { id:'sponsor',    label:'赞助与贡献者纪念碑' },
     { id:'team',       label:'管理团队'   },
     { id:'contact',    label:'联系我们'   }
   ],
+
+  /* ============================================================
+     赞助者名单（模块化）
+     ------------------------------------------------------------
+     加人只需在下面数组里追加一条，弹幕会自动重新分道滚动：
+       name   = 游戏 ID
+       amount = 支持金额（数字，用于统计；也可直接写字符串，如 '5 元'）
+       label  = 想显示在名字后面的文字，默认自动生成「发电 N 元」
+       top    = true 表示特别鸣谢（名字会高亮）
+     ============================================================ */
+  sponsors: {
+    page: 'https://ifdian.net/a/xiaoshisever',
+    list: [
+      { name: 'Aki_Shun_Mio', amount: 5 },
+      { name: 'lceslag',      amount: 5 },
+      { name: 'Hydraa679',    amount: 5 }
+      /* 加人示例（记得在上一行末尾补一个逗号）
+      ,{ name: '新的赞助者', amount: 10 }
+      */
+    ]
+  },
 
   /* ============================================================
      管理团队（模块化）
@@ -1423,7 +1639,20 @@ const SITE = {
     }
   });
 
-  /* ---------- 导航 ---------- */
+  /* ---------- 导航 ----------
+     生成导航时同时记录「每个栏目属于哪个导航项」，
+     这样成组的栏目（如「Mod 教程」下的皮肤 / 领地 / PvP / 连锁 / 音乐会）
+     滚动到任何一个，都能把同一个导航项点亮。 */
+  const navSections = [];   // [{ el, id, link }]
+
+  function navAnchor(item) {
+    return item.href || ('#' + item.id);
+  }
+  // 一个导航项负责的栏目 id 列表：有 ids 时用 ids，否则用自身的 id
+  function navMemberIds(item) {
+    return item.ids && item.ids.length ? item.ids.slice() : (item.id ? [item.id] : []);
+  }
+
   const nav = $('#nav');
   nav.innerHTML =
     '<div class="nav-inner">' +
@@ -1437,12 +1666,30 @@ const SITE = {
         '<svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>' +
       '</button>' +
       '<nav class="nav-links" id="navLinks">' +
-        SITE.nav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('') +
+        SITE.nav.map(function (n) {
+          return '<a href="' + navAnchor(n) + '"' +
+            (n.ids && n.ids.length ? ' data-ids="' + n.ids.join(',') + '"' : '') + '>' + n.label + '</a>';
+        }).join('') +
         '<a class="nav-cta" href="#download">下载模组包</a>' +
       '</nav>' +
     '</div>';
 
-  $('#footLinks').innerHTML = SITE.footNav.map(n => '<a href="#' + n.id + '">' + n.label + '</a>').join('');
+  // 建立「栏目 → 导航项」映射；一个导航项可以负责多个栏目
+  const owner = {};
+  $$('#navLinks a[href^="#"]').forEach(function (a) {
+    if (a.classList.contains('nav-cta')) return;
+    const item = SITE.nav.filter((n) => navAnchor(n) === a.getAttribute('href'))[0];
+    navMemberIds(item || { id: a.getAttribute('href').slice(1) }).forEach(function (id) {
+      if (!owner[id]) owner[id] = a;
+    });
+  });
+  // 只登记页面上真实存在的栏目
+  Object.keys(owner).forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) navSections.push({ el: el, id: id, link: owner[id] });
+  });
+
+  $('#footLinks').innerHTML = SITE.footNav.map(n => '<a href="#' + navAnchor(n) + '">' + n.label + '</a>').join('');
 
   /* ---------- 管理团队（模块化：内容全部来自 SITE.team） ---------- */
   const teamGrid = $('#teamGrid');
@@ -1693,31 +1940,123 @@ const SITE = {
     start();
   })();
 
+  /* ---------- 赞助 · 贡献者纪念碑（名字弹幕，模块化：内容来自 SITE.sponsors） ----------
+     弹幕做法：把名单按道（lane）分组，每道的整条轨道用 translate3d 从右往左匀速平移。
+     只动 transform，走合成层，不触发重绘；名字是重复的，所以出屏后接得上，形成无缝循环。
+     若用户开启了「减少动态效果」，就不滚，改成静态名字列表。 */
+  (function sponsorsSection() {
+    const list = (SITE.sponsors && SITE.sponsors.list) || [];
+    const stage = $('#danmaku');
+    const monument = $('#monument');
+    const staticBox = $('#namesStatic');
+
+    const labelOf = (s) => {
+      if (s.label) return s.label;
+      if (typeof s.amount === 'number') return '发电 ' + s.amount + ' 元';
+      return s.amount ? String(s.amount) : '感谢支持';
+    };
+    const chip = (s) =>
+      '<span class="dname' + (s.top ? ' top' : '') + '">' +
+        (s.top ? '<span class="crown">👑</span>' : '') +
+        '<span>' + s.name + '</span><span class="amt">' + labelOf(s) + '</span>' +
+      '</span>';
+
+    // 统计：人数 + 累计金额（金额不是纯数字时不计入合计）
+    let total = 0, hasAmount = false;
+    list.forEach((s) => { if (typeof s.amount === 'number') { total += s.amount; hasAmount = true; } });
+    const cEl = document.querySelector('[data-sponsor-stat="count"]');
+    const tEl = document.querySelector('[data-sponsor-stat="total"]');
+    if (cEl) cEl.textContent = String(list.length);
+    if (tEl) tEl.textContent = hasAmount ? String(total) : '—';
+
+    // 无脚本 / 关闭动画时的静态名单
+    if (staticBox) {
+      staticBox.innerHTML = list.map((s) => '<li class="dname' + (s.top ? ' top' : '') + '">' +
+        '<span>' + s.name + '</span><span class="amt">' + labelOf(s) + '</span></li>').join('');
+    }
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!stage || !list.length) return;
+    if (reduce) {
+      if (staticBox) staticBox.hidden = false;
+      if (monument) monument.classList.add('no-anim');
+      return;
+    }
+
+    const LANES = Math.max(1, Math.min(3, Math.ceil(list.length / 2)));
+    const groups = [];
+    for (let i = 0; i < LANES; i++) groups.push([]);
+    list.forEach((s, i) => groups[i % LANES].push(s));
+
+    // 每道放两份名单，滚动距离等于「两份」的宽度，循环时严丝合缝
+    stage.innerHTML = groups.map((g, i) =>
+      '<div class="lane"><div class="dtrack" data-lane="' + i + '">' +
+        (chip(g[0]) + g.concat(g).map(chip).join('')) +
+      '</div></div>'
+    ).join('');
+
+    function layout() {
+      const vw = stage.clientWidth || window.innerWidth || 1200;
+      $$('.dtrack', stage).forEach(function (track, i) {
+        const one = track.firstElementChild;
+        const unit = one ? one.getBoundingClientRect().width + 12 : 220;   // 12 = gap
+        const width = track.getBoundingClientRect().width;
+        const dur = Math.max(22, Math.round((width + vw) / 62));           // 约 62px/s
+        const delay = -Math.round(i * (dur / 4));                          // 错开出场
+        track.style.setProperty('--start', vw + 'px');
+        track.style.setProperty('--end', (-width) + 'px');
+        track.style.setProperty('--dur', dur + 's');
+        track.style.setProperty('--delay', delay + 's');
+      });
+    }
+    function start() {
+      layout();
+      stage.classList.add('anim');
+      // 每轮重新计算，保证「两份宽度」与实际渲染一致
+      setInterval(layout, 12000);
+    }
+    start();
+
+    // 鼠标移上去 / 页面切后台时暂停，方便看清名字，也省点性能
+    if (monument) {
+      monument.addEventListener('mouseenter', () => stage.classList.add('paused'));
+      monument.addEventListener('mouseleave', () => stage.classList.remove('paused'));
+    }
+    document.addEventListener('visibilitychange', function () {
+      stage.classList.toggle('paused', document.hidden);
+    });
+    window.addEventListener('resize', () => setTimeout(layout, 200));
+  })();
+
   /* ---------- 滚动：进度条 / 导航高亮 / 回到顶部 ----------
-     关键优化：高亮改用 IntersectionObserver，滚动回调里彻底不读 offsetTop /
-     scrollHeight。这两个属性一旦读取，浏览器必须立刻结算布局，是最常见的
-     滚动掉帧原因。总高度改为缓存，只在 resize / load 时重算。 */
+     高亮不用「页面里的位置」算，而是按**导航顺序**判定：
+     取「已经越过观察带」的最后一个栏目，点亮它所属的导航项。
+     这样把某个 section 搬到别处、或一组栏目共用一个导航项，都不会错位；
+     栏目与导航项的对应关系在生成导航时就登记好了（navSections）。
+     另外，判定过程完全不读 offsetTop / scrollHeight，滚动回调里不做布局结算。 */
   const bar = $('#progress'), toTop = $('#toTop');
   const navLinks = $$('#navLinks a[href^="#"]').filter(a => !a.classList.contains('nav-cta'));
-  const navMap = {};
-  navLinks.forEach(a => { navMap[a.getAttribute('href').slice(1)] = a; });
-  let activeId = 'join';
+  let activeLink = null;
 
-  function setActive(id) {
-    if (!navMap[id] || id === activeId) return;
-    activeId = id;
-    Object.keys(navMap).forEach(k => navMap[k].classList.toggle('active', k === id));
+  function setActive(link) {
+    if (link === activeLink) return;
+    activeLink = link;
+    navLinks.forEach(a => a.classList.toggle('active', a === link));
+  }
+  // 当前该点亮哪一项：按导航顺序找到最后一个「顶部已经滚过阈值」的栏目
+  function activeLinkNow() {
+    const inBand = navSections.filter(s => s.el.getBoundingClientRect().top <= window.innerHeight * 0.32);
+    return inBand.length ? inBand[inBand.length - 1].link : (navSections[0] && navSections[0].link);
   }
 
-  if ('IntersectionObserver' in window) {
-    const spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.target.id) return;
-        // 命中观察带，或者已经滚过这个区块，都算它当前生效
-        if (en.isIntersecting || en.boundingClientRect.top < 0) setActive(en.target.id);
-      });
-    }, { rootMargin: '-22% 0px -58% 0px', threshold: 0 });
-    $$('.hero, .section').forEach(s => spy.observe(s));
+  if (navSections.length) {
+    if ('IntersectionObserver' in window) {
+      // 观察带放在视口上方 1/4 处：进入或离开这条带，就重算一次当前栏目
+      const spy = new IntersectionObserver(function () { setActive(activeLinkNow()); },
+        { rootMargin: '-32% 0px -60% 0px', threshold: 0 });
+      navSections.forEach(s => spy.observe(s.el));
+    }
+    setActive(activeLinkNow());
   }
 
   let ticking = false, docHeight = document.documentElement.scrollHeight;
@@ -1727,6 +2066,8 @@ const SITE = {
     bar.style.width = Math.min(100, (y / Math.max(1, docHeight - window.innerHeight)) * 100) + '%';
     nav.classList.toggle('scrolled', y > 12);
     toTop.classList.toggle('show', y > 600);
+    // 兜底：内容高度变化（图片、字体、状态条）时观察带可能漏判，这里跟着校正
+    if (navSections.length) setActive(activeLinkNow());
   }
   function refreshHeight() {
     docHeight = document.documentElement.scrollHeight;
@@ -1740,7 +2081,10 @@ const SITE = {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(refreshHeight, 180);
   });
-  window.addEventListener('load', refreshHeight);
+  // 字体、图片、动态状态条都会改变布局，加载完成后重算一次，
+  // 避免首屏那次测量偏差把高亮固定在错误的栏目上
+  window.addEventListener('load', function () { refreshHeight(); setActive(activeLinkNow()); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { refreshHeight(); });
   refreshHeight();
 
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1796,6 +2140,8 @@ const SITE = {
       const b = bytes();
       const nav = performance.getEntriesByType('navigation')[0];
       const st = window.__statusInfo || null;
+      const lanes = document.querySelectorAll ? document.querySelectorAll('.dtrack').length : 0;
+      const running = document.querySelectorAll ? document.querySelectorAll('#danmaku.anim .dtrack').length : 0;
       body.innerHTML =
         'FPS(近1秒): ' + (fps >= 55 ? '<b class="ok">' : fps >= 40 ? '<b class="warn">' : '<b class="bad">') + fps + '</b><br>' +
         '长任务: <b>' + longTasks + '</b> 次 / 共 <b>' + Math.round(longMs) + '</b> ms<br>' +
@@ -1803,6 +2149,7 @@ const SITE = {
         'DOM 节点: <b>' + document.getElementsByTagName('*').length + '</b><br>' +
         '页面高度: <b>' + docHeight + '</b> px<br>' +
         (nav ? 'DOM 就绪: <b>' + Math.round(nav.domContentLoadedEventEnd) + '</b> ms<br>' : '') +
+        '弹幕轨道: <b>' + running + '</b> / ' + lanes + ' 条运行中<br>' +
         (st ? '状态接口: <b>' + (st.ms === null ? '—' : st.ms + ' ms') + '</b> · ' + st.status +
               (st.players === null ? '' : ' · ' + st.players + ' 人') : '');
     }
