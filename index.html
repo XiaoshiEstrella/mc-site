@@ -1108,7 +1108,7 @@
     <div class="section-head reveal">
       <div class="eyebrow">Gallery</div>
       <h2 class="title">服务器实景</h2>
-      <p class="subtitle">全部截图来自服内玩家与服主的真实存档，点开可以看大图。</p>
+      <p class="subtitle">全部截图来自服内真实景点，点开可以看大图。</p>
     </div>
     <div class="gallery" id="galleryGrid"></div>
   </section>
@@ -1555,7 +1555,7 @@ const SITE = {
      只显示两项：是否在运行、在线人数。
      ============================================================ */
   status: {
-    address: '43.226.129.13:15442',
+    address: 'mc.xiaoshicraft.cn',
     api: 'https://api.mcsrvstat.us/3/',
     fallbackApi: 'https://api.mcstatus.io/v2/status/java/',
     interval: 60000,
@@ -1897,7 +1897,7 @@ const SITE = {
         state.status = 'offline';
         state.players = null;
         state.text = '服务器当前离线';
-        txt.innerHTML = '<b>服务器当前离线</b><span class="sub">可能正在维护或重启，稍后再试</span>';
+        txt.innerHTML = '<b>服务器当前离线</b><span class="sub">可能正在维护或重启，稍后再试（也有可能是网页出bug，请以游戏内为准）</span>';
       }
     }
 
