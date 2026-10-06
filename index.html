@@ -64,7 +64,8 @@
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 18px); -webkit-text-size-adjust:100%; color-scheme:dark; }
+  /* overflow-y:scroll 让滚动槽一直占着位置：弹窗打开时隐藏页面滚动不会导致整页重排（这是卡顿的主因之一） */
+  html{ scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 18px); -webkit-text-size-adjust:100%; color-scheme:dark; overflow-y:scroll; }
   body{
     font-family:var(--font);
     color:var(--ink);
@@ -568,6 +569,157 @@
   }
   .code-chip b{ font-family:var(--mono); font-size:15px; color:var(--brand); letter-spacing:1px; }
   .meta-line{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+
+  /* ===================== 历史版本直链列表 ===================== */
+  .dl-list{
+    margin-top:8px; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    background:rgba(255,255,255,.02);
+  }
+  .dl-row{
+    display:grid; grid-template-columns:88px minmax(0,1fr) auto;
+    align-items:center; gap:14px; padding:13px 16px;
+    border-bottom:1px solid var(--line); transition:background .22s;
+  }
+  .dl-row:last-child{ border-bottom:none; }
+  .dl-row:hover{ background:rgba(52,224,160,.05); }
+  .dl-row .ver{ font-family:var(--mono); font-size:14.5px; font-weight:800; color:var(--ink); }
+  .dl-row .name{
+    font-size:13px; color:var(--ink-2); min-width:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .dl-row .name .date{ color:var(--ink-3); margin-left:8px; font-family:var(--mono); font-size:12px; }
+  .dl-row .go{
+    display:inline-flex; align-items:center; gap:6px; flex:none;
+    font-size:13px; font-weight:700; color:var(--brand);
+    background:rgba(52,224,160,.1); border:1px solid rgba(52,224,160,.3);
+    padding:7px 14px; border-radius:10px; transition:.22s; white-space:nowrap;
+  }
+  .dl-row .go:hover{ background:rgba(52,224,160,.2); border-color:rgba(52,224,160,.55); color:#c9ffe9; }
+  .dl-row .go svg{ width:13px; height:13px; }
+  .dl-row.latest{ background:linear-gradient(90deg,rgba(52,224,160,.09),transparent 60%); }
+  .dl-row.latest .ver{ color:var(--brand); }
+  .tag-new{
+    display:inline-block; margin-left:7px; font-size:10.5px; font-weight:800; letter-spacing:.5px;
+    color:#04140d; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    padding:2px 8px; border-radius:99px; vertical-align:middle; font-family:var(--font);
+  }
+  @media (max-width:620px){
+    .dl-row{ grid-template-columns:1fr auto; gap:8px 12px; }
+    .dl-row .name{ grid-column:1 / -1; white-space:normal; }
+  }
+
+  /* ===================== 弹出窗口（历史版本 / 更新指南） =====================
+     默认隐藏，点按钮才出现；点遮罩、右上角 × 或按 Esc 关闭。
+     省下大量版面，内容又能完整放得下（窗口内部自己滚动）。 */
+  .dl-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+  .dl-actions .btn{ flex:1 1 auto; }
+  @media (min-width:760px){ .dl-actions{ justify-content:flex-end; } .dl-actions .btn{ flex:0 0 auto; } }
+  .btn.soft{
+    color:var(--ink); background:rgba(255,255,255,.06);
+    border:1px solid var(--line-strong); box-shadow:none;
+  }
+  .btn.soft:hover{ color:#fff; background:rgba(255,255,255,.11); border-color:var(--line-strong); }
+  .btn .count{
+    font-family:var(--mono); font-size:11.5px; font-weight:800; color:#04140d;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    padding:1px 7px; border-radius:99px;
+  }
+
+  .modal{
+    position:fixed; inset:0; z-index:220; display:none; opacity:0; visibility:hidden;
+    align-items:center; justify-content:center; padding:22px;
+    /* 性能：不用 backdrop-filter（全屏毛玻璃每一帧都要重新采样整页），
+       改成近乎不透明的纯色遮罩 —— 观感几乎一样，但只走合成层，打开时不再掉帧 */
+    background:rgba(3,5,9,.965);
+    contain:layout paint style;
+    transition:opacity .18s ease;
+  }
+  .modal.open{ display:flex; visibility:visible; opacity:1; }
+  .mbox{
+    width:min(880px,100%); max-height:88vh; display:flex; flex-direction:column;
+    border-radius:18px; overflow:hidden;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)),
+      #0a1120;
+    border:1px solid var(--line-strong);
+    box-shadow:0 20px 46px rgba(0,0,0,.6);
+    /* 只做轻微位移（位移动画比缩放便宜，不会持续重绘文字），
+       will-change 只在过渡期间挂上，结束后立刻释放 */
+    transform:translate3d(0,8px,0);
+    transition:transform .18s cubic-bezier(.2,.8,.2,1);
+  }
+  .modal.open .mbox{ transform:none; }
+  .modal.animating .mbox{ will-change:transform; }
+  .mhead{
+    display:flex; align-items:center; gap:12px; flex:none;
+    padding:16px 18px; border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+  }
+  .mhead .si{
+    width:34px; height:34px; flex:none; display:grid; place-items:center; border-radius:10px;
+    color:var(--brand); background:rgba(52,224,160,.12); border:1px solid rgba(52,224,160,.28);
+  }
+  .mhead .si svg{ width:18px; height:18px; }
+  .mhead .t{ font-size:16.5px; font-weight:800; }
+  .mhead .s{ font-size:12.5px; color:var(--ink-3); margin-top:1px; }
+  .mhead .x{
+    margin-left:auto; width:36px; height:36px; flex:none; display:grid; place-items:center; cursor:pointer;
+    color:var(--ink-2); background:rgba(255,255,255,.06); border:1px solid var(--line);
+    border-radius:10px; transition:.22s;
+  }
+  .mhead .x:hover{ color:#fff; background:rgba(255,107,107,.22); border-color:rgba(255,107,107,.5); }
+  .mhead .x svg{ width:16px; height:16px; }
+  .mbody{ overflow-y:auto; padding:20px 22px 24px; overscroll-behavior:contain; }
+  .mbody .notice:first-child{ margin-top:0; }
+  .mbody .upd-steps > li{ font-size:14px; }
+  @media (max-width:620px){
+    .modal{ padding:12px; }
+    .mbox{ max-height:92vh; }
+    .mbody{ padding:16px 14px 20px; }
+  }
+  /* ===================== 原地更新指南（弹窗内容） ===================== */
+  .upd-steps{ counter-reset:u; list-style:none; display:grid; gap:16px; }
+  .upd-steps > li{ position:relative; counter-increment:u; padding-left:44px; font-size:14.5px; color:var(--ink-2); }
+  .upd-steps > li::before{
+    content:counter(u); position:absolute; left:0; top:1px;
+    width:30px; height:30px; border-radius:10px; display:grid; place-items:center;
+    font-family:var(--mono); font-size:13.5px; font-weight:700; color:var(--brand);
+    background:rgba(52,224,160,.1); border:1px solid rgba(52,224,160,.3);
+  }
+  .upd-steps > li > b{ color:var(--ink); }
+  .upd-steps .hint{ display:block; margin-top:6px; font-size:13px; color:var(--ink-3); }
+
+  /* 待填写占位：页面里一眼就能看到哪里还没填 */
+  .fill{
+    display:inline-flex; align-items:center; gap:5px; vertical-align:baseline;
+    font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--warn);
+    background:rgba(246,179,82,.12); border:1px dashed rgba(246,179,82,.55);
+    padding:1px 9px; border-radius:8px;
+  }
+  .fill.filled{
+    color:var(--brand); background:rgba(52,224,160,.12);
+    border:1px solid rgba(52,224,160,.35);
+  }
+  .mod-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .mod-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:12.5px; font-weight:600;
+    padding:5px 12px; border-radius:9px;
+  }
+  .mod-chip.add{ color:#8ff0c8; background:rgba(52,224,160,.12); border:1px solid rgba(52,224,160,.34); }
+  .mod-chip.del{ color:#ffb3b3; background:rgba(255,107,107,.1); border:1px solid rgba(255,107,107,.32); }
+  .mod-chip .sign{ font-weight:900; }
+  .upd-cols{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:4px; }
+  @media (min-width:760px){ .upd-cols{ grid-template-columns:1fr 1fr; gap:18px; } }
+  .upd-box{
+    padding:16px 18px; border-radius:13px;
+    background:rgba(255,255,255,.035); border:1px solid var(--line);
+  }
+  .upd-box .h{ font-size:14px; font-weight:800; color:var(--ink); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .upd-box .h .dot{ width:8px; height:8px; border-radius:50%; flex:none; }
+  .upd-box.add .h .dot{ background:var(--brand); }
+  .upd-box.del .h .dot{ background:var(--danger); }
+  .upd-box p{ font-size:13px; color:var(--ink-3); }
   .chip{
     font-size:12.5px; color:var(--ink-2); background:var(--panel-2);
     border:1px solid var(--line); border-radius:99px; padding:4px 12px;
@@ -1018,16 +1170,16 @@
     <div class="section-head reveal">
       <div class="eyebrow">Download</div>
       <h2 class="title">模组包下载</h2>
-      <p class="subtitle">小柿服务器模组包 v1.3.3 · Minecraft 1.21.1 + NeoForge · 推荐使用直链，网盘为备用。</p>
+      <p class="subtitle">小柿服务器模组包 v1.3.4 · Minecraft 1.21.1 + NeoForge · 推荐使用直链，网盘为备用。</p>
     </div>
 
     <div class="card reveal">
       <div class="meta-line">
-        <span class="chip">整合包版本 <b>v1.3.3</b></span>
+        <span class="chip">整合包版本 <b>v1.3.4</b></span>
         <span class="chip">游戏版本 <b>1.21.1</b></span>
         <span class="chip">加载器 <b>NeoForge</b></span>
         <span class="chip">格式 <b>.mrpack</b></span>
-        <span class="chip">最后更新 <b>2026/10/5</b></span>
+        <span class="chip">最后更新 <b>2026/10/6</b></span>
       </div>
 
       <div class="grid2">
@@ -1036,7 +1188,7 @@
           <span class="tag">推荐</span>
           <h3><span class="num">1</span>直链下载</h3>
           <p class="desc">免登录、不限速，网络环境好就选它。链接失效或需要完整整合包时请改用网盘。</p>
-          <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.3.3.mrpack" target="_blank" rel="noopener">
+          <a class="btn" href="https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.3.4.mrpack" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
             立即下载
           </a>
@@ -1064,8 +1216,138 @@
           <li>可以自行添加合规的客户端模组，例如钠（Sodium）、Xaero 的小地图等，不影响进服。</li>
         </ul>
       </div>
+
+      <!-- 历史版本与更新指南收进弹窗，省版面 -->
+      <div class="dl-actions">
+        <button class="btn soft" type="button" data-dialog="dlgArchive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h10"/></svg>
+          历史版本
+          <span class="count" id="archiveCount">0</span>
+        </button>
+        <button class="btn soft" type="button" data-dialog="dlgUpdate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg>
+          原地更新指南
+        </button>
+      </div>
     </div>
   </section>
+
+  <!-- ===================== 弹出窗口 ===================== -->
+  <!-- 历史版本直链（内容由 SITE.pack.archive 生成） -->
+  <div class="modal" id="dlgArchive" role="dialog" aria-modal="true" aria-labelledby="dlgArchiveTitle">
+    <div class="mbox">
+      <div class="mhead">
+        <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h10"/></svg></span>
+        <div>
+          <div class="t" id="dlgArchiveTitle">历史版本直链</div>
+          <div class="s">每个版本都是完整整合包（.mrpack），缺哪个补哪个</div>
+        </div>
+        <button class="x" type="button" data-close aria-label="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="mbody">
+        <div class="dl-list" id="archiveList"></div>
+        <p class="sp-note" style="text-align:left; margin-top:12px;">
+          旧版本仅作存档保留，<b>长期留在旧版本可能无法进入服务器</b>；能更新就尽量更新到最新版。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 原地更新指南 -->
+  <div class="modal" id="dlgUpdate" role="dialog" aria-modal="true" aria-labelledby="dlgUpdateTitle">
+    <div class="mbox">
+      <div class="mhead">
+        <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg></span>
+        <div>
+          <div class="t" id="dlgUpdateTitle">原地更新指南</div>
+          <div class="s">已装过旧整合包、不想重下一整套？按顺序就地升级</div>
+        </div>
+        <button class="x" type="button" data-close aria-label="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="mbody">
+        <div class="notice">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>先看清楚你要做的是哪一种</b>
+        <ul>
+          <li><b class="hl">原地更新（本文）</b>：保留现有整合包，只升级加载器 + 增删模组。适合跨度不大的版本。</li>
+          <li><b class="hl">重新安装</b>：跨度太大、或者你已经改乱模组列表时，直接下载最新整合包导入更省事——见 <a href="#download">模组包下载</a>。</li>
+          <li>无论哪种，<b class="hl">动手前先把存档备份一份</b>，这是唯一不能省的一步。</li>
+        </ul>
+      </div>
+
+      <ol class="upd-steps">
+        <li>
+          <b>备份存档</b>：把 <code>saves</code> 文件夹整体复制一份到别处；
+          如果有服务器存档或重要建筑，建议连带 <code>config</code>、<code>xaero</code>（小地图）一起备份。
+          <span class="hint">出问题时能直接回滚，比重装快得多。</span>
+        </li>
+
+        <li>
+          <b>升级加载器</b>：把 NeoForge 升级到
+          <span data-fill="loader"><span class="fill">加载器版本 · 待填写</span></span>。
+          <span class="hint">加载器版本必须与整合包要求一致，装错版本会出现「模组加载失败 / 直接崩溃」。</span>
+        </li>
+
+        <li>
+          <b>对照版本号</b>：本次是
+          <span data-fill="from"><span class="fill">旧版本 · 待填写</span></span>
+          →
+          <span data-fill="to"><span class="fill">新版本 · 待填写</span></span>
+          的升级。
+          <span class="hint">跨度越大，需要手动对齐的模组越多；如果跨了好几个大版本，建议直接重装。</span>
+        </li>
+
+        <li>
+          <b>添加新模组</b>：以下模组需要放进 <code>mods</code> 文件夹（缺一个都可能进不去服）：
+          <div class="upd-cols">
+            <div class="upd-box add">
+              <div class="h"><span class="dot"></span>需要添加的模组</div>
+              <div class="mod-chips" data-fill-list="add"><span class="fill">添加清单 · 待填写</span></div>
+            </div>
+            <div class="upd-box del">
+              <div class="h"><span class="dot"></span>需要删除的模组</div>
+              <div class="mod-chips" data-fill-list="remove"><span class="fill">删除清单 · 待填写</span></div>
+            </div>
+          </div>
+          <span class="hint">两栏内容由服主在配置里填写；页面会把要加/要删的模组并排列出来，照着对一遍即可。</span>
+          <span class="hint" data-fill-tips hidden></span>
+        </li>
+
+        <li>
+          <b>删除旧模组</b>：旧版本里被替换或已移除的模组<b>一定要删干净</b>，
+          尤其是<b>同名不同版本的两个 jar</b> 同时存在时，游戏会直接崩溃。
+          <span class="hint">删完建议在 <code>mods</code> 文件夹里按名称排序扫一眼，确认没有重复版本。</span>
+        </li>
+
+        <li>
+          <b>版本偏移太大怎么办</b>：如果跨度很大（例如跨了好几个大版本），
+          不要硬着头皮一个个补——<b>先安装最新版本的完整整合包</b>，能进服之后，
+          再把自己的客户端模组（小地图、优化模组等）<b>尽量手动一一对齐</b>到新版模组列表。
+          <span class="hint">先保证「能进服」，再慢慢把个性化模组补回来，这样最不容易翻车。</span>
+        </li>
+
+        <li>
+          <b>启动并自查</b>：启动一次，进服前先看主菜单是否正常；进服后检查背包、机器、小地图是否正常。
+          如果报错，多数情况是<b>多了或少了某个模组</b>——按上面的两栏清单再对一遍。
+        </li>
+      </ol>
+
+      <div class="notice warn">
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>常见坑</b>
+        <ul>
+          <li><b class="hl">两个同名模组</b>：最常见。删掉旧版本那个 jar。</li>
+          <li><b class="hl">加载器没升级</b>：模组要求更高的 NeoForge，启动直接失败。</li>
+          <li><b class="hl">配置文件过期</b>：个别模组换了配置结构，删掉该模组的 <code>config</code> 文件让它重新生成即可。</li>
+          <li><b class="hl">忘了备份</b>：出问题后无法回滚，只能重装。</li>
+          <li>实在搞不定就直接下最新整合包重装——<b class="hl">不管如何，也比折腾半天强</b>。</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===================== 模组介绍 ===================== -->
   <section class="section" id="mods">
@@ -1563,6 +1845,35 @@ const SITE = {
     timeout: 8000
   },
 
+  /* ============================================================
+     模组包下载 & 原地更新
+     ------------------------------------------------------------
+     · archive：历史版本直链列表，加一行就多一个下载项。
+       url 直接写完整直链即可（下面已按当前版本号拼好，改版本号或换成自己的链接）
+     · fill：原地更新指南里的「待填写」占位内容，填好后页面会自动显示，不留占位符
+     ============================================================ */
+  pack: {
+    /* 历史版本（新的排在前面；最新的那个会标「最新」并高亮） */
+    archive: [
+      { version: 'v1.3.4', date: '2026/10/5', url: 'https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.3.4.mrpack', mrpack: true },
+      { version: 'v1.3.3', date: '2026/10/5', url: 'https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.3.3.mrpack' }
+      /* 继续加旧版本：复制一行改掉 version / date / url 即可
+      ,{ version: 'v1.2.0', date: '2026/9/1', url: 'https://.../小柿整合包 1.2.0.mrpack' }
+      */
+    ],
+
+    /* 原地更新的「填空」：默认全部留空 → 页面显示醒目的待填写标记
+       填好后（例如 loader: '21.1.119'）页面会自动展示内容，占位标记自动消失 */
+    fill: {
+      loader: '21.1.255',              // 例：'21.1.119'
+      from: 'v1.3.3',                // 例：'v1.3.2'
+      to: 'v1.3.4',                  // 例：'v1.3.3'
+      add: ['MaidMusket-1.0.1','[ewewukek 的火枪模组] musketmod-1.5.4','MusketTweaks-1.0.1','[轻松建造] effortless-3.4.0'],                 // 例：['xxx-1.2.jar', 'yyy-3.0.jar']
+      remove: ['[轻松建造] effortlessbuilding-4.2'],              // 例：['oldmod-1.0.jar']
+      tips: ''                 // 想额外补充的说明（可选）
+    }
+  },
+
   /* 画廊：slug 对应 assets/img/shots/<slug>.webp
      每张图都按 ratio 撑出格子（不写则默认 16:9 = 56.25%），图片会填满整个格子；
      如果以后加的是竖图，写 ratio:'133.33%'（3:4）即可，不会出现空档。 */
@@ -1638,6 +1949,108 @@ const SITE = {
       }
     }
   });
+
+  /* ---------- 历史版本直链列表（内容来自 SITE.pack.archive） ---------- */
+  (function archiveList() {
+    const box = $('#archiveList');
+    const cfg = (SITE.pack && SITE.pack.archive) || [];
+    const badge = $('#archiveCount');
+    if (badge) badge.textContent = String(cfg.length);
+    if (!box || !cfg.length) return;
+    box.innerHTML = cfg.map(function (v, i) {
+      const latest = i === 0;
+      const parts = [];
+      if (v.mrpack !== false && /\.mrpack(\?|$)/i.test(v.url)) parts.push('.mrpack');
+      if (v.size) parts.push(v.size);
+      const meta = [parts.join(' · '), v.date].filter(Boolean).join(' · ');
+      return '<div class="dl-row' + (latest ? ' latest' : '') + '">' +
+        '<span class="ver">' + v.version + (latest ? '<span class="tag-new">最新</span>' : '') + '</span>' +
+        '<span class="name">' + (v.note || '小柿服务器模组包 ' + v.version) +
+          (meta ? '<span class="date">' + meta + '</span>' : '') + '</span>' +
+        '<a class="go" href="' + v.url + '" target="_blank" rel="noopener">下载' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
+        '</a>' +
+      '</div>';
+    }).join('');
+  })();
+
+  /* ---------- 弹出窗口（历史版本 / 原地更新指南） ----------
+     点按钮打开；点遮罩、右上角 ×、按 Esc 都能关。
+     性能处理：
+       1. 打开时暂停背景弹幕 —— 否则整页一直在动，遮罩下面全是重绘；
+       2. will-change 只在过渡这 180ms 挂着，结束立刻摘掉，不长期占显存；
+       3. 不用 backdrop-filter，也不缩放文字，过渡只走 transform/opacity 合成层。 */
+  (function dialogs() {
+    const openers = $$('[data-dialog]');
+    if (!openers.length) return;
+    let current = null, lastFocus = null, animTimer = null;
+
+    function open(id) {
+      const dlg = document.getElementById(id);
+      if (!dlg) return;
+      lastFocus = document.activeElement;
+      current = dlg;
+      if (window.__danmaku) window.__danmaku.pause();          // 背景停下，把帧率全给窗口
+      dlg.classList.add('animating', 'open');
+      document.body.style.overflow = 'hidden';
+      clearTimeout(animTimer);
+      animTimer = setTimeout(function () { dlg.classList.remove('animating'); }, 260);
+      const x = dlg.querySelector('[data-close]');
+      if (x) x.focus();
+    }
+    function close() {
+      if (!current) return;
+      const dlg = current;
+      current = null;
+      dlg.classList.remove('open');
+      document.body.style.overflow = '';
+      if (window.__danmaku) window.__danmaku.resume();
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    openers.forEach(function (b) {
+      b.addEventListener('click', function () { open(b.getAttribute('data-dialog')); });
+    });
+    $$('.modal').forEach(function (m) {
+      m.addEventListener('click', function (e) { if (e.target === m) close(); });   // 点遮罩关闭
+      m.querySelectorAll('[data-close]').forEach(function (x) { x.addEventListener('click', close); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && current) close();
+    });
+  })();
+
+  /* ---------- 原地更新指南里的「待填写」占位 ----------
+     配置里有值就展示内容（绿色实心），没值就保留醒目的橙色虚线占位，
+     这样页面上一眼就能看到还差哪些没填。 */
+  (function updateSheet() {
+    const f = (SITE.pack && SITE.pack.fill) || {};
+    const blank = (v) => v === undefined || v === null || String(v).trim() === '';
+    const pending = (label) => '<span class="fill">' + label + ' · 待填写</span>';
+    const filled = (text) => '<span class="fill filled">' + text + '</span>';
+
+    [
+      ['loader', f.loader, '加载器版本', function (v) { return 'NeoForge ' + v; }],
+      ['from', f.from, '旧版本', function (v) { return v; }],
+      ['to', f.to, '新版本', function (v) { return v; }]
+    ].forEach(function (row) {
+      const host = document.querySelector('[data-fill="' + row[0] + '"]');
+      if (!host) return;
+      host.innerHTML = blank(row[1]) ? pending(row[2]) : filled(row[3](row[1]));
+    });
+
+    [['add', '添加清单', 'add', '+'], ['remove', '删除清单', 'del', '−']].forEach(function (row) {
+      const host = document.querySelector('[data-fill-list="' + row[0] + '"]');
+      if (!host) return;
+      const arr = f[row[0]];
+      if (!arr || !arr.length) { host.innerHTML = pending(row[1]); return; }
+      host.innerHTML = arr.map(function (m) {
+        return '<span class="mod-chip ' + row[2] + '"><span class="sign">' + row[3] + '</span>' + m + '</span>';
+      }).join('');
+    });
+
+    const tips = document.querySelector('[data-fill-tips]');
+    if (tips && !blank(f.tips)) { tips.hidden = false; tips.innerHTML = f.tips; }
+  })();
 
   /* ---------- 导航 ----------
      生成导航时同时记录「每个栏目属于哪个导航项」，
@@ -2107,6 +2520,17 @@ const SITE = {
     }
     resetTicks();
     tickLoop();
+
+    // 对外暴露暂停/继续：弹窗打开时要把背景的弹幕停下来，把帧率让给窗口
+    window.__danmaku = {
+      pause: function () { stage.classList.add('paused'); },
+      resume: function () {
+        stage.classList.remove('paused');
+        // 把已经过期的投放时刻整体后移，避免继续瞬间涌出一堆名字
+        const now = performance.now() / 1000;
+        ticks = ticks.map(function (t) { return t > now ? t : now + Math.random() * 0.6; });
+      }
+    };
 
     // 鼠标移上去 / 页面切后台时暂停，方便看清名字，也省点性能
     if (monument) {
