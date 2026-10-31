@@ -919,7 +919,7 @@
           <p>服务器没有充值、没有付费特权，能一直开着全靠他们</p>
         </div>
         <div class="sponsor reveal" id="sponsorBox">
-          <img class="bg" src="assets/img/sponsor/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          <img class="bg" src="assets/img/shots/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
           <div class="sponsor-head">
             <h2>贡献者纪念碑</h2>
             <p>碑上刻着每一个让服务器继续运转的人</p>
@@ -1353,7 +1353,7 @@ const SITE = {
 
     let total = 0, has = false;
     list.forEach((s) => { if (typeof s.amount === 'number') { total += s.amount; has = true; } });
-    if (sumEl) sumEl.innerHTML = list.length + ' 位赞助者 · 累计 <b>' + (has ? total : '—') + '</b> 元';
+    if (sumEl) sumEl.innerHTML = list.length + ' 位赞助者 ';
     if (staticBox) {
       staticBox.innerHTML = list.map((s) => '<li class="dname' + (s.top ? ' top' : '') + '">' +
         '<span>' + esc(s.name) + '</span><span class="amt">' + esc(label(s)) + '</span></li>').join('');
