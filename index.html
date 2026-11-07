@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#17191d" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#14171b" />
 <meta name="color-scheme" content="dark" />
 <title>老牧柿服务器 · Minecraft 1.21.1 NeoForge 综合模组生存服</title>
 <meta name="description" content="老牧柿服务器 —— Minecraft Java 版 1.21.1 NeoForge 综合模组生存服。机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆，休闲养老、离线可进、领地保护、PvP 自由开关与死亡不掉落。地址：mc.xiaoshicraft.cn" />
@@ -14,72 +14,77 @@
 <meta property="og:site_name" content="老牧柿服务器" />
 <meta property="og:title" content="老牧柿服务器 · 1.21.1 NeoForge 综合模组生存服" />
 <meta property="og:description" content="机械动力 · 精致储存 · 灾变 · 森罗物语 · 车万女仆。休闲养老、离线可进、领地保护、PvP 自由开关。地址：xiaoshicraft.cn" />
-<meta property="og:image" content="assets/img/shots/group-1.webp" />
+<meta property="og:image" content="https://xiaoshicraft.cn/assets/img/shots/create-base-thumb.webp" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="450" />
 <meta property="og:url" content="https://xiaoshicraft.cn/" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231bd96a'/%3E%3Cpath d='M16 6 26 11v10l-10 5L6 21V11z' fill='none' stroke='%230b1f14' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%233ecf8e'/%3E%3Cpath d='M16 6 26 11v10l-10 5L6 21V11z' fill='none' stroke='%230b1f14' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://api.mcsrvstat.us" crossorigin />
+<link rel="dns-prefetch" href="https://api.mcstatus.io" />
+<script>document.documentElement.classList.add('js');</script>
 
 <!--
   ============================================================================
-  老牧柿服务器 · 官网（Modrinth 风格 · 深色）
+  老牧柿服务器 · 官网
   ----------------------------------------------------------------------------
   · 纯 HTML + CSS + 原生 JS，零依赖、零构建，可直接托管到 GitHub Pages
-  · 左侧固定导航 + 内容卡片流；深色设计语言参考 modrinth.com 的暗色主题
-  · 所有可改内容集中在下面第 ① 段 <script> 的 SITE 配置对象里
-  · 旧版（深色科幻风）保留在 classic.html
+  · 所有可改内容集中在下面第 ① 段脚本的 SITE 配置对象里
   ============================================================================
 -->
 <style>
   /* ===================== 设计变量（深色） ===================== */
   :root{
-    --bg:          #17191d;
-    --bg-soft:     #202329;
-    --surface:     #1f2228;
-    --surface-2:   #262a31;
-    --line:        #2e3239;
-    --line-strong: #3d424b;
-    --ink:         #e9ecf2;
-    --ink-2:       #aab2bf;
-    --ink-3:       #78808d;
+    --bg:          #14171b;
+    --bg-soft:     #1b1f25;
+    --surface:     #1c2026;
+    --surface-2:   #232830;
+    --line:        #2b3138;
+    --line-strong: #3b434d;
+    --ink:         #e9edf2;
+    --ink-2:       #a7b0bd;
+    --ink-3:       #78838f;
 
-    --brand:       #1bd96a;   /* Modrinth 绿 */
-    --brand-ink:   #4be98b;   /* 深底上的绿字（更亮，保证可读） */
-    --brand-soft:  rgba(27,217,106,.12);
-    --brand-line:  rgba(27,217,106,.34);
-    --accent:      #a259ff;
-    --accent-ink:  #c9a4ff;
-    --accent-soft: rgba(162,89,255,.16);
-    --accent-line: rgba(162,89,255,.36);
-    --warn:        #f0a94a;
-    --warn-soft:   rgba(240,169,74,.13);
-    --warn-line:   rgba(240,169,74,.34);
-    --danger:      #ff6b6b;
-    --danger-soft: rgba(255,107,107,.13);
-    --danger-line: rgba(255,107,107,.32);
+    --brand:       #3ecf8e;
+    --brand-ink:   #74dfa9;
+    --brand-soft:  rgba(62,207,142,.11);
+    --brand-line:  rgba(62,207,142,.30);
+    --accent:      #a08cff;
+    --accent-ink:  #c3b4ff;
+    --accent-soft: rgba(160,140,255,.14);
+    --accent-line: rgba(160,140,255,.34);
+    --warn:        #e5ae5c;
+    --warn-soft:   rgba(229,174,92,.12);
+    --warn-line:   rgba(229,174,92,.32);
+    --danger:      #ff7979;
+    --danger-soft: rgba(255,121,121,.12);
+    --danger-line: rgba(255,121,121,.30);
 
     --radius:      14px;
     --radius-lg:   18px;
-    --shadow-sm:   0 1px 2px rgba(0,0,0,.35);
-    --shadow:      0 6px 18px rgba(0,0,0,.35);
-    --shadow-lg:   0 18px 48px rgba(0,0,0,.55);
+    --shadow-sm:   0 1px 2px rgba(0,0,0,.28);
+    --shadow:      0 6px 18px rgba(0,0,0,.32);
+    --shadow-lg:   0 18px 48px rgba(0,0,0,.52);
     --sidebar:     252px;
     --maxw:        1180px;
-    --font:        "Inter","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --font:        "PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
     --mono:        ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
   /* overflow-y:scroll 固定滚动槽：弹窗打开时不会因为滚动条消失而整页重排 */
-  html{ scroll-behavior:smooth; scroll-padding-top:84px; overflow-y:scroll; -webkit-text-size-adjust:100%; }
+  html{ scroll-behavior:smooth; scroll-padding-top:72px; overflow-y:scroll; -webkit-text-size-adjust:100%; }
   body{
     font-family:var(--font); color:var(--ink); background:var(--bg);
     line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    font-variant-numeric:tabular-nums;
   }
   body.no-scroll{ overflow:hidden; }
-  img{ max-width:100%; display:block; }
+  img{ max-width:100%; height:auto; display:block; }
   a{ color:var(--brand-ink); text-decoration:none; }
   a:hover{ color:var(--brand); }
-  ::selection{ background:rgba(27,217,106,.3); color:#fff; }
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+  ::selection{ background:rgba(62,207,142,.28); color:#fff; }
 
   /* ===================== 顶栏 ===================== */
   .topbar{
@@ -187,9 +192,6 @@
   .hero h1{ font-size:clamp(26px,4.2vw,40px); font-weight:900; line-height:1.22; letter-spacing:-1px; color:#fff; }
   .hero p{ margin-top:12px; color:rgba(255,255,255,.8); font-size:14.5px; max-width:54ch; }
   .hero p b{ color:#fff; }
-  .hero .badges{ display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
-  .hero .badges .chip{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.22); color:#fff; }
-
   .join-card{ background:rgba(24,27,32,.96); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow-lg); border:1px solid rgba(255,255,255,.12); }
   .join-card .k{ font-size:11px; font-weight:800; letter-spacing:1px; color:var(--ink-3); text-transform:uppercase; }
   .join-card .addr{
@@ -353,49 +355,74 @@
   .term .c{ color:#6f8399; } .term .k{ color:#5ee9ac; } .term .a{ color:#7cc7ff; }
   .fine{ font-size:12.5px; color:var(--ink-3); margin-top:10px; }
 
-  /* ===================== 流动图片墙 ===================== */
+  /* ===================== 服内照片：双行反向滚动 ===================== */
   .flow{
     position:relative; overflow:hidden; border-radius:var(--radius-lg);
-    border:1px solid var(--line); box-shadow:var(--shadow);
-    background:#0d1116; padding:clamp(16px,2.6vw,26px) 0; isolation:isolate;
+    border:1px solid var(--line); background:#10141a;
+    padding:clamp(18px,2.6vw,24px) 0 clamp(16px,2.4vw,22px);
   }
-  .flow .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.32; }
-  .flow::after{
-    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:
-      linear-gradient(180deg, rgba(10,13,17,.86), rgba(10,13,17,.46) 46%, rgba(10,13,17,.9)),
-      radial-gradient(90% 60% at 50% 0%, rgba(27,217,106,.1), transparent 70%);
+  .flow::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(80% 120% at 50% -30%, rgba(62,207,142,.10), transparent 70%);
   }
   .flow-head{
-    position:relative; z-index:3; padding:0 clamp(16px,2.6vw,26px) 14px;
-    display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;
+    position:relative; z-index:2; padding:0 clamp(16px,2.6vw,24px) 14px;
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
   }
-  .flow-head h2{ color:#fff; font-size:20px; font-weight:900; letter-spacing:-.3px; }
-  .flow-head p{ color:rgba(255,255,255,.6); font-size:12.5px; }
-  .flow-head .chip{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.2); color:#fff; margin-left:auto; }
+  .flow-head h2{ font-size:18px; font-weight:800; letter-spacing:-.2px; }
+  .flow-head p{ font-size:12.5px; color:var(--ink-3); }
+  .flow-head .hint{ margin-left:auto; font-size:12px; color:var(--ink-3); }
 
+  /* 每行内容重复一份，位移 -50% 正好接回起点。
+     间距放在卡片自身的 margin 上而不是 flex gap，两半才会严格等宽。 */
   .marquee{
-    position:relative; z-index:2; display:grid; gap:12px;
+    position:relative; z-index:2; display:grid; gap:11px;
     -webkit-mask-image:linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
     mask-image:linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
   }
   .mrow{ overflow:hidden; }
-  .mtrack{ display:flex; gap:12px; width:max-content; animation:scrollX var(--dur,60s) linear infinite; will-change:transform; }
+  .mtrack{
+    display:flex; width:max-content;
+    animation-name:scrollX;
+    animation-duration:calc(var(--dur, 72s) * var(--speed, 1));
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    animation-play-state:paused;           /* 只有滚进视口才播放 */
+  }
+  .flow.live .mtrack{ animation-play-state:running; }
+  /* 只在真有鼠标的设备上做悬停暂停，触屏的 hover 会粘住导致轮播卡死 */
+  @media (hover:hover){ .flow:hover .mtrack{ animation-play-state:paused; } }
   .mrow.rev .mtrack{ animation-direction:reverse; }
-  @keyframes scrollX{ from{ transform:translate3d(0,0,0) } to{ transform:translate3d(-50%,0,0) } }
-
+  @keyframes scrollX{
+    from{ transform:translate3d(0,0,0) }
+    to{ transform:translate3d(-50%,0,0) }
+  }
   .shot{
-    flex:none; position:relative; width:clamp(206px,23vw,326px); aspect-ratio:16/9;
-    border-radius:12px; overflow:hidden; background:#0f1418;
-    border:1px solid rgba(255,255,255,.12); box-shadow:0 6px 18px rgba(0,0,0,.4);
+    flex:none; position:relative; width:clamp(200px,22vw,300px); aspect-ratio:16/9;
+    margin-right:11px; overflow:hidden; border:1px solid var(--line);
+    border-radius:11px; background:#0f1418;
   }
   .shot img{ width:100%; height:100%; object-fit:cover; }
   .shot .cap{
-    position:absolute; inset:auto 0 0 0; padding:16px 12px 9px;
-    background:linear-gradient(to top, rgba(4,7,10,.92), transparent);
-    font-size:12.5px; font-weight:800; color:#fff;
+    position:absolute; inset:auto 0 0 0; padding:20px 11px 9px;
+    background:linear-gradient(to top, rgba(5,8,11,.9), transparent);
+    font-size:12.5px; font-weight:700; line-height:1.35; color:#fff;
   }
-  .shot .cap span{ display:block; font-size:10.5px; font-weight:600; color:rgba(255,255,255,.62); }
+  .shot .cap span{ display:block; font-size:10.5px; font-weight:500; color:rgba(255,255,255,.66); }
+  @media (max-width:700px){
+    .marquee{ gap:9px; }
+    .mtrack{ --speed:1.2; }              /* 窄屏稍放慢，别晃眼 */
+    .shot{ width:min(70vw,260px); margin-right:9px; }
+    .flow-head .hint{ margin-left:0; }
+    .flow-head .hover-tip{ display:none; }   /* 触屏没有悬停这回事 */
+  }
+  /* 减少动效：不自动滚，改成可以自己左右拨的静态列表 */
+  @media (prefers-reduced-motion:reduce){
+    .marquee{ -webkit-mask-image:none; mask-image:none; }
+    .mtrack{ animation:none !important; transform:none !important; }
+    .mrow{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    .mrow::-webkit-scrollbar{ display:none; }
+  }
 
   /* ===================== 团队 ===================== */
   .team{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; }
@@ -418,41 +445,48 @@
   .member .page{ display:inline-flex; align-items:center; gap:5px; margin-top:7px; font-size:12.5px; font-weight:800; }
   .member .page svg{ width:12px; height:12px; }
 
-  /* ===================== 赞助弹幕 ===================== */
+  /* ===================== 赞助名单 ===================== */
   .sponsor{
     position:relative; overflow:hidden; border-radius:var(--radius-lg);
-    border:1px solid var(--line); box-shadow:var(--shadow);
-    background:linear-gradient(180deg,#131a16,#0e1310);
-    min-height:300px; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate;
+    border:1px solid var(--line); background:#101713;
+    padding:22px clamp(16px,2.6vw,24px) 20px; isolation:isolate;
   }
-  .sponsor .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.38; }
-  .sponsor::after{ content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(8,11,9,.5), rgba(8,11,9,.9)); }
-  .sponsor-head{ position:relative; z-index:3; padding:20px clamp(16px,2.6vw,24px) 6px; }
-  .sponsor-head h2{ color:#fff; font-size:19px; font-weight:900; letter-spacing:-.3px; }
-  .sponsor-head p{ color:rgba(255,255,255,.58); font-size:12.5px; margin-top:1px; }
-  .danmaku{ position:relative; z-index:3; height:200px; margin:4px 0 16px; padding:8px 0; }
+  .sponsor .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.3; }
+  .sponsor::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(9,13,11,.64), rgba(9,13,11,.9));
+  }
+  .sponsor-head,.danmaku,.names-static,.sponsor-foot{ position:relative; z-index:2; }
+  .sponsor-head h2{ color:#fff; font-size:18px; font-weight:800; letter-spacing:-.2px; }
+  .sponsor-head p{ color:rgba(255,255,255,.58); font-size:12.5px; margin-top:2px; }
+  .names-static{ display:flex; flex-wrap:wrap; gap:8px; padding:16px 0 18px; list-style:none; }
+  /* 滚动模式下静态名单仍留给屏幕阅读器，只是视觉上收起来 */
+  .sponsor.rolling .names-static{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
   .dname{
-    position:absolute; top:0; left:0; will-change:transform; opacity:0;
     display:inline-flex; align-items:baseline; gap:7px; white-space:nowrap;
-    padding:6px 14px; border-radius:99px; font-size:13px; font-weight:800; color:#fff;
-    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
-    transition:transform 1s linear, opacity .45s ease;
+    padding:5px 12px; border-radius:99px; font-size:12.5px; font-weight:700; color:#e9edf2;
+    background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.15);
   }
-  .dname.in{ opacity:1; }
-  .dname.out{ opacity:0; }
-  .dname .amt{ font-size:11.5px; color:#8bffbe; font-weight:800; }
-  .dname.top{ background:rgba(27,217,106,.24); border-color:rgba(27,217,106,.55); }
-  .dname .crown{ font-size:11px; }
+  .dname .amt{ font-size:11.5px; color:#8ce7b7; font-weight:600; }
+  .dname.top{ background:rgba(62,207,142,.18); border-color:rgba(62,207,142,.45); }
+  .dname .crown{ font-size:12px; color:var(--brand-ink); }
+  /* 滚动展示：默认仍是静态名单，JS 判定可以动才切成滚动 */
+  .danmaku{
+    display:none; height:176px; margin:14px 0 18px; overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .sponsor.rolling .danmaku{ display:block; }
+  .danmaku .dname{ position:absolute; left:0; top:0; will-change:transform; }
   .sponsor-foot{
-    position:relative; z-index:3; padding:0 clamp(16px,2.6vw,24px) 20px;
     display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    padding-top:14px; border-top:1px solid rgba(255,255,255,.1);
   }
-  .sponsor-foot .sum{ color:rgba(255,255,255,.68); font-size:12.5px; }
-  .sponsor-foot .sum b{ color:#fff; }
-  .names-static{ position:relative; z-index:3; padding:12px 20px 20px; display:flex; flex-wrap:wrap; gap:8px; }
-  .names-static[hidden]{ display:none; }
-  .names-static .dname{ position:static; opacity:1; }
-  .sponsor.no-anim .danmaku{ display:none; }
+  .sponsor-foot .sum{ font-size:12.5px; color:rgba(255,255,255,.62); }
+  @media (max-width:620px){ .danmaku{ height:152px; } }
 
   /* ===================== 联系 / 页脚 ===================== */
   .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
@@ -543,23 +577,61 @@
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   .toast svg{ width:15px; height:15px; color:var(--brand-ink); }
 
-  /* ===================== 入场动画 ===================== */
-  .reveal{ opacity:0; transform:translateY(10px); }
-  .reveal.in{ opacity:1; transform:none; transition:opacity .5s ease, transform .5s ease; }
+  /* ===================== 入场动画（禁用 JS 时内容照常可见） ===================== */
+  .js .reveal{ opacity:0; transform:translateY(10px); }
+  .js .reveal.in{ opacity:1; transform:none; transition:opacity .5s ease, transform .5s ease; }
   @media (prefers-reduced-motion:reduce){
     *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
-    .reveal{ opacity:1; transform:none; }
+    .js .reveal{ opacity:1; transform:none; }
     html{ scroll-behavior:auto; }
   }
+
+  /* ===================== 排版 / 观感微调 ===================== */
+  .main{ min-width:0; overflow-x:clip; }
+  .topbar{ padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
+  .side-link{ min-height:40px; }
+  .sidebar{ height:calc(100vh - 60px); height:calc(100dvh - 60px); }
+  .wrap{ padding-bottom:max(56px, env(safe-area-inset-bottom)); }
+  .sec-head{ gap:8px 14px; }
+  .sec-head p{ color:var(--ink-2); }
+  .sec-head .more{ font-weight:600; color:var(--ink-2); }
+  .topic{ scroll-margin-top:0; }             /* 统一交给 html 的 scroll-padding-top，避免双重偏移 */
+  .stats{ grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)); }
+  .quick,.dl-grid,.team,.contact-grid{ grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
+  .stat{ padding:14px 16px; }
+  .stat .n{ font-size:clamp(15px,1.9vw,20px); white-space:nowrap; }
+  .stat .l{ line-height:1.45; }
+  .contact-box .v{ word-break:normal; overflow-wrap:anywhere; }
+  .join-card .row{ flex-wrap:wrap; }
+  .join-card .row .btn{ min-width:0; }
+
+  /* hero：让黄昏实景透出来，信息用一行短句代替一排胶囊 */
+  .hero::after{ background:linear-gradient(90deg, rgba(9,12,15,.9) 0%, rgba(9,12,15,.66) 42%, rgba(9,12,15,.22) 100%); }
+  .hero h1{ font-weight:800; letter-spacing:-.6px; }
+  .hero p{ max-width:52ch; }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap:4px 0; margin-top:16px; font-size:12.5px; color:rgba(255,255,255,.74); }
+  .hero-meta span:not(:last-child)::after{ content:"·"; margin:0 9px; color:rgba(255,255,255,.42); }
+  .join-card{ background:rgba(20,24,29,.92); }
+  .join-card .addr{ overflow-wrap:anywhere; }
+
+  /* 统一的线性图标，替掉满屏 emoji */
+  .sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+  .ico-svg,.qi svg,.ci svg{ display:block; color:var(--brand-ink); fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .ico-svg{ width:26px; height:26px; }
+  .qi svg,.ci svg{ width:20px; height:20px; }
+
+  .modal{ padding-bottom:calc(20px + env(safe-area-inset-bottom)); }
+  .mbox{ max-height:86vh; max-height:86dvh; }
 
   /* ===================== 响应式 ===================== */
   @media (max-width:900px){
     :root{ --sidebar:0px; }
     .shell{ grid-template-columns:1fr; }
     .sidebar{
-      position:fixed; left:0; top:60px; bottom:0; width:272px; z-index:70;
+      position:fixed; left:0; top:60px; bottom:0; width:min(300px,84vw); z-index:70;
       background:var(--surface); border-right:1px solid var(--line);
       transform:translateX(-100%); transition:transform .22s ease; height:auto; box-shadow:var(--shadow-lg);
+      padding-bottom:calc(30px + env(safe-area-inset-bottom));
     }
     body.side-open .sidebar{ transform:none; }
     .tb-burger{ display:grid; }
@@ -569,11 +641,65 @@
     }
     body.side-open .scrim{ opacity:1; pointer-events:auto; }
     .hero-in{ padding:20px 16px; }
-    .stats{ grid-template-columns:repeat(2,1fr); }
+    /* 移动端不挂常驻毛玻璃，省一层 GPU 合成 */
+    .topbar{ background:var(--bg); -webkit-backdrop-filter:none; backdrop-filter:none; }
+  }
+  @media (max-width:480px){
+    /* 小屏顶栏只留品牌 + 菜单，下载入口在 hero 与侧栏里都有 */
+    .tb-right > .btn.ghost{ display:none; }
+  }
+  @media (max-width:620px){
+    .wrap{ padding-left:16px; padding-right:16px; }
+    .sec-head h2{ font-size:20px; }
+    .sec-head .more{ margin-left:0; }
+    .hero{ min-height:0; }
+    .hero-in{ gap:16px; padding:22px 16px 18px; }
+    .hero h1{ font-size:clamp(24px,7vw,32px); }
+    .hero p{ font-size:13.5px; }
+    .hero-meta{ margin-top:12px; }
+    .join-card .addr{ font-size:15px; }
+    .stats{ gap:8px; }
+    .stat{ padding:12px 13px; }
+    .toc{ gap:8px; }
+    .toc a{ padding:10px; font-size:13px; }
+    .card-pad{ padding:18px 14px; }
+    .contact-box .v{ font-size:14.5px; }
+    .term pre{ font-size:11.5px; }
+    footer{ margin-top:36px; }
+  }
+  @media (max-width:560px){
+    .dl-row{ grid-template-columns:minmax(0,1fr) auto; gap:6px 10px; }
+    .dl-row .ver,.dl-row .meta{ grid-column:1; }
+    .dl-row .btn{ grid-column:2; grid-row:1 / span 2; }
+  }
+  @media (max-width:360px){
+    .toc{ grid-template-columns:1fr; }
+    .hero-meta{ font-size:11.5px; }
+  }
+  @media (hover:none){
+    .quick-card:hover,.project:hover{ transform:none; }
+  }
+  @media print{
+    .topbar,.sidebar,.scrim,.toast,.modal{ display:none !important; }
+    body{ background:#fff; color:#111; }
   }
 </style>
 </head>
 <body>
+
+<!-- 线性图标精灵：全站统一描边风格，避免各平台 emoji 长得不一样 -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M8 7h7M8 11h5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 15a3 3 0 0 1-3 3H8l-4 3V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/><path d="M8 9h8M8 13h5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3 3 8v8l9 5 9-5V8z"/><path d="M12 12v9M3 8l9 4 9-4"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3 1-5 1-8z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4C10 4 4 8 4 15a5 5 0 0 0 5 5c7 0 11-6 11-16z"/><path d="M4 20c3-5 7-8 12-10"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-8.6A4.8 4.8 0 0 1 12 6a4.8 4.8 0 0 1 9 5.4C19 15.6 12 20 12 20z"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+</svg>
 
 <!-- ===================== 顶栏 ===================== -->
 <header class="topbar">
@@ -610,7 +736,7 @@
     <div class="side-group">
       <div class="gl">社区</div>
       <a class="side-link" href="#team"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M18 20c0-2.6-1-4.4-2.5-5.3"/></svg>管理团队</a>
-      <a class="side-link" href="#sponsor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.4-9 9-9 9Z"/></svg>赞助与纪念碑</a>
+      <a class="side-link" href="#sponsor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.4-9 9-9 9Z"/></svg>赞助名单</a>
       <a class="side-link" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>联系我们</a>
     </div>
   </aside>
@@ -625,19 +751,15 @@
           <img class="bg" src="assets/img/bg-blur.webp" alt="" width="960" height="508" fetchpriority="high" decoding="async">
           <div class="hero-in">
             <div>
-              <span class="tag"><span class="dot"></span>服务器运行中 · 离线可进</span>
+              <span class="tag"><span class="dot"></span>综合模组生存 · 离线可进</span>
               <h1>一个可以慢慢住下来的<br />模组生存世界</h1>
               <p>
                 Minecraft Java 版 <b>1.21.1</b> · <b>NeoForge</b> 综合模组生存。
-                以机械动力为骨、精致储存为脉，搭配灾变、森罗物语、车万女仆——
-                <b>只需放松下来</b>，慢慢生活、体验游戏。
+                装了机械动力、精致储存，也有灾变、森罗物语和车万女仆。
+                不用赶进度，想怎么玩就怎么玩。
               </p>
-              <div class="badges">
-                <span class="chip">版本 1.21.1</span>
-                <span class="chip">NeoForge</span>
-                <span class="chip">正版 / 离线 均可</span>
-                <span class="chip">领地保护</span>
-                <span class="chip">PvP 可开关</span>
+              <div class="hero-meta">
+                <span>正版 / 离线均可</span><span>领地保护</span><span>PvP 可开关</span>
               </div>
             </div>
 
@@ -667,22 +789,22 @@
           <div class="stat"><div class="n">4<small> 核</small> / 12<small> GB</small></div><div class="l">W9-3495X · CPU / 内存</div></div>
           <div class="stat"><div class="n">50<small>M</small>↑ / 200<small>M</small>↓</div><div class="l">上行 / 下行带宽</div></div>
           <div class="stat"><div class="n">1.21.1</div><div class="l">Java 版 · NeoForge</div></div>
-          <div class="stat"><div class="n">6</div><div class="l">主玩模组方向</div></div>
+          <div class="stat"><div class="n">6</div><div class="l">主玩模组</div></div>
         </div>
 
         <!-- 三个第一步 -->
         <div class="quick reveal">
           <a class="quick-card" href="#download">
-            <span class="qi">📦</span>
-            <div><h3>先下载整合包</h3><p>导入即玩，含全部必需模组与部分辅助模组。</p></div>
+            <span class="qi"><svg aria-hidden="true"><use href="#i-download"/></svg></span>
+            <div><h3>先下载整合包</h3><p>导入即玩，模组都配好了。</p></div>
           </a>
           <a class="quick-card" href="#guide">
-            <span class="qi">🛡️</span>
-            <div><h3>进服先看指南</h3><p>含基本模组使用教程。</p></div>
+            <span class="qi"><svg aria-hidden="true"><use href="#i-book"/></svg></span>
+            <div><h3>进服先看指南</h3><p>皮肤、领地、PvP 和连锁破坏。</p></div>
           </a>
           <a class="quick-card" href="#contact">
-            <span class="qi">🐧</span>
-            <div><h3>加入官方群</h3><p>公告、开服通知、问题反馈与找队友都在这里。</p></div>
+            <span class="qi"><svg aria-hidden="true"><use href="#i-chat"/></svg></span>
+            <div><h3>加官方群</h3><p>公告、开服通知、找队友。</p></div>
           </a>
         </div>
       </section>
@@ -742,7 +864,7 @@
             <ul>
               <li>先装 <b class="hl">NeoForge 1.21.1</b>；整合包用 <b class="hl">HMCL / PCL2</b> 直接导入 <code>.mrpack</code>。</li>
               <li>手动安装时把模组文件放进 <code>.minecraft/mods</code>。</li>
-              <li>进服前确认必要模组未删，无乱添加模组——<b class="hl">多装或少装都可能进不去</b>。</li>
+              <li>进服前别删必要模组，也别自己加模组；<b class="hl">多一个少一个都可能进不去</b>。</li>
               <li>从旧包重装新包时，记得把本地数据（如 Xaero 小地图）一起转移。</li>
             </ul>
           </div>
@@ -753,27 +875,25 @@
       <section class="section" id="mods">
         <div class="sec-head reveal">
           <h2>主玩模组</h2>
-          <p>服务器的主打方向，其余进服慢慢发现</p>
+          <p>主要玩的几个，其他进服慢慢翻</p>
         </div>
         <div class="projects" id="modList"></div>
       </section>
 
-      <!-- 服中景象（流动） -->
+      <!-- 服中景象 -->
       <section class="section" id="movies">
         <div class="sec-head reveal">
           <h2>服中景象</h2>
-          <p>合照与实景，全部来自服内真实存档，在此展示</p>
+          <p>都是服内实拍</p>
           <a class="more" href="#download">想出现在合照里？→</a>
         </div>
         <div class="flow reveal" id="flowWall">
-          <img class="bg" src="assets/img/bg-blur.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
           <div class="flow-head">
-            <div>
-              <h2>老牧柿服务器的日常</h2>
-              <p>合照 · 建筑 · 风景 · 夜晚</p>
-            </div>
+            <h2>存档里的一些地方</h2>
+            <p>合照 · 建筑 · 风景</p>
+            <span class="hint">自动轮播<span class="hover-tip"> · 悬停暂停</span></span>
           </div>
-          <div class="marquee" id="marquee"></div>
+          <div class="marquee" id="marquee" aria-label="服内照片轮播"></div>
         </div>
       </section>
 
@@ -781,7 +901,7 @@
       <section class="section" id="guide">
         <div class="sec-head reveal">
           <h2>服内指南</h2>
-          <p>部分基础模组教程，但尽量一切以实际测验为准。</p>
+          <p>常用指令和设置，具体以服内实际为准</p>
         </div>
 
         <div class="toc reveal">
@@ -791,7 +911,7 @@
           <a href="#guide-chain"><span class="no">04</span>连锁破坏</a>
         </div>
 
-        <!-- 04 皮肤 -->
+        <!-- 01 皮肤 -->
         <div class="card card-pad topic reveal" id="guide-skin">
           <div class="topic-head"><span class="no">01</span><h3>皮肤设置</h3><span class="tag-mini">SkinRestorer</span></div>
           <div class="two-col">
@@ -817,13 +937,13 @@
                 <li>出现 <b class="hl">Skin changed</b> 之类的提示即成功，可以让其他成员帮忙确认。</li>
                 <li>加载链接需要几秒到十几秒（LittleSkin 常见），耐心等一下。</li>
                 <li>请勿使用违规或侵权皮肤，发现会重置为默认。</li>
-                <li>直链来源不限：皮肤库下载链接、角色管理的 2D 展开图片链接都可以，只要是能直接读取的皮肤展开图片。</li>
+                <li>直链只要是能直接打开的皮肤展开图就行。</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- 01 领地保护 -->
+        <!-- 02 领地保护 -->
         <div class="card card-pad topic reveal" id="guide-claim">
           <div class="topic-head"><span class="no">02</span><h3>领地保护</h3><span class="tag-mini">建筑安全</span></div>
           <div class="two-col">
@@ -847,7 +967,7 @@
           </div>
         </div>
 
-        <!-- 02 PvP -->
+        <!-- 03 PvP -->
         <div class="card card-pad topic reveal" id="guide-pvp">
           <div class="topic-head"><span class="no">03</span><h3>PvP 开关</h3><span class="tag-mini">双向生效</span></div>
           <div class="two-col">
@@ -857,7 +977,7 @@
                 <li><code>/pvp off</code> 关闭：<b>需要 1 分钟</b>才能生效。</li>
                 <li>这 1 分钟内<b>不得再攻击他人</b>，否则计时重置、重新开始。</li>
               </ol>
-              <p class="fine">指令提示为英文，请自行辨认；有疑问可以直接在群里问管理。</p>
+              <p class="fine">指令提示是英文的，看不懂就在群里问。</p>
             </div>
             <div class="note" style="margin-top:0;">
               <div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5 20.5 9.5 9.5 20.5 3.5 20.5 3.5 14.5z"/></svg>注意事项</div>
@@ -871,7 +991,7 @@
           </div>
         </div>
 
-        <!-- 03 连锁破坏 -->
+        <!-- 04 连锁破坏 -->
         <div class="card card-pad topic reveal" id="guide-chain">
           <div class="topic-head"><span class="no">04</span><h3>连锁破坏</h3><span class="tag-mini">单次 ≤ 64</span></div>
           <div class="two-col">
@@ -881,7 +1001,7 @@
                 <li>保持按住挖掘，<b>相连方块会一起破坏</b>；松开立刻恢复普通挖掘。</li>
                 <li>对<b>任意方块</b>生效，一次连锁最多 <b>64 个方块</b>。</li>
               </ol>
-              <p class="fine">不需要额外需要，进服就能用。</p>
+              <p class="fine">进服就能用，不用另外装东西。</p>
             </div>
             <div class="note warn" style="margin-top:0;">
               <div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5m0 3h.01"/><path d="M10.3 3.3 2 17.5A2 2 0 0 0 3.7 20.5h16.6A2 2 0 0 0 22 17.5L13.7 3.3a2 2 0 0 0-3.4 0Z"/></svg>使用注意</div>
@@ -897,17 +1017,18 @@
         <div class="note reveal" style="margin-top:14px;">
           <div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>还有更多模组</div>
           <ul>
-            <li>服内装了大量模组，这里只列了最常用的几条入门内容。</li>
-            <li><b class="hl">其他模组怎么用、配方是什么、有什么玩法，直接在服务器里问就行</b>——服里的人都挺乐意回答。</li>
-            <li>也可以在官方 QQ 群里问，或者查对应模组的百科 / 视频教程。</li>
+            <li>服里装了不少模组，这里只写了最常用的几条。</li>
+            <li>其他模组的用法和配方，直接在服里问，或者发到群里。</li>
+            <li>想自己查，看模组百科或视频教程也行。</li>
           </ul>
-        </div>      </section>
+        </div>
+      </section>
 
       <!-- 管理团队 -->
       <section class="section" id="team">
         <div class="sec-head reveal">
           <h2>管理团队</h2>
-          <p>服内事务、争议、bug 反馈都可以找他们</p>
+          <p>服内事务、争议、bug 反馈，找这两位</p>
         </div>
         <div class="team" id="teamList"></div>
       </section>
@@ -915,17 +1036,17 @@
       <!-- 赞助 -->
       <section class="section" id="sponsor">
         <div class="sec-head reveal">
-          <h2>赞助与贡献者纪念碑</h2>
-          <p>服务器没有充值、没有付费特权，能一直开着全靠他们</p>
+          <h2>赞助名单</h2>
+          <p>无氪金、无付费特权，机器费用靠大家自愿分担</p>
         </div>
         <div class="sponsor reveal" id="sponsorBox">
-          <img class="bg" src="assets/img/shots/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          <img class="bg" src="assets/img/shots/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1920" height="1017">
           <div class="sponsor-head">
-            <h2>贡献者纪念碑</h2>
-            <p>碑上刻着每一个让服务器继续运转的人</p>
+            <h2>服里那座纪念碑</h2>
+            <p>名字都记在下面</p>
           </div>
           <div class="danmaku" id="danmaku" aria-hidden="true"></div>
-          <ul class="names-static" id="namesStatic" hidden></ul>
+          <ul class="names-static" id="namesStatic" aria-label="赞助者名单"></ul>
           <div class="sponsor-foot">
             <span class="sum" id="sponsorSum"></span>
             <a class="btn primary sm" href="https://ifdian.net/a/xiaoshisever" target="_blank" rel="noopener">
@@ -935,9 +1056,8 @@
           </div>
         </div>
         <div class="note" style="margin-top:12px;">
-          <b class="hl">真心的感谢：</b>这台服务器是纯公益、无氪金的，硬件、维护的每一分钱都来自上面这些人的自愿支持。
-          每一笔都会用在服务器上——续费机器、升级配置。<b class="hl">这不是一笔交易，而是一份信任。</b>
-          赞助完全自愿，不赞助也永远欢迎你来玩。
+          服务器没有付费内容，机器和域名的开销靠这些赞助撑着，钱都花在续费和升级上。
+          谢谢他们。<b class="hl">不赞助也照样来玩。</b>
         </div>
       </section>
 
@@ -949,7 +1069,7 @@
         </div>
         <div class="contact-grid reveal">
           <div class="contact-box">
-            <span class="ci">🐧</span>
+            <span class="ci"><svg aria-hidden="true"><use href="#i-chat"/></svg></span>
             <div>
               <div class="k">官方 QQ 群</div>
               <div class="v">1107267975</div>
@@ -957,7 +1077,7 @@
             </div>
           </div>
           <div class="contact-box">
-            <span class="ci">✉️</span>
+            <span class="ci"><svg aria-hidden="true"><use href="#i-mail"/></svg></span>
             <div>
               <div class="k">服主邮箱</div>
               <div class="v">3873932064@qq.com</div>
@@ -973,13 +1093,12 @@
               老牧柿服务器
             </div>
             <div class="notes" style="margin-top:8px;">
-              Minecraft Java 版 1.21.1 · NeoForge 综合模组生存服 · 服务器地址 <b>xiaoshicraft.cn</b><br />
-              页面内容由 AI 整理，如有不符请以服内提示与管理公告为准。
-              Minecraft 是 Mojang Studios 的商标，本站为玩家交流用途，非官方服务器。
+              Minecraft Java 版 1.21.1 · NeoForge 综合模组生存服 · 服务器地址 <b>mc.xiaoshicraft.cn</b><br />
+              信息以服内提示与群公告为准。Minecraft 是 Mojang Studios 的商标，本站为玩家交流用途，非官方服务器。
             </div>
           </div>
           <div class="foot-links">
-            <a href="classic.html">旧版页面</a>
+            <a href="#home">回到顶部</a>
             <a href="#download">下载</a>
             <a href="#guide">指南</a>
             <a href="#sponsor">赞助</a>
@@ -1025,7 +1144,7 @@
         <ul>
           <li><b class="hl">原地更新（本文）</b>：保留现有整合包，只升级加载器 + 增删模组。</li>
           <li><b class="hl">重新安装</b>：跨度太大或已改乱模组列表，直接下最新包导入更省事。</li>
-          <li>无论哪种，<b class="hl">动手前先备份数据</b>，请一定注意。</li>
+          <li>无论哪种，<b class="hl">动手前先备份存档</b>。</li>
         </ul>
       </div>
       <ol class="steps" style="margin-top:15px;">
@@ -1041,7 +1160,7 @@
           </div>
           <span class="hint" data-fill-tips hidden></span></li>
         <li><b>删干净旧模组</b>：<b>同名不同版本的两个 jar</b> 同时存在会直接崩溃，删完按名称排序扫一眼。</li>
-        <li><b>版本偏移太大</b>：先装最新完整包，能进服后再把个人客户端模组（小地图、优化类）尽量手动一一对齐。</li>
+        <li><b>跨度太大</b>：直接装最新完整包，能进服后再把自己加的小地图、优化类模组补回去。</li>
         <li><b>启动自查</b>：进服后检查背包、机器、小地图；报错大多是多了或少了某个模组。</li>
       </ol>
       <div class="note warn">
@@ -1050,7 +1169,7 @@
           <li><b class="hl">两个同名模组</b>：最常见，删掉旧版本那个 jar。</li>
           <li><b class="hl">加载器没升级</b>：模组要求更高的 NeoForge，启动直接失败。</li>
           <li><b class="hl">配置文件过期</b>：删掉该模组的 <code>config</code> 让它重新生成。</li>
-          <li>实在搞不定就下最新整合包重装，<b class="hl">这样子并无任何不妥，这样更方便了你的游玩</b>。</li>
+          <li>实在搞不定就重装完整包，省事。</li>
         </ul>
       </div>
     </div>
@@ -1068,7 +1187,7 @@
    ========================================================================== */
 const SITE = {
   /* ---------------- 服务器在线状态 ----------------
-     address 用直连 IP:端口（实测用域名查询会握手失败、误报离线） */
+     两个查询接口互为备用，失败时保留上一次结果并稍后自动重试 */
   status: {
     address: 'mc.xiaoshicraft.cn',
     api: 'https://api.mcsrvstat.us/3/',
@@ -1086,42 +1205,41 @@ const SITE = {
       { version: 'v1.4.2', date: '2026/10/10', url: 'https://xiaoshifiles.oss-cn-hangzhou.aliyuncs.com/%E5%B0%8F%E6%9F%BF%E6%95%B4%E5%90%88%E5%8C%85v1.4.2.mrpack' }
       /* 继续加旧版本：复制一行改掉 version / date / url 即可 */
     ],
-    /* 原地更新指南的填空：留空则显示「待填写」橙色占位 */
+    /* 原地更新指南的填空：留空则显示橙色占位 */
     fill: {
       loader: '21.1.265',
       from: '1.4.2',
       to: '1.4.5',
-      add: ['你知道的，这是一次大更新'],
-      remove: ['你知道的，这是一次大更新'],
-      tips: '你知道的，这是一次大更新'
+      add: [],
+      remove: [],
+      tips: '这次改动跨度较大，逐项对齐容易漏，建议直接下载最新完整包重装。'
     }
   },
 
   /* ---------------- 主玩模组（Modrinth 风格项目卡） ---------------- */
   mods: [
-    { icon:'⚙️', name:'机械动力', en:'Create', desc:'齿轮、传送带与流水线，把整个世界的自动化都造出来。', tags:['自动化','机械','核心'], count:'核心' },
-    { icon:'📦', name:'精致储存', en:'Sophisticated Storage', desc:'容量更大、可升级的箱子与背包，仓库从此整整齐齐。', tags:['储存','升级','实用'], count:'核心' },
-    { icon:'🐉', name:'灾变', en:"L_Ender's Cataclysm", desc:'强力 BOSS 与地牢挑战，装备成型后拉上伙伴去开荒。', tags:['BOSS','地牢','战斗'], count:'冒险' },
-    { icon:'🌸', name:'森罗物语', en:"Kaleidoscope", desc:'厨房、酿造、装饰，做出真正的生活感。', tags:['装饰','建筑','自然'], count:'装饰' },
-    { icon:'🧹', name:'车万女仆', en:'Touhou Little Maid', desc:'可爱女仆帮你打理农场、整理箱子、陪同冒险。', tags:['女仆','陪伴','实用'], count:'趣味' },
-    { icon:'🎹', name:'沉浸式奏乐', en:'MUSIC', desc:'服务器当前的音乐模组，合成乐器后即可在游戏内弹奏。', tags:['音乐','演奏','社交'], count:'娱乐' }
+    { icon:'gear',  name:'机械动力', en:'Create', desc:'齿轮、传送带、流水线，想自动化就靠它。', tags:['自动化','机械','核心'], count:'核心' },
+    { icon:'box',   name:'精致储存', en:'Sophisticated Storage', desc:'能升级的箱子和背包，仓库好收拾。', tags:['储存','升级','实用'], count:'核心' },
+    { icon:'flame', name:'灾变', en:"L_Ender's Cataclysm", desc:'BOSS 和地牢，装备够了再去。', tags:['BOSS','地牢','战斗'], count:'冒险' },
+    { icon:'leaf',  name:'森罗物语', en:"Kaleidoscope", desc:'厨房、酿造，还有一堆装饰方块。', tags:['装饰','建筑','自然'], count:'装饰' },
+    { icon:'heart', name:'车万女仆', en:'Touhou Little Maid', desc:'女仆能帮忙种地、整理箱子，也能带着一起出门。', tags:['女仆','陪伴','实用'], count:'趣味' },
+    { icon:'music', name:'沉浸式奏乐', en:'MUSIC', desc:'做出乐器就能在游戏里弹。', tags:['音乐','演奏','社交'], count:'娱乐' }
   ],
 
-  /* ---------------- 流动图片墙：合照 + 实景 ---------------- */
+  /* ---------------- 服内照片 ----------------
+     轮播统一用 <slug>-thumb.webp；查看大图已关闭，不再请求全尺寸图 */
   photos: {
-    group: [
-      { src:'assets/img/shots/group-1.webp', thumb:'assets/img/shots/group-1-thumb.webp', title:'第一回合照', sub:'樱花屋前的麦田' },
-      { src:'assets/img/shots/group-2.webp', thumb:'assets/img/shots/group-2-thumb.webp', title:'第二回合照', sub:'竞技场集合' }
-    ],
-    shots: [
-      { slug:'owner-home',    title:'服主的家',   sub:'橡木双层小屋' },
-      { slug:'sunset-wheat',  title:'日落的麦田', sub:'金色黄昏' },
-      { slug:'create-base',   title:'机械基地',   sub:'自动化工坊' },
-      { slug:'manor',         title:'玩家的庄园', sub:'农田与竹林' },
-      { slug:'cozy-interior', title:'温馨的室内', sub:'暖光客厅' },
-      { slug:'tavern',        title:'玩家的酒馆', sub:'樱树之间' },
-      { slug:'reimu-statue',  title:'灵梦雕像',   sub:'夜里亮灯' },
-      { slug:'owner-portrait',title:'服主的头像', sub:'像素头像墙' }
+    items: [
+      { slug:'group-1',        title:'第一张合照',  sub:'樱花屋前的麦田' },
+      { slug:'group-2',        title:'第二张合照',  sub:'竞技场集合' },
+      { slug:'owner-home',     title:'服主的家',   sub:'橡木双层小屋' },
+      { slug:'sunset-wheat',   title:'日落的麦田', sub:'金色黄昏' },
+      { slug:'create-base',    title:'机械基地',   sub:'自动化工坊' },
+      { slug:'manor',          title:'玩家的庄园', sub:'农田与竹林' },
+      { slug:'cozy-interior',  title:'温馨的室内', sub:'暖光客厅' },
+      { slug:'tavern',         title:'玩家的酒馆', sub:'樱树之间' },
+      { slug:'reimu-statue',   title:'灵梦雕像',   sub:'夜里亮灯' },
+      { slug:'owner-portrait', title:'服主的头像', sub:'像素头像墙' }
     ]
   },
 
@@ -1131,7 +1249,7 @@ const SITE = {
     {
       name: '小柿Estrella',
       role: '服主',
-      avatar: 'assets/img/team/xiaoshi-estrella.webp',
+      avatar: 'assets/img/team/xiaoshi-estrella-sm.webp',
       note: '可以抽象，可以具象',
       page: 'https://space.bilibili.com/1112781430',
       pageLabel: 'B 站主页'
@@ -1282,7 +1400,7 @@ const SITE = {
     if (!box) return;
     box.innerHTML = SITE.mods.map(function (m) {
       return '<article class="project">' +
-        '<span class="ico">' + m.icon + '</span>' +
+        '<span class="ico"><svg class="ico-svg" aria-hidden="true"><use href="#i-' + esc(m.icon) + '"/></svg></span>' +
         '<div class="body">' +
           '<div class="ttl"><h3>' + esc(m.name) + '</h3><span class="en">' + esc(m.en) + '</span></div>' +
           '<p class="desc">' + esc(m.desc) + '</p>' +
@@ -1293,36 +1411,44 @@ const SITE = {
     }).join('');
   })();
 
-  /* ---------- 流动图片墙 ----------
-     两行反向滚动，每行内容重复一份，位移 -50% 正好接回 → 视觉无缝。
-     只动 transform（合成层），悬停由 CSS 暂停，页面隐藏时 JS 暂停。 */
+  /* ---------- 服内照片：双行反向无缝滚动 ----------
+     每行内容重复一份，动画位移 -50% 正好接回；只有滚进视口才播放，
+     离屏 / 切后台 / 鼠标悬停都暂停，减少动效时由 CSS 降级成手动横滑。 */
   (function flowWall() {
-    const box = $('#marquee');
-    if (!box) return;
-    const group = SITE.photos.group;
-    const shots = SITE.photos.shots.map((s) => ({
-      thumb: 'assets/img/shots/' + s.slug + '-thumb.webp',
-      title: s.title, sub: s.sub
+    const box = $('#marquee'), flow = $('#flowWall');
+    if (!box || !SITE.photos.items.length) return;
+    const dir = 'assets/img/shots/';
+    const items = SITE.photos.items.map((p) => ({
+      src: dir + p.slug + '-thumb.webp', title: p.title, sub: p.sub
     }));
-    const rowA = group.concat(shots.slice(0, 4));
-    const rowB = shots.slice(4).concat(group);
 
     const card = (p) =>
-      '<figure class="shot"><img src="' + p.thumb + '" alt="' + esc(p.title) + '" width="720" height="405" loading="lazy" decoding="async">' +
-      '<figcaption class="cap">' + esc(p.title) + '<span>' + esc(p.sub) + '</span></figcaption></figure>';
-
-    const row = (items, dur, rev) =>
+      '<figure class="shot">' +
+        '<img src="' + p.src + '" alt="' + esc(p.title) + '：' + esc(p.sub) + '" width="800" height="450" loading="lazy" decoding="async">' +
+        '<figcaption class="cap">' + esc(p.title) + '<span>' + esc(p.sub) + '</span></figcaption>' +
+      '</figure>';
+    const row = (list, dur, rev) =>
       '<div class="mrow' + (rev ? ' rev' : '') + '"><div class="mtrack" style="--dur:' + dur + 's">' +
-        items.concat(items).map(card).join('') +
+        list.concat(list).map(card).join('') +
       '</div></div>';
 
-    box.innerHTML = row(rowA, 64, false) + row(rowB, 76, true);
+    const half = Math.ceil(items.length / 2);
+    box.innerHTML = row(items.slice(0, half), 46, false) + row(items.slice(half), 54, true);
 
-    document.addEventListener('visibilitychange', function () {
-      $$('.mtrack', box).forEach(function (t) {
-        t.style.animationPlayState = document.hidden ? 'paused' : '';
-      });
-    });
+    if (!flow) return;
+    /* 轨道很长，靠浏览器自己的懒加载会来不及——快滚到这一屏时统一预热 */
+    const warm = () => $$('img', box).forEach((img) => { img.loading = 'eager'; });
+    let onScreen = false;
+    const sync = () => flow.classList.toggle('live', onScreen && !document.hidden);
+    if ('IntersectionObserver' in window) {
+      const pre = new IntersectionObserver((entries, ob) => {
+        if (entries[0].isIntersecting) { warm(); ob.disconnect(); }
+      }, { rootMargin: '600px 0px' });
+      pre.observe(flow);
+      new IntersectionObserver((entries) => { onScreen = entries[0].isIntersecting; sync(); },
+        { threshold: 0.01 }).observe(flow);
+    } else { warm(); onScreen = true; sync(); }
+    document.addEventListener('visibilitychange', sync);
   })();
 
   /* ---------- 管理团队 ---------- */
@@ -1336,7 +1462,7 @@ const SITE = {
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>'
         : '';
       return '<article class="member">' +
-        '<img src="' + m.avatar + '" alt="' + esc(m.name) + '" width="480" height="480" loading="lazy" decoding="async">' +
+        '<img src="' + m.avatar + '" alt="' + esc(m.name) + '" width="58" height="58" loading="lazy" decoding="async">' +
         '<div>' +
           '<div class="name"><h3>' + esc(m.name) + '</h3><span class="' + roleCls + '">' + esc(m.role) + '</span></div>' +
           '<p class="note">' + esc(m.note) + '</p>' + link +
@@ -1345,128 +1471,132 @@ const SITE = {
     }).join('');
   })();
 
-  /* ---------- 赞助弹幕（逐名节奏器） ----------
-     每个名字独立投放：随机高度、随机间隔；在屏登记保证同名不会同时出现两次。 */
-  (function sponsorDanmaku() {
+  /* ---------- 赞助名单：随机滚动 ----------
+     规则：
+       · 每轮把名单洗牌，每个名字只取一次，取完再洗下一轮；
+       · 投放间隔随机（基准值上下浮动），Y 轴按轨道随机、轨道内再加随机偏移；
+       · 飞行中的名字记在 active 里，同屏不会出现两个相同名字；
+       · 密度随名单长度自适应：人多则密、人少则疏，两头都有上下限；
+       · 离屏 / 切后台停表并清空，回来重新开场，不养常驻动画。 */
+  (function sponsors() {
     const list = SITE.sponsors.list;
-    const stage = $('#danmaku'), box = $('#sponsorBox'), staticBox = $('#namesStatic'), sumEl = $('#sponsorSum');
-    const label = (s) => (s.label || (typeof s.amount === 'number' ? '发电 ' + s.amount + ' 元' : '感谢支持'));
+    const stage = $('#danmaku'), box = $('#sponsorBox'), stat = $('#namesStatic'), sum = $('#sponsorSum');
+    const label = (s) => s.label || (typeof s.amount === 'number' ? '发电 ' + s.amount + ' 元' : '感谢支持');
+    const tag = (s) => '<li class="dname' + (s.top ? ' top' : '') + '">' +
+      (s.top ? '<span class="crown" aria-hidden="true">★</span>' : '') +
+      '<span>' + esc(s.name) + '</span><span class="amt">' + esc(label(s)) + '</span></li>';
 
-    let total = 0, has = false;
-    list.forEach((s) => { if (typeof s.amount === 'number') { total += s.amount; has = true; } });
-    if (sumEl) sumEl.innerHTML = list.length + ' 位赞助者 ';
-    if (staticBox) {
-      staticBox.innerHTML = list.map((s) => '<li class="dname' + (s.top ? ' top' : '') + '">' +
-        '<span>' + esc(s.name) + '</span><span class="amt">' + esc(label(s)) + '</span></li>').join('');
-    }
+    if (sum) sum.textContent = '共 ' + list.length + ' 位';
+    if (stat) stat.innerHTML = list.map(tag).join('');
+    if (!stage || !box || !list.length) return;
 
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!stage || !list.length) return;
-    if (reduce) {
-      if (staticBox) staticBox.hidden = false;
-      if (box) box.classList.add('no-anim');
-      return;
-    }
+    if (reduce || typeof stage.animate !== 'function' || !('IntersectionObserver' in window)) return;
+    box.classList.add('rolling');
 
-    const shuffle = (a) => {
+    const LANES = 4, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    let pool = [], active = new Map(), laneBusy = [0, 0, 0, 0];
+    let timer = null, running = false, onScreen = false, generation = 0;
+
+    function shuffle(a) {
       const r = a.slice();
-      for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = r[i]; r[i] = r[j]; r[j] = t; }
+      for (let i = r.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = r[i]; r[i] = r[j]; r[j] = t;
+      }
       return r;
-    };
-    const lanes = list.length <= 2 ? 1 : list.length <= 6 ? 2 : list.length <= 12 ? 3 : 4;
-    const speed = (list.length <= 9 ? 88 : list.length <= 24 ? 96 : 104) / (0.72 + 0.28 * lanes);
-    const inflight = {};
-    let pool = [], paused = false;
-
+    }
     function pace() {
-      const travel = Math.max(360, stage.clientWidth - 200);
-      const dur0 = travel / speed;
-      const interval = dur0 / 1.2;
-      return { travel, dur0, ivMin: interval * 0.6, ivMax: interval * 1.4 };
+      const travel = stage.clientWidth + 220;
+      const dur = clamp(travel / 115, 7, 14);                          // 单个名字横穿屏幕用多久
+      /* 稳态同屏名字数 ≈ 人数的一半，并按可用宽度收一收：人多则密、人少则疏，
+         窄屏再打折，免得小屏幕上胶囊挤成一团 */
+      const byPeople = clamp(Math.round(list.length * 0.5), 2, 9);
+      const room = clamp(stage.clientWidth / 900, 0.55, 1);
+      const density = Math.min(Math.max(2, Math.round(byPeople * room)), list.length);
+      return { travel: travel, dur: dur, gap: dur / density };
     }
     let p = pace();
 
     function spawn() {
-      const now = performance.now() / 1000;
-      const busy = {};
-      Object.keys(inflight).forEach((k) => { if (inflight[k] > now) busy[k] = 1; });
+      const gen = generation;
       let pick = null;
-      for (let g = 0; g < 80 && !pick; g++) {
+      for (let tries = 0; tries < list.length * 2 && !pick; tries++) {
         if (!pool.length) pool = shuffle(list);
-        for (let i = 0; i < pool.length; i++) {
-          if (!busy[pool[i].name]) { pick = pool.splice(i, 1)[0]; break; }
-        }
+        const i = pool.findIndex((s) => !active.has(s.name));
+        if (i < 0) { pool = []; continue; }
+        pick = pool.splice(i, 1)[0];
       }
-      if (!pick) return null;
+      if (!pick) return;                                           // 全都在屏上，这拍跳过
+
+      const token = {};
+      active.set(pick.name, token);
 
       const el = document.createElement('span');
       el.className = 'dname' + (pick.top ? ' top' : '');
-      el.innerHTML = (pick.top ? '<span class="crown">👑</span>' : '') +
+      el.innerHTML = (pick.top ? '<span class="crown" aria-hidden="true">★</span>' : '') +
         '<span>' + esc(pick.name) + '</span><span class="amt">' + esc(label(pick)) + '</span>';
-      el.style.transform = 'translate3d(' + p.travel + 'px,0,0)';
       stage.appendChild(el);
 
+      const free = [];
+      for (let i = 0; i < LANES; i++) if (!laneBusy[i]) free.push(i);
+      const lane = free.length ? free[Math.floor(Math.random() * free.length)]
+                               : Math.floor(Math.random() * LANES);
+      laneBusy[lane]++;
+      const laneH = stage.clientHeight / LANES;
+      const slack = Math.max(0, laneH - el.offsetHeight - 4);
+      el.style.top = Math.round(lane * laneH + Math.random() * slack) + 'px';
+
       const w = el.offsetWidth;
-      const room = Math.max(40, stage.clientHeight - 44);
-      let y = Math.random();
-      if (spawn._lastY >= 0) for (let g = 0; g < 8 && Math.abs(y - spawn._lastY) < 0.12; g++) y = Math.random();
-      spawn._lastY = y;
-      el.style.top = Math.round(y * room) + 'px';
-
-      const dur = Math.max(9, p.dur0 * (0.85 + Math.random() * 0.3));
-      inflight[pick.name] = now + dur;
-      requestAnimationFrame(function () {
-        el.classList.add('in');
-        el.style.transition = 'transform ' + dur.toFixed(1) + 's linear, opacity .45s ease';
-        el.style.transform = 'translate3d(' + (-w - 20) + 'px,0,0)';
-      });
-      setTimeout(function () {
-        el.classList.add('out');
-        setTimeout(function () {
-          if (el.parentNode) el.parentNode.removeChild(el);
-          if (inflight[pick.name] <= performance.now() / 1000) delete inflight[pick.name];
-        }, 480);
-      }, Math.round(dur * 1000));
-      return dur;
-    }
-
-    let ticks = [], timer = null;
-    function resetTicks() {
-      const mid = (p.ivMin + p.ivMax) / 2;
-      ticks = [];
-      for (let i = 0; i < lanes; i++) ticks.push(i * mid * 0.4 * (0.6 + Math.random() * 0.8));
-    }
-    function loop() {
-      if (timer) return;
-      timer = setInterval(function () {
-        if (paused || document.hidden || !ticks.length) return;
-        const now = performance.now() / 1000;
-        for (let i = 0; i < ticks.length; i++) {
-          if (now >= ticks[i]) {
-            const ok = spawn();
-            ticks[i] = now + (ok === null ? 1.5 : p.ivMin + Math.random() * (p.ivMax - p.ivMin));
-          }
+      const anim = el.animate(
+        [{ transform: 'translate3d(' + p.travel + 'px,0,0)' },
+         { transform: 'translate3d(' + (-w - 24) + 'px,0,0)' }],
+        { duration: p.dur * 1000, easing: 'linear', fill: 'forwards' }
+      );
+      const done = () => {
+        if (gen === generation) {
+          if (active.get(pick.name) === token) active.delete(pick.name);
+          laneBusy[lane] = Math.max(0, laneBusy[lane] - 1);
         }
-      }, 250);
+        if (el.parentNode) el.parentNode.removeChild(el);
+      };
+      if (anim.finished && anim.finished.then) anim.finished.then(done, done);
+      else anim.onfinish = done;
     }
-    resetTicks();
-    loop();
 
-    if (box) {
-      box.addEventListener('mouseenter', function () { paused = true; });
-      box.addEventListener('mouseleave', function () { paused = false; });
+    function tick() {
+      if (!running) return;
+      spawn();
+      timer = setTimeout(tick, p.gap * (0.68 + Math.random() * 0.64) * 1000);
     }
-    window.__danmaku = {
-      pause: function () { paused = true; },
-      resume: function () {
-        paused = false;
-        const now = performance.now() / 1000;
-        ticks = ticks.map((t) => (t > now ? t : now + Math.random() * 0.6));
-      }
-    };
-    window.addEventListener('resize', function () {
-      setTimeout(function () { p = pace(); resetTicks(); }, 220);
+    function stop() {
+      generation++;
+      running = false;
+      clearTimeout(timer); timer = null;
+      $$('.dname', stage).forEach((el) => {
+        const a = el.getAnimations && el.getAnimations()[0];
+        if (a) a.cancel();
+        if (el.parentNode) el.parentNode.removeChild(el);
+      });
+      active.clear();
+      laneBusy = [0, 0, 0, 0];
+      pool = [];
+    }
+    function start() {
+      if (running || !onScreen || document.hidden) return;
+      running = true;
+      tick();                                                     // 立刻放一个，不留空窗
+    }
+
+    new IntersectionObserver((entries) => {
+      onScreen = entries[0].isIntersecting;
+      if (onScreen) { p = pace(); start(); } else stop();
+    }, { threshold: 0.02 }).observe(box);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else { p = pace(); start(); }
     });
+    window.addEventListener('resize', () => { p = pace(); }, { passive: true });
   })();
 
   /* ---------- 历史版本列表 ---------- */
@@ -1501,7 +1631,7 @@ const SITE = {
       const host = document.querySelector('[data-fill-list="' + r[0] + '"]');
       if (!host) return;
       const arr = f[r[0]];
-      host.innerHTML = (!arr || !arr.length) ? pending(r[1])
+      host.innerHTML = (!arr || !arr.length) ? '<span class="fill">本次未逐项列出</span>'
         : arr.map((m) => '<span class="mod-chip ' + r[2] + '"><span class="sign">' + r[3] + '</span>' + esc(m) + '</span>').join('');
     });
     const tips = document.querySelector('[data-fill-tips]');
@@ -1518,7 +1648,6 @@ const SITE = {
       if (!d) return;
       last = document.activeElement;
       cur = d;
-      if (window.__danmaku) window.__danmaku.pause();
       d.classList.add('open');
       document.body.classList.add('no-scroll');
       const x = d.querySelector('[data-close]');
@@ -1529,7 +1658,6 @@ const SITE = {
       cur.classList.remove('open');
       cur = null;
       document.body.classList.remove('no-scroll');
-      if (window.__danmaku) window.__danmaku.resume();
       if (last && last.focus) last.focus();
     }
     openers.forEach((b) => b.addEventListener('click', () => open(b.getAttribute('data-dialog'))));
@@ -1571,10 +1699,6 @@ const SITE = {
       return picked || (secs.length ? map[secs[0].id] : null);
     }
 
-    if ('IntersectionObserver' in window && secs.length) {
-      const io = new IntersectionObserver(() => setActive(current()), { rootMargin: '-30% 0px -62% 0px' });
-      secs.forEach((s) => io.observe(s));
-    }
     let ticking = false;
     window.addEventListener('scroll', function () {
       if (ticking) return;
