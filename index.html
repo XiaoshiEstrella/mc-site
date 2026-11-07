@@ -23,6 +23,45 @@
 <link rel="preconnect" href="https://api.mcsrvstat.us" crossorigin />
 <link rel="dns-prefetch" href="https://api.mcstatus.io" />
 <script>document.documentElement.classList.add('js');</script>
+<!--
+  图片源配置 —— 换图床只改下面 IMG_BASE 一行。
+  候选人：
+    ''                                                                    → 同源 GitHub Pages（现状，最慢）
+    'https://cdn.jsdelivr.net/gh/XiaoshiEstrella/mc-site@main/assets/img/'  → 零成本止血
+    'https://img.xiaoshicraft.cn/assets/img/'                                → R2 / 备案后的 OSS+CDN
+  约定：所有图床都保留 assets/img/ 这一层路径，兜底逻辑才成立。
+-->
+<script>
+(function () {
+  var IMG_BASE = 'https://cdn.jsdelivr.net/gh/XiaoshiEstrella/mc-site@main/assets/img/';
+  var LOCAL = 'assets/img/';
+  window.IMG = function (rel) { return IMG_BASE ? IMG_BASE + rel : LOCAL + rel; };
+
+  /* 统一兜底：任意图片（含 JS 动态生成的）加载失败，自动切回仓库同源原图 */
+  document.addEventListener('error', function (e) {
+    var el = e.target;
+    if (!el || el.tagName !== 'IMG' || el.getAttribute('data-img-fallback')) return;
+    var s = el.getAttribute('src') || '';
+    var i = s.indexOf('assets/img/');
+    if (i < 1) return;                       // 已经是相对路径，别无限重试
+    el.setAttribute('data-img-fallback', '1');
+    el.src = s.slice(i);
+  }, true);
+
+  /* 静态背景图：head 里就发出 preload，DOM 就绪后补 src，不丢首屏优先级 */
+  if (IMG_BASE) {
+    var pl = document.createElement('link');
+    pl.rel = 'preload'; pl.as = 'image'; pl.href = IMG('bg-blur.webp');
+    document.head.appendChild(pl);
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('img[data-img]').forEach(function (img) {
+      img.src = IMG(img.getAttribute('data-img'));
+    });
+  });
+})();
+</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
 <!--
   ============================================================================
@@ -748,7 +787,7 @@
       <!-- 首页 -->
       <section id="home">
         <div class="hero reveal">
-          <img class="bg" src="assets/img/bg-blur.webp" alt="" width="960" height="508" fetchpriority="high" decoding="async">
+          <img class="bg" data-img="bg-blur.webp" alt="" width="960" height="508" fetchpriority="high" decoding="async">
           <div class="hero-in">
             <div>
               <span class="tag"><span class="dot"></span>综合模组生存 · 离线可进</span>
@@ -1040,7 +1079,7 @@
           <p>无氪金、无付费特权，服务器费用靠大家自愿分担</p>
         </div>
         <div class="sponsor reveal" id="sponsorBox">
-          <img class="bg" src="assets/img/shots/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1920" height="1017">
+          <img class="bg" data-img="shots/monument.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1920" height="1017">
           <div class="sponsor-head">
             <h2>服里那座纪念碑</h2>
             <p>名字都记在下面</p>
@@ -1249,7 +1288,7 @@ const SITE = {
     {
       name: '小柿Estrella',
       role: '服主',
-      avatar: 'assets/img/team/xiaoshi-estrella-sm.webp',
+      avatar: IMG('team/xiaoshi-estrella-sm.webp'),
       note: '可以抽象，可以具象',
       page: 'https://space.bilibili.com/1112781430',
       pageLabel: 'B 站主页'
@@ -1257,7 +1296,7 @@ const SITE = {
     {
       name: 'OpenDK',
       role: '管理员',
-      avatar: 'assets/img/team/opendk.webp',
+      avatar: IMG('team/opendk.webp'),
       note: '管理模组调配与监察作弊',
       page: '',
       pageLabel: ''
@@ -1419,7 +1458,7 @@ const SITE = {
   (function flowWall() {
     const box = $('#marquee'), flow = $('#flowWall');
     if (!box || !SITE.photos.items.length) return;
-    const dir = 'assets/img/shots/';
+    const dir = IMG('shots/');   // 图片源统一走 IMG_BASE
     const items = SITE.photos.items.map((p) => ({
       src: dir + p.slug + '-thumb.webp', title: p.title, sub: p.sub
     }));
